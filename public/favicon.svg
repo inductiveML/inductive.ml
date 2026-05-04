@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" fill="#0e0e0e"/>
+  <line x1="22" y1="78" x2="62" y2="22" stroke="#fafaf7" stroke-width="14" stroke-linecap="square"/>
+  <rect x="68" y="60" width="22" height="22" fill="#d52b1e"/>
+</svg>
