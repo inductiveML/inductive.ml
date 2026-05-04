@@ -871,34 +871,282 @@
 .v9 .crumb .sep { color: var(--line); }
 .v9 .crumb .here { color: var(--ink); }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .v9 .pad { padding: 28px 20px 32px; }
-  .v9 .topline { font-size: 10px; }
-  .v9 .topline .brand, .v9 .topline .meta, .v9 .topline .links { grid-column: 1 / -1; justify-content: flex-start; }
+/* ----- Responsive ----- */
+
+/* Tablet (≤ 1024px) — slightly tighter spacing, smaller hero rail */
+@media (max-width: 1024px) {
+  .v9 .pad { padding: 36px 32px 40px; }
+  .v9 .grid12, .v9 .topline, .v9 .miss, .v9 .about, .v9 .foot,
+  .v9 .lede-row, .v9 .paper-hero { gap: 12px; }
+  .v9 .h1 { grid-column: span 8; }
+  .v9 .h1-id { grid-column: span 4; }
+  .v9 .secbar { margin: 48px 0 20px; }
+}
+
+/* Phone-and-tablet split (≤ 760px) — collapse to single-track flows */
+@media (max-width: 760px) {
+  .v9 .pad { padding: 24px 18px 28px; }
+
+  /* Topline: stack brand on top, links below, hide est. line */
+  .v9 .topline {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 10px;
+    padding-bottom: 12px;
+    margin-bottom: 36px;
+  }
+  .v9 .topline .brand, .v9 .topline .meta, .v9 .topline .links {
+    grid-column: auto;
+    width: 100%;
+    justify-content: flex-start;
+  }
   .v9 .topline .meta { display: none; }
-  .v9 .h1 { grid-column: 1 / -1; }
-  .v9 .h1-id { grid-column: 1 / -1; }
-  .v9 .lede-row .tag, .v9 .lede-row .lede, .v9 .lede-row .body { grid-column: 1 / -1; }
-  .v9 .areas { grid-template-columns: 1fr 1fr; }
-  .v9 .areas .cell { border-bottom: 1px solid var(--line); }
+  .v9 .topline .links { gap: 14px; }
+
+  /* Hero */
+  .v9 .hero-mark { margin-bottom: 12px; }
+  .v9 .hero-mark svg { width: 80px !important; height: 80px !important; }
+  .v9 .h1 {
+    grid-column: 1 / -1;
+    font-size: clamp(48px, 14vw, 88px);
+    letter-spacing: -0.04em;
+    margin-bottom: 8px;
+  }
+  .v9 .h1-id {
+    grid-column: 1 / -1;
+    margin-top: 12px;
+    align-self: stretch;
+  }
+  .v9 .lede-row {
+    padding-top: 20px;
+    margin-top: 24px;
+  }
+  .v9 .lede-row .tag, .v9 .lede-row .lede, .v9 .lede-row .body {
+    grid-column: 1 / -1;
+  }
+  .v9 .lede-row .lede { font-size: clamp(20px, 4.5vw, 26px); }
+  .v9 .lede-row .body { font-size: 12px; }
+
+  /* Section bars */
+  .v9 .secbar {
+    grid-template-columns: 48px 1fr auto;
+    margin: 40px 0 16px;
+    padding: 10px 0;
+    font-size: 10px;
+  }
+
+  /* Research areas — 2 cols on tablet phone, 1 col on small phone */
+  .v9 .areas {
+    grid-template-columns: 1fr 1fr;
+  }
+  .v9 .areas .cell {
+    border-bottom: 1px solid var(--line);
+    padding: 16px 14px 18px;
+    min-height: 180px;
+    gap: 8px;
+  }
   .v9 .areas .cell:nth-child(2n) { border-right: none; }
-  .v9 .write { grid-template-columns: 60px 1fr; }
-  .v9 .write .date, .v9 .write .arr { grid-column: 2; }
-  .v9 .miss { padding: 32px 24px; }
-  .v9 .miss .lbl, .v9 .miss p, .v9 .miss .signature { grid-column: 1 / -1; }
-  .v9 .about .name-col, .v9 .about .bio, .v9 .about .links { grid-column: 1 / -1; }
-  .v9 .foot .a, .v9 .foot .b, .v9 .foot .c { grid-column: 1 / -1; text-align: left; }
+  .v9 .areas h3 {
+    font-size: 17px;
+    margin: 22px 0 4px;
+    letter-spacing: -0.005em;
+  }
+  .v9 .areas p { font-size: 12px; line-height: 1.5; }
+
+  /* Writing row — stack idx/date on row 1, title on row 2, arr below */
+  .v9 .write {
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: 12px;
+    row-gap: 8px;
+    padding: 16px 0;
+  }
+  .v9 .write .idx { grid-column: 1; grid-row: 1; }
+  .v9 .write .date { grid-column: 2; grid-row: 1; }
+  .v9 .write .arr { grid-column: 3; grid-row: 1; }
+  .v9 .write .ttl {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: 18px;
+  }
+
+  /* Mission inverted block */
+  .v9 .miss {
+    padding: 28px 22px;
+    margin-top: 12px;
+  }
+  .v9 .miss .lbl, .v9 .miss p, .v9 .miss .signature {
+    grid-column: 1 / -1;
+  }
+  .v9 .miss p { font-size: clamp(20px, 4.5vw, 26px); }
+  .v9 .miss .signature { margin-top: 16px; }
+
+  /* About */
+  .v9 .about .name-col, .v9 .about .bio, .v9 .about .links {
+    grid-column: 1 / -1;
+  }
+  .v9 .about .name-col { margin-bottom: 12px; }
+  .v9 .about .name { font-size: 28px; }
+  .v9 .about .links { margin-top: 4px; }
+  .v9 .about .links li { grid-template-columns: 90px 1fr; font-size: 11px; }
+  .v9 .about .bio p { font-size: 12.5px; line-height: 1.65; }
+  .v9 .about .bio p:first-child::first-letter { font-size: 2.2em; padding: 4px 6px 0 0; }
+
+  /* Footer */
+  .v9 .foot {
+    margin-top: 48px;
+    padding-top: 12px;
+  }
+  .v9 .foot .a, .v9 .foot .b, .v9 .foot .c {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+
+  /* ----- Long-form paper ----- */
   .v9 .paper { grid-column: 1 / -1; }
-  .v9 .paper-hero .head, .v9 .paper-hero .meta-rail { grid-column: 1 / -1; }
-  .v9 .three-up { grid-template-columns: 1fr; }
-  .v9 .three-up .cell { border-right: none; }
-  .v9 .holdout { grid-template-columns: 1fr 1fr; }
+  .v9 .paper h2 { font-size: 22px; margin: 40px 0 14px; }
+  .v9 .paper p, .v9 .paper ul, .v9 .paper ol {
+    font-size: 12.5px;
+    line-height: 1.75;
+  }
+  .v9 .paper-hero .head, .v9 .paper-hero .meta-rail {
+    grid-column: 1 / -1;
+  }
+  .v9 .paper-hero .meta-rail { margin-top: 12px; }
+  .v9 .paper-hero h1 {
+    font-size: clamp(36px, 9vw, 56px);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .v9 .paper-hero .sub { font-size: 16px; line-height: 1.4; }
+  .v9 .paper-hero .links { gap: 10px; }
+  .v9 .paper-hero .links .btn { padding: 8px 12px; font-size: 10px; }
+
+  /* Crumb wraps */
+  .v9 .crumb { flex-wrap: wrap; gap: 8px; font-size: 9px; margin-bottom: 16px; }
+
+  /* Visualization wrappers */
+  .v9 .viz {
+    padding: 18px 14px;
+    margin: 20px 0;
+  }
+  .v9 .viz canvas { max-width: 100% !important; }
+  .v9 .viz .viz-cap { font-size: 10.5px; }
+  .v9 .btn { padding: 7px 12px; font-size: 10px; letter-spacing: 0.12em; }
+
+  /* Stat strip — stack with bottom borders */
+  .v9 .stat-strip {
+    grid-template-columns: 1fr;
+    border-top: 1px solid var(--ink);
+  }
+  .v9 .stat-strip .stat {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    padding: 12px 14px;
+  }
+  .v9 .stat-strip .stat:last-child { border-bottom: none; }
+  .v9 .stat-strip .stat .val { font-size: 28px; }
+
+  /* Three-up — single col */
+  .v9 .three-up {
+    grid-template-columns: 1fr;
+  }
+  .v9 .three-up .cell {
+    border-right: none;
+    min-height: auto;
+    padding: 18px 16px;
+  }
+
+  /* Two-up — single col */
+  .v9 .two-up {
+    grid-template-columns: 1fr;
+  }
+  .v9 .two-up .cell {
+    border-right: none;
+    padding: 18px 16px;
+  }
+
+  /* Holdout — 2 cols on tablet phones */
+  .v9 .holdout {
+    grid-template-columns: 1fr 1fr;
+  }
+  .v9 .holdout .cell {
+    padding: 16px 14px;
+    min-height: 110px;
+  }
   .v9 .holdout .cell:nth-child(2n) { border-right: none; }
-  .v9 .holdout .cell:nth-child(4n) { border-right: 1px solid var(--line); }
-  .v9 .two-up { grid-template-columns: 1fr; }
-  .v9 .two-up .cell { border-right: none; }
-  .v9 .gain { grid-template-columns: 1fr; }
-  .v9 .stat-strip { grid-template-columns: 1fr; }
-  .v9 .stat-strip .stat { border-right: none; border-bottom: 1px solid var(--line); }
+  .v9 .holdout .cell:nth-child(4n) { border-right: none; }
+  .v9 .holdout .cell .num { font-size: 26px; }
+
+  /* Gain bars — single col */
+  .v9 .gain {
+    grid-template-columns: 1fr;
+    padding: 18px 14px;
+    gap: 18px;
+  }
+
+  /* Task list rows */
+  .v9 .task-list .row {
+    grid-template-columns: 40px 1fr;
+    gap: 12px;
+    padding: 16px 0;
+  }
+  .v9 .task-list .row .icon { font-size: 22px; }
+  .v9 .task-list .row .body .name { font-size: 14px; }
+  .v9 .task-list .row .body .desc { font-size: 11.5px; line-height: 1.6; }
+
+  /* Failure list */
+  .v9 .fail-list .row { padding: 14px 0; }
+
+  /* Callout — stack label above text */
+  .v9 .callout {
+    grid-template-columns: 1fr;
+    padding: 22px 20px;
+    gap: 12px;
+  }
+  .v9 .callout .lbl {
+    border-top: 1px solid #444;
+    padding-top: 8px;
+  }
+  .v9 .callout p { font-size: clamp(16px, 4vw, 20px); }
+
+  /* Bib block */
+  .v9 .bib { padding: 22px 20px; }
+  .v9 .bib pre { font-size: 11px; line-height: 1.6; }
+
+  /* Tables — scrollable */
+  .v9 .table-wrap { margin: 24px -8px; }
+  .v9 .v9-table th, .v9 .v9-table td { padding: 10px 12px; }
+  .v9 .v9-table { font-size: 11.5px; }
+  .v9 .v9-table .ratio { font-size: 16px; }
+}
+
+/* Small phones (≤ 480px) — single-col research areas, tighter still */
+@media (max-width: 480px) {
+  .v9 .pad { padding: 20px 14px 24px; }
+
+  /* Areas to single col */
+  .v9 .areas { grid-template-columns: 1fr; }
+  .v9 .areas .cell { border-right: none; }
+
+  /* Holdout to single col */
+  .v9 .holdout { grid-template-columns: 1fr; }
+  .v9 .holdout .cell { border-right: none; min-height: 90px; }
+
+  /* H1 a touch tighter */
+  .v9 .h1 { font-size: clamp(40px, 13.5vw, 64px); }
+
+  /* Stat strip values smaller */
+  .v9 .stat-strip .stat .val { font-size: 24px; }
+
+  /* Mission padding */
+  .v9 .miss { padding: 24px 16px; }
+  .v9 .callout { padding: 18px 16px; }
+  .v9 .bib { padding: 18px 16px; }
+  .v9 .viz { padding: 14px 10px; }
+
+  /* Crumb in 2 lines */
+  .v9 .crumb { font-size: 9px; }
 }
