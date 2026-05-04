@@ -1,0 +1,33 @@
+<svg width="1500" height="500" viewBox="0 0 1500 500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="500" fill="#fafaf7"/>
+
+  <!-- Top mono strip -->
+  <text x="56" y="50" font-family="Menlo, JetBrains Mono, ui-monospace, monospace" font-size="14" fill="#0e0e0e" letter-spacing="3" font-weight="500">// INDUCTIVE.ML</text>
+  <text x="1444" y="50" text-anchor="end" font-family="Menlo, JetBrains Mono, ui-monospace, monospace" font-size="14" fill="#707070" letter-spacing="3">INDEPENDENT AI RESEARCH LAB · BANGALORE · MMXXVI</text>
+
+  <!-- Top hairline -->
+  <line x1="56" y1="68" x2="1444" y2="68" stroke="#0e0e0e" stroke-width="2"/>
+
+  <!-- Slash+mark logo (160px) -->
+  <g transform="translate(440, 155)">
+    <rect width="160" height="160" fill="#0e0e0e"/>
+    <line x1="35" y1="125" x2="100" y2="35" stroke="#fafaf7" stroke-width="22" stroke-linecap="square"/>
+    <rect x="109" y="96" width="35" height="35" fill="#d52b1e"/>
+  </g>
+
+  <!-- Headline INDUCTIVE -->
+  <text x="640" y="240" font-family="Helvetica Neue, Helvetica, Arial Black, Arial, sans-serif" font-size="148" font-weight="700" fill="#0e0e0e" letter-spacing="-6">INDUCTIVE</text>
+
+  <!-- Slash + ML. -->
+  <text x="640" y="335" font-family="Helvetica Neue, Helvetica, Arial Black, Arial, sans-serif" font-size="84" font-weight="300" fill="#707070">/</text>
+  <text x="690" y="335" font-family="Helvetica Neue, Helvetica, Arial Black, Arial, sans-serif" font-size="84" font-weight="700" fill="#d52b1e" letter-spacing="-3">ML.</text>
+
+  <!-- Tagline (mono) -->
+  <text x="640" y="380" font-family="Menlo, JetBrains Mono, ui-monospace, monospace" font-size="16" fill="#2c2c2c" letter-spacing="2.5">// REPRESENTATION · ADAPTATION · INTELLIGENCE</text>
+
+  <!-- Bottom hairline -->
+  <line x1="56" y1="425" x2="1444" y2="425" stroke="#0e0e0e" stroke-width="2"/>
+
+  <!-- Bottom mono strip — right-aligned (left side is covered by avatar) -->
+  <text x="1444" y="460" text-anchor="end" font-family="Menlo, JetBrains Mono, ui-monospace, monospace" font-size="13" fill="#707070" letter-spacing="3">v0.1 · INDUCTIVE.ML — EST. MMXXVI</text>
+</svg>

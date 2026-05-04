@@ -27,6 +27,7 @@ const V9_NOTE = {
 
 const V9_PROFILE: { k: string; v: string; href?: string }[] = [
   { k: 'Email', v: 'aditya@inductive.ml', href: 'mailto:aditya@inductive.ml' },
+  { k: 'X', v: 'x.com/inductive_ml', href: 'https://x.com/inductive_ml' },
   { k: 'GitHub', v: 'github.com/inductiveML', href: 'https://github.com/inductiveML' },
   { k: 'Hugging Face', v: 'hf.co/inductiveML', href: 'https://hf.co/inductiveML' },
   { k: 'OpenReview', v: 'under review' },
