@@ -30,7 +30,8 @@ const V9_PROFILE: { k: string; v: string; href?: string }[] = [
   { k: 'X', v: 'x.com/inductive_ml', href: 'https://x.com/inductive_ml' },
   { k: 'GitHub', v: 'github.com/inductiveML', href: 'https://github.com/inductiveML' },
   { k: 'Hugging Face', v: 'hf.co/inductiveML', href: 'https://hf.co/inductiveML' },
-  { k: 'OpenReview', v: 'under review' },
+  { k: 'OpenReview', v: '~Aditya_Veer_Parmar1', href: 'https://openreview.net/profile?id=~Aditya_Veer_Parmar1' },
+  { k: 'ORCID', v: '0009-0000-3060-4372', href: 'https://orcid.org/0009-0000-3060-4372' },
 ];
 
 export default function InductiveLanding() {

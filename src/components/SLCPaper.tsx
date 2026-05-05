@@ -1151,6 +1151,14 @@ export default function SLCPaper() {
               <div className="links">
                 <a
                   className="btn"
+                  href="https://zenodo.org/records/20033698"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Read the Preprint →
+                </a>
+                <a
+                  className="btn"
                   href="https://github.com/inductiveML/staged-learned-coordinates"
                   target="_blank"
                   rel="noreferrer"
