@@ -1,5 +1,5 @@
 ---
-import '../styles/v9.css';
+import '../styles/site.css';
 
 interface Props {
 	title?: string;
@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-	title = 'Inductive.ML — Independent AI Research',
-	description = 'Independent research on representation, adaptation, and intelligence. An AI research lab studying how learned systems represent, adapt, compress, and generalize.',
+	title = 'Inductive ML — Independent AI Research Lab',
+	description = 'An independent lab studying how machines learn to learn — research on representation, adaptation, and intelligence. Bangalore, India.',
 } = Astro.props;
 ---
 
@@ -24,11 +24,11 @@ const {
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
 			rel="stylesheet"
 		/>
 	</head>
-	<body style="margin:0; background:#fafaf7;">
+	<body style="background:#140503;">
 		<slot />
 	</body>
 </html>

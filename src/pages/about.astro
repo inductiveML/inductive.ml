@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const profile = [
+	{ k: 'Email', v: 'aditya@inductive.ml', href: 'mailto:aditya@inductive.ml' },
+	{ k: 'X', v: 'x.com/inductive_ml', href: 'https://x.com/inductive_ml' },
+	{ k: 'GitHub', v: 'github.com/inductiveML', href: 'https://github.com/inductiveML' },
+	{ k: 'Hugging Face', v: 'hf.co/inductiveML', href: 'https://hf.co/inductiveML' },
+	{
+		k: 'OpenReview',
+		v: '~Aditya_Veer_Parmar1',
+		href: 'https://openreview.net/profile?id=~Aditya_Veer_Parmar1',
+	},
+	{ k: 'ORCID', v: '0009-0000-3060-4372', href: 'https://orcid.org/0009-0000-3060-4372' },
+];
+---
+
+<Layout
+	title="About — Inductive ML"
+	description="Inductive ML is an independent AI research lab in Bangalore studying how learned systems represent, adapt, and generalize. Founded by Aditya Veer Parmar."
+>
+	<div class="page">
+		<div class="masthead">
+			<canvas id="lava"></canvas>
+			<div class="grain"></div>
+			<div class="masthead-inner">
+				<div class="mh-top">
+					<a class="mh-back" href="/">← Inductive ML</a>
+					<nav class="top-nav">
+						<a href="/experiments">Experiments</a>
+						<a href="/about" class="on">About</a>
+						<a href="mailto:aditya@inductive.ml">Contact</a>
+					</nav>
+				</div>
+				<div>
+					<div class="page-kicker">Independent AI research lab · Bangalore</div>
+					<h1 class="page-title">About the lab</h1>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrap">
+			<div class="about-grid">
+				<div class="about-bio">
+					<p class="big">
+						Inductive ML is an independent research lab studying how learned systems represent, adapt, and
+						generalize.
+					</p>
+					<p>
+						The lab pursues small, sharp programs at the frontier of intelligence — representation geometry,
+						efficient adaptation, and systems that reveal how intelligence is organized. Work is published
+						openly and run end-to-end by the people doing it.
+					</p>
+					<p>
+						It is founded and run by Aditya Veer Parmar, an independent ML researcher and software engineer
+						based in Bangalore, India — designing the experiments, writing the code, and publishing the
+						notes. The lab welcomes correspondence from researchers, students, and reviewers.
+					</p>
+				</div>
+				<div class="profile">
+					{
+						profile.map((p) => (
+							<a href={p.href} target={p.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
+								<span class="k">{p.k}</span>
+								<span class="v">
+									{p.v}
+									<span class="a">↗</span>
+								</span>
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</div>
+
+		<footer class="site-foot">
+			<span class="l">Inductive ML</span>
+			<span class="meta">Bangalore · India</span>
+			<span class="meta">inductive.ml</span>
+		</footer>
+	</div>
+</Layout>
+
+<script>
+	import { initLava } from '../lib/lava';
+
+	const lava = document.getElementById('lava');
+	if (lava instanceof HTMLCanvasElement) {
+		initLava(lava, { scale: 2.4, speed: 0.8, dim: 0.92 });
+	}
+</script>

@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const experiments = [
+	{
+		date: 'Apr 2026',
+		title: 'Teaching Trees to Understand Geometry',
+		excerpt:
+			'Decision trees waste capacity on curved or rotated geometry. We put a small network in front of XGBoost that learns to straighten the data first — 601 leaves down to 28.',
+		href: '/staged-learned-coordinates',
+	},
+];
+---
+
+<Layout
+	title="Experiments — Inductive ML"
+	description="Open research and experiments from the lab on representation, adaptation, and the geometry of learning."
+>
+	<div class="page">
+		<div class="masthead">
+			<canvas id="lava"></canvas>
+			<div class="grain"></div>
+			<div class="masthead-inner">
+				<div class="mh-top">
+					<a class="mh-back" href="/">← Inductive ML</a>
+					<nav class="top-nav">
+						<a href="/experiments" class="on">Experiments</a>
+						<a href="/about">About</a>
+						<a href="mailto:aditya@inductive.ml">Contact</a>
+					</nav>
+				</div>
+				<div>
+					<div class="page-kicker">Open research from the lab</div>
+					<h1 class="page-title">Experiments</h1>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrap">
+			<div class="post-list">
+				{
+					experiments.map((x) => (
+						<a class="post-row" href={x.href}>
+							<span class="date">{x.date}</span>
+							<span>
+								<span class="ttl">{x.title}</span>
+								<span class="ex">{x.excerpt}</span>
+							</span>
+							<span class="arr">Read ↗</span>
+						</a>
+					))
+				}
+			</div>
+		</div>
+
+		<footer class="site-foot">
+			<span class="l">Inductive ML</span>
+			<span class="meta">Bangalore · India</span>
+			<span class="meta">inductive.ml</span>
+		</footer>
+	</div>
+</Layout>
+
+<script>
+	import { initLava } from '../lib/lava';
+
+	const lava = document.getElementById('lava');
+	if (lava instanceof HTMLCanvasElement) {
+		initLava(lava, { scale: 2.4, speed: 0.8, dim: 0.92 });
+	}
+</script>

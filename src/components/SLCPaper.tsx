@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import SlashMark from './SlashMark';
 
-const INK = '#0e0e0e';
-const INK_2 = '#2c2c2c';
-const MUTE = '#707070';
-const LINE = '#d8d6cf';
-const ACCENT = '#d52b1e';
-const BG = '#fafaf7';
-const PAPER_BG_INV = '#f5f3ec';
+// Crimson-dark reading surface palette (shared with v9.css / site.css tokens).
+const INK = '#fbf6ef'; // cream — primary draw colour on the dark canvas
+const INK_2 = '#e7d9cc';
+const MUTE = 'rgba(251,246,239,0.6)';
+const LINE = 'rgba(251,246,239,0.18)'; // grid / axis lines on dark
+const ACCENT = '#ff6a1a'; // ember
+const BG = '#140503'; // dark canvas ground
+const PAPER_BG_INV = '#140503'; // dark text drawn on filled (cream / ember) shapes
 
 function Secbar({ num, ttl, meta, id }: { num: string; ttl: string; meta?: string; id?: string }) {
   return (
@@ -119,10 +119,10 @@ function StaircaseViz() {
         <div style={{ maxWidth: '240px' }}>
           <div
             style={{
-              fontFamily: '"Helvetica Neue", "Inter Tight", Arial, sans-serif',
+              fontFamily: '"Space Grotesk", "Inter Tight", sans-serif',
               fontSize: '60px',
-              fontWeight: 700,
-              letterSpacing: '-0.025em',
+              fontWeight: 500,
+              letterSpacing: '-0.01em',
               lineHeight: 1,
               color: isTransformed ? ACCENT : INK,
               transition: 'color 0.3s',
@@ -248,7 +248,7 @@ function RingViz() {
       if (progress > 0.1) {
         ctx.save();
         ctx.globalAlpha = progress;
-        ctx.fillStyle = `rgba(213, 43, 30, 0.08)`;
+        ctx.fillStyle = `rgba(255, 106, 26, 0.1)`;
         const separatorX = width / 2 + 0.5 * width * 0.36;
         ctx.fillRect(separatorX, 0, width - separatorX, height);
         ctx.strokeStyle = ACCENT;
@@ -283,9 +283,9 @@ function RingViz() {
         ctx.beginPath();
         ctx.arc(px, py, 2.8, 0, Math.PI * 2);
         if (point.ring) {
-          ctx.fillStyle = `rgba(14, 14, 14, ${0.55 + progress * 0.25})`;
+          ctx.fillStyle = `rgba(251, 246, 239, ${0.55 + progress * 0.25})`;
         } else {
-          ctx.fillStyle = `rgba(213, 43, 30, ${0.55 + progress * 0.25})`;
+          ctx.fillStyle = `rgba(255, 106, 26, ${0.55 + progress * 0.25})`;
         }
         ctx.fill();
       });
@@ -915,7 +915,7 @@ function GainShareViz() {
                 className="seg"
                 style={{
                   width: `${d.probRemap * 100}%`,
-                  background: 'rgba(14, 14, 14, 0.18)',
+                  background: 'rgba(251, 246, 239, 0.22)',
                   color: INK,
                 }}
               >
@@ -936,7 +936,7 @@ function GainShareViz() {
         ))}
         <div className="legend">
           <span>
-            <span className="swatch" style={{ background: 'rgba(14, 14, 14, 0.18)' }} />
+            <span className="swatch" style={{ background: 'rgba(251, 246, 239, 0.22)' }} />
             remap
           </span>
           <span>
@@ -966,7 +966,7 @@ function GainShareViz() {
                 className="seg"
                 style={{
                   width: `${d.teacherLift * 100}%`,
-                  background: 'rgba(213, 43, 30, 0.2)',
+                  background: 'rgba(255, 106, 26, 0.24)',
                   color: ACCENT,
                 }}
               >
@@ -981,7 +981,7 @@ function GainShareViz() {
             remap
           </span>
           <span>
-            <span className="swatch" style={{ background: 'rgba(213, 43, 30, 0.2)' }} />
+            <span className="swatch" style={{ background: 'rgba(255, 106, 26, 0.24)' }} />
             lift
           </span>
         </div>
@@ -1116,34 +1116,12 @@ export default function SLCPaper() {
   return (
     <div className="v9">
       <div className="pad">
-        {/* Topline */}
-        <div className="topline">
-          <div className="brand">
-            <SlashMark size={22} />
-            <span>Inductive.ML</span>
-          </div>
-          <div className="meta">Independent AI Research Lab — Bangalore, India — Est. MMXXV</div>
-          <div className="links">
-            <a href="/">← Index</a>
-          </div>
-        </div>
-
         <div className="grid12">
-          {/* Crumb */}
-          <nav className="crumb" aria-label="Breadcrumb">
-            <a href="/">Inductive.ML</a>
-            <span className="sep">/</span>
-            <a href="/#research">Research</a>
-            <span className="sep">/</span>
-            <span className="here">Staged Learned Coordinates</span>
-          </nav>
-
           {/* Hero */}
           <Secbar num="00" ttl="research-explainer" meta="2026 · preprint" />
 
           <div className="paper-hero">
             <div className="head">
-              <h1>Teaching Trees to Understand Geometry</h1>
               <p className="sub">
                 A plain-English breakdown of our paper:{' '}
                 <em>“Staged Learned Coordinates for Gradient Boosted Trees on Continuous Tabular Data.”</em>
@@ -1721,11 +1699,14 @@ export default function SLCPaper() {
           <div className="bib">
             <div className="lbl">// cite this work</div>
             <pre>
-{`@article{parmar2026staged,
-  title  = {Staged Learned Coordinates for Gradient Boosted Trees
-            on Continuous Tabular Data},
-  author = {Parmar, Aditya Veer},
-  year   = {2026}
+{`@misc{parmar2026staged,
+  title     = {Staged Learned Coordinates for Gradient Boosted Trees
+               on Continuous Tabular Data},
+  author    = {Parmar, Aditya Veer},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.20033698},
+  url       = {https://doi.org/10.5281/zenodo.20033698}
 }`}
             </pre>
           </div>

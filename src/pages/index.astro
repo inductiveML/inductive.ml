@@ -1,8 +1,115 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import InductiveLanding from '../components/InductiveLanding';
 ---
 
 <Layout>
-	<InductiveLanding />
+	<div class="lava-stage">
+		<canvas id="lava"></canvas>
+		<canvas id="embers"></canvas>
+		<div class="grain"></div>
+
+		<!-- faint etched generative glyphs -->
+		<svg
+			class="etch etch-tree"
+			viewBox="0 0 100 120"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="1.4"
+			stroke-linecap="round"
+			aria-hidden="true"
+		>
+			<path d="M50 120 V58"></path>
+			<path
+				d="M50 58 L30 38 M50 58 L70 38 M50 70 L34 54 M50 70 L66 54 M50 46 L38 30 M50 46 L62 30"
+			></path>
+			<path
+				d="M30 38 L22 26 M30 38 L34 24 M70 38 L78 26 M70 38 L66 24 M38 30 L32 18 M62 30 L68 18 M50 46 L50 28"
+			></path>
+			<circle cx="22" cy="26" r="2"></circle><circle cx="34" cy="24" r="2"></circle><circle
+				cx="78"
+				cy="26"
+				r="2"></circle><circle cx="66" cy="24" r="2"></circle><circle cx="32" cy="18" r="2"
+			></circle><circle cx="68" cy="18" r="2"></circle><circle cx="50" cy="28" r="2"></circle>
+		</svg>
+
+		<svg
+			class="etch etch-figs"
+			viewBox="0 0 240 90"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="1.4"
+			stroke-linecap="round"
+			aria-hidden="true"
+		>
+			<g>
+				<circle cx="30" cy="20" r="7"></circle><path
+					d="M30 27 L30 33 M22 58 L30 33 L38 58 M30 40 L14 30 M30 40 L52 34"></path>
+				<circle cx="80" cy="16" r="7"></circle><path
+					d="M80 23 L80 29 M72 54 L80 29 L88 54 M80 36 L58 30 M80 36 L102 30"></path>
+				<circle cx="130" cy="16" r="7"></circle><path
+					d="M130 23 L130 29 M122 54 L130 29 L138 54 M130 36 L108 30 M130 36 L152 30"></path>
+				<circle cx="180" cy="16" r="7"></circle><path
+					d="M180 23 L180 29 M172 54 L180 29 L188 54 M180 36 L158 30 M180 36 L202 30"></path>
+				<circle cx="222" cy="20" r="7"></circle><path
+					d="M222 27 L222 33 M214 58 L222 33 L230 58 M222 40 L200 34 M222 40 L236 30"></path>
+			</g>
+		</svg>
+
+		<svg
+			class="etch etch-sun"
+			viewBox="0 0 100 100"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="1.4"
+			stroke-linecap="round"
+			aria-hidden="true"
+		>
+			<circle cx="50" cy="50" r="20"></circle>
+			<g
+				><path
+					d="M50 8 V22 M50 78 V92 M8 50 H22 M78 50 H92 M20 20 L30 30 M70 70 L80 80 M80 20 L70 30 M30 70 L20 80"
+				></path></g
+			>
+		</svg>
+
+		<div class="overlay">
+			<main class="home-main">
+				<div class="home-rail"><span>Independent AI research · Est. 2026 · Bangalore</span></div>
+				<div class="home-body">
+					<h1 class="mission">
+						An independent lab studying how machines <span class="soft">learn to learn.</span>
+					</h1>
+					<nav class="links">
+						<a href="/experiments">Experiments <span class="ar">→</span></a>
+						<a href="/about">About <span class="ar">→</span></a>
+						<a href="https://github.com/inductiveML" target="_blank" rel="noreferrer">
+							GitHub <span class="ar">→</span>
+						</a>
+						<a href="https://hf.co/inductiveML" target="_blank" rel="noreferrer">
+							Hugging Face <span class="ar">→</span>
+						</a>
+					</nav>
+				</div>
+			</main>
+
+			<footer class="bar">
+				<span class="meta">Est. 2026</span>
+				<span class="meta">inductive.ml</span>
+			</footer>
+		</div>
+	</div>
 </Layout>
+
+<script>
+	import { initLava, initEmbers } from '../lib/lava';
+
+	const lava = document.getElementById('lava');
+	if (lava instanceof HTMLCanvasElement) {
+		initLava(lava, { scale: 2.1, speed: 1.0 });
+	}
+
+	const embers = document.getElementById('embers');
+	if (embers instanceof HTMLCanvasElement) {
+		initEmbers(embers, { count: 48 });
+	}
+</script>
