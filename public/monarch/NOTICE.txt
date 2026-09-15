@@ -1,0 +1,7 @@
+MONARCH browser demo — Inductive ML
+Model: LFM2.5-230M by Liquid AI, Inc.
+Source: LiquidAI/LFM2.5-230M-ONNX, revision c6f46e4e3f885ebcad164d14059a49f90e27eb4d.
+Weights modified by Inductive ML: rearranged into the MONARCH int4 block-32 GPU layout, with fused sections and RoPE tables; no training. Transport chunks reconstruct the canonical ca1fea89... buffer.
+Model and tokenizer data: LFM Open License v1.0, supplied as LICENSE-LFM.txt.
+Tokenizer implementation: Hugging Face tokenizers.js v0.1.3, Apache-2.0, supplied as LICENSE-tokenizers.txt.
+The Hugging Face demo linked on the page is an interface reference, not the decoder used here. No UI or runtime source copied from that demo.

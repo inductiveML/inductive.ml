@@ -7,4 +7,13 @@ export default defineConfig({
   output: 'server',
   adapter: alchemy(),
   integrations: [react()],
+  vite: {
+    server: {
+      headers: {
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Cross-Origin-Resource-Policy': 'same-origin',
+      },
+    },
+  },
 });

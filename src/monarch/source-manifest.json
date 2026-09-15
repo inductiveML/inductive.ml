@@ -1,0 +1,120 @@
+{
+  "source_revision": "MONARCH B1.8 MIX_M40, 6 Sep 2026",
+  "files": [
+    {
+      "path": "experiments/kernel_efficiency_b1_8/src/page/plans.ts",
+      "sha256": "d637db0b8aa05c4e18ce3547def267de5accdc0a29d0b21f3bdd7e9b6b372d6f"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/page/wgsl.ts",
+      "sha256": "a2ea1697aa8854cab214af6cea2b024a53a6d47d8fbfd8ea5c06aa0e560650b6"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/pure/plan.ts",
+      "sha256": "407e01a2fa0f65f6849f392393abbc4c447c7381889ff184815e8f65a35211e9"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/pure/shape.ts",
+      "sha256": "c5b4bd58ee3952198da328e2da2284d0f79085becd7a4bcbff7a6d15fd3cf514"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/pure/plan_options.ts",
+      "sha256": "10b79f76449b238511a98d75ea31324f125abd1f19139e8363c225b917104e92"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/pure/sections.ts",
+      "sha256": "ae9f8e7e3f9181a88436810d74579c1d8e777876e4c8475c390f3390cdb49737"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/config.ts",
+      "sha256": "e84dc39ef7aac9778007b92e33f5584cdfff9935c128d2edae1b4512e6f35e39"
+    },
+    {
+      "path": "experiments/kernel_efficiency_b1_8/src/page/hooks.ts",
+      "sha256": "67a0b3f26bba20b48689074c5406edbc100d1abd28835f65171fe9f5780bfa8d"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/page/hooks.ts",
+      "sha256": "8e292d0dca3055e88cc90f34bc4011648571293ce1cc9c73a7e322135cb67ec5"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/page/api.ts",
+      "sha256": "c890e76345434efef12bd10db11e804943ac66daff4094093c5b6287695e0165"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/schemas.ts",
+      "sha256": "e3698339fc28b28cc255ebf87b075d633bde4a57a2d132e7cb7ab589175c6101"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/page/features.ts",
+      "sha256": "5954d3d6e8de4307dfebf1b34911770a749e36e9f667361738c627f5e6ecdba2"
+    },
+    {
+      "path": "experiments/kernel_efficiency_b1_8/src/page/fused.ts",
+      "sha256": "31a372a857cb6baf277aba9ad9f3d0cd6a64438e9af52c6ca12d22289ea4e71b"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/page/weights.ts",
+      "sha256": "b6368e27b8a5cc0d5df9ff6fc539c516c04665dfaa476d69000a57e1b7c9169b"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/page/runtime.ts",
+      "sha256": "ee5b76e17b6ddb3641c7afbc833c9ddd8fa0e1e8781e309d7c388f47712c30f5"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/page/fused_wgsl.ts",
+      "sha256": "58997096d35eb0dc0842a70cd46f08e663a3b5d3f7e4cb4f34fe161aacb7c2f9"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/pure/stats.ts",
+      "sha256": "d47a9b81cfdad371b633ce59896151ae80e87e3ed4a7d19600c1b0c27723d15e"
+    },
+    {
+      "path": "experiments/kernel_efficiency_b1_8/src/page/runtime.ts",
+      "sha256": "7b5a2f9b2208bd48b7aea21900fe1fdec9e288d4e73e2384134d16c4135deb84"
+    },
+    {
+      "path": "experiments/kernel_efficiency_b1_8/src/page/fused_wgsl.ts",
+      "sha256": "2cec478c38162f8809206b6d20048cc6816b696db56d8dd56feb69d0afa511a4"
+    },
+    {
+      "path": "experiments/kernel_efficiency_b1_8/src/page/efficiency_plan.ts",
+      "sha256": "adf3b3be4e02f917ad4e302e2c62ae4d5505022ce7db3e83e51248e31868208c"
+    },
+    {
+      "path": "experiments/kernel_efficiency_b1_8/src/page/matvec_wgsl.ts",
+      "sha256": "9bcec367d5e1c3da6852335cb956031568db90b07426c0d7b1904e0a778182d7"
+    },
+    {
+      "path": "experiments/kernel_efficiency_b1_8/src/config.ts",
+      "sha256": "e23055ebb618f42929e269f7dc7d92396636ced2b7727a1af0486772439990fb"
+    },
+    {
+      "path": "experiments/kernel_efficiency_b1_8/src/page/efficiency.ts",
+      "sha256": "c4dc845b8e0204dd58a34d2dd1e07782c8fd90036659ec82848e27609edbc03f"
+    },
+    {
+      "path": "experiments/kernel_efficiency_b1_8/src/page/online_flash.ts",
+      "sha256": "8eed8d182294ac0483c7a992c5fcf7531ddc0e188098c978159450149e4f723f"
+    },
+    {
+      "path": "experiments/kernel_efficiency_b1_8/src/page/quant_layout.ts",
+      "sha256": "12d509b7013cf59281fb072d9c69a434292e65ebcc952bc9b9d1d6f26106222a"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/page/device.ts",
+      "sha256": "780e1f4b4974130b74d604ce46106ca1e8b59f0295ac8c3d1c231c8780e39538"
+    },
+    {
+      "path": "experiments/kernel_efficiency_b1_8/src/schemas.ts",
+      "sha256": "88c004a0ed8b14515d738c47936086d127571fff9b53902d882140336cb99029"
+    },
+    {
+      "path": "experiments/flash_core_split_n_b1_4/src/pure/codes.ts",
+      "sha256": "de9c48407f7ceca620069ec9cbc458a1c27dd23cbb8ac27dda74ec9c0bffe00e"
+    }
+  ],
+  "kernels_modified": false,
+  "tokenizers_version": "0.1.3",
+  "weight_sha256": "ca1fea89fd9f3ca7e5d6d5720705c96f457a92edd0cfc811cf8d9391ac784cb0"
+}

@@ -1,0 +1,55 @@
+{
+  "model": "LiquidAI/LFM2.5-230M-ONNX",
+  "revision": "c6f46e4e3f885ebcad164d14059a49f90e27eb4d",
+  "weightBytes": 168647680,
+  "weightSha256": "ca1fea89fd9f3ca7e5d6d5720705c96f457a92edd0cfc811cf8d9391ac784cb0",
+  "chunks": [
+    {
+      "url": "/monarch/weights/d907b9dbe8abe1c5.bin",
+      "bytes": 20971520,
+      "sha256": "d907b9dbe8abe1c5962792281ce71ed1648087c00dbbfbab963afbb684b19067"
+    },
+    {
+      "url": "/monarch/weights/cc2660e843e96e1b.bin",
+      "bytes": 20971520,
+      "sha256": "cc2660e843e96e1bc437b4b377db1ef419c8592778a4c1a42825476462869547"
+    },
+    {
+      "url": "/monarch/weights/58f3959d99c7702f.bin",
+      "bytes": 20971520,
+      "sha256": "58f3959d99c7702f0a363e6b2dd98b4d47d395241381737a6f0c4ef1e1bef50b"
+    },
+    {
+      "url": "/monarch/weights/1f61d7a55a378c4a.bin",
+      "bytes": 20971520,
+      "sha256": "1f61d7a55a378c4aa3e3d000a0dc596dba25a76a2d46e29817174d6513c8bb77"
+    },
+    {
+      "url": "/monarch/weights/17cece1423f74986.bin",
+      "bytes": 20971520,
+      "sha256": "17cece1423f749863731577609856eff0835868aa24567d2cd11fd619c98313d"
+    },
+    {
+      "url": "/monarch/weights/0686ff1aefc5265a.bin",
+      "bytes": 20971520,
+      "sha256": "0686ff1aefc5265a52f536c1e5b71f46655f301b295d8405efdfe38c9ec4b484"
+    },
+    {
+      "url": "/monarch/weights/91f6e3f2694f19b4.bin",
+      "bytes": 20971520,
+      "sha256": "91f6e3f2694f19b458c826ad44aeed31c0bcc7dd31291d79b17ed95030d17d0d"
+    },
+    {
+      "url": "/monarch/weights/94e69dff884a6a38.bin",
+      "bytes": 20971520,
+      "sha256": "94e69dff884a6a384a7a38b2ad0fc1c29018cd4a8d020d3fba6b441b2df9423a"
+    },
+    {
+      "url": "/monarch/weights/cd882b21f2dc11ad.bin",
+      "bytes": 875520,
+      "sha256": "cd882b21f2dc11ad1866e25b5e6fa941a8ee15fa3869385392b516026575190e"
+    }
+  ],
+  "license": "/monarch/LICENSE-LFM.txt",
+  "modified": "ONNX int4 block-32 weights rearranged into the MONARCH GPU buffer layout; RoPE tables and fused sections included. Split into transport chunks without changing the reconstructed model bytes."
+}

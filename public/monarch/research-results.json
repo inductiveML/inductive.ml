@@ -1,0 +1,2384 @@
+{
+  "model": "LFM2.5-230M",
+  "date": "2026-09-06",
+  "hardware": "Apple M4 Max",
+  "B1_8": {
+    "status": "MEASURED_FULLSCREEN_TARGET_1500",
+    "adopted_arm": null,
+    "selected_arm": "MIX_M40",
+    "confirmation_by_depth": {
+      "192": {
+        "environment": "NATIVE_CHROME_FULLSCREEN",
+        "selected": {
+          "arm": "MIX_M40",
+          "blocks": 16,
+          "tokens_per_block": 64,
+          "wall_ms": 0.6351562514901161,
+          "wall_ci_95": [
+            0.6318750083446503,
+            0.6381250023841858
+          ],
+          "tps": 1574.4157404637642,
+          "tps_ci_95": [
+            1567.0910813144192,
+            1582.591472670746
+          ],
+          "gpu_busy_ms": 0.630016,
+          "paired_control_wall_ms": 0.7199609354138374,
+          "paired_cost_ratio": 0.880254276686751,
+          "paired_cost_ratio_ci_95": [
+            0.8772899762078675,
+            0.8916057172905014
+          ],
+          "paired_speedup": 1.1360353780545867,
+          "exact64_pass": true,
+          "thermal_drift": 0.05679271648564577,
+          "thermal_pass": true,
+          "tables": {
+            "table": {
+              "sum_gpu_ms": 0.7232000000000002,
+              "split_fraction": 0.14671035635937565,
+              "split_pass": true,
+              "kinds": {
+                "embed": {
+                  "count": 1,
+                  "gpu_ms": 0.004352000000000001,
+                  "weight_bytes": 0,
+                  "logical_bytes": 4756
+                },
+                "conv_proj_core": {
+                  "count": 8,
+                  "gpu_ms": 0.09343999999999984,
+                  "weight_bytes": 15728640,
+                  "logical_bytes": 16007168
+                },
+                "matvec_residual": {
+                  "count": 14,
+                  "gpu_ms": 0.08959999999999994,
+                  "weight_bytes": 9175040,
+                  "logical_bytes": 9318400
+                },
+                "mlp_fused": {
+                  "count": 14,
+                  "gpu_ms": 0.2407679999999995,
+                  "weight_bytes": 68812800,
+                  "logical_bytes": 71278592
+                },
+                "fold": {
+                  "count": 14,
+                  "gpu_ms": 0.05401600000000002,
+                  "weight_bytes": 0,
+                  "logical_bytes": 2408448
+                },
+                "attn_proj": {
+                  "count": 6,
+                  "gpu_ms": 0.057599999999999915,
+                  "weight_bytes": 7864320,
+                  "logical_bytes": 7962624
+                },
+                "attn_core_flash": {
+                  "count": 6,
+                  "gpu_ms": 0.03737599999999997,
+                  "weight_bytes": 0,
+                  "logical_bytes": 7881216
+                },
+                "attn_merge": {
+                  "count": 6,
+                  "gpu_ms": 0.02982399999999999,
+                  "weight_bytes": 0,
+                  "logical_bytes": 847872
+                },
+                "norm_head": {
+                  "count": 1,
+                  "gpu_ms": 0.10252800000000112,
+                  "weight_bytes": 42991616,
+                  "logical_bytes": 43261952
+                },
+                "sample_partial": {
+                  "count": 1,
+                  "gpu_ms": 0.009215999999999988,
+                  "weight_bytes": 0,
+                  "logical_bytes": 264192
+                },
+                "sample_final": {
+                  "count": 1,
+                  "gpu_ms": 0.00448,
+                  "weight_bytes": 0,
+                  "logical_bytes": 2056
+                }
+              },
+              "dispatches": 72
+            },
+            "batched_table": {
+              "sum_gpu_ms": 0.8042880000000007,
+              "split_fraction": 0.2743765799221021,
+              "split_pass": false,
+              "kinds": {
+                "embed": {
+                  "count": 1,
+                  "gpu_ms": 0.00595199999999999,
+                  "weight_bytes": 0,
+                  "logical_bytes": 4756
+                },
+                "conv_proj_core": {
+                  "count": 8,
+                  "gpu_ms": 0.10579199999999976,
+                  "weight_bytes": 15728640,
+                  "logical_bytes": 16007168
+                },
+                "matvec_residual": {
+                  "count": 14,
+                  "gpu_ms": 0.09619199999999982,
+                  "weight_bytes": 9175040,
+                  "logical_bytes": 9318400
+                },
+                "mlp_fused": {
+                  "count": 14,
+                  "gpu_ms": 0.2693760000000007,
+                  "weight_bytes": 68812800,
+                  "logical_bytes": 71278592
+                },
+                "fold": {
+                  "count": 14,
+                  "gpu_ms": 0.05657599999999994,
+                  "weight_bytes": 0,
+                  "logical_bytes": 2408448
+                },
+                "attn_proj": {
+                  "count": 6,
+                  "gpu_ms": 0.06387199999999986,
+                  "weight_bytes": 7864320,
+                  "logical_bytes": 7962624
+                },
+                "attn_core_flash": {
+                  "count": 6,
+                  "gpu_ms": 0.04345599999999992,
+                  "weight_bytes": 0,
+                  "logical_bytes": 7881216
+                },
+                "attn_merge": {
+                  "count": 6,
+                  "gpu_ms": 0.031999999999999945,
+                  "weight_bytes": 0,
+                  "logical_bytes": 847872
+                },
+                "norm_head": {
+                  "count": 1,
+                  "gpu_ms": 0.11763200000000076,
+                  "weight_bytes": 42991616,
+                  "logical_bytes": 43261952
+                },
+                "sample_partial": {
+                  "count": 1,
+                  "gpu_ms": 0.007935999999999986,
+                  "weight_bytes": 0,
+                  "logical_bytes": 264192
+                },
+                "sample_final": {
+                  "count": 1,
+                  "gpu_ms": 0.005503999999999991,
+                  "weight_bytes": 0,
+                  "logical_bytes": 2056
+                }
+              },
+              "dispatches": 72
+            }
+          },
+          "dispatches_per_token": 72.0,
+          "submits_per_token": 1.0,
+          "live_gpu_bytes": 201265440,
+          "median_target_1500": true,
+          "median_target_2000": false
+        },
+        "baseline": {
+          "arm": "N80",
+          "blocks": 16,
+          "tokens_per_block": 64,
+          "wall_ms": 0.7185156345367432,
+          "wall_ci_95": [
+            0.7145312428474426,
+            0.7233593612909317
+          ],
+          "tps": 1391.758163543291,
+          "tps_ci_95": [
+            1382.438734483737,
+            1399.51892938222
+          ],
+          "gpu_busy_ms": 0.716928,
+          "paired_control_wall_ms": 0.715585932135582,
+          "paired_cost_ratio": 1.00087102029575,
+          "paired_cost_ratio_ci_95": [
+            0.9964855870977661,
+            1.0093550558635247
+          ],
+          "paired_speedup": 0.9991297377203582,
+          "exact64_pass": true,
+          "thermal_drift": 0.07809349164173263,
+          "thermal_pass": true,
+          "tables": {
+            "table": {
+              "sum_gpu_ms": 0.8076799999999998,
+              "split_fraction": 0.1263048368578805,
+              "split_pass": true,
+              "kinds": {
+                "embed": {
+                  "count": 1,
+                  "gpu_ms": 0.005887999999999997,
+                  "weight_bytes": 0,
+                  "logical_bytes": 4756
+                },
+                "norm_matvec": {
+                  "count": 8,
+                  "gpu_ms": 0.09318399999999984,
+                  "weight_bytes": 15728640,
+                  "logical_bytes": 15843328
+                },
+                "conv_core": {
+                  "count": 8,
+                  "gpu_ms": 0.025600000000000005,
+                  "weight_bytes": 0,
+                  "logical_bytes": 262144
+                },
+                "matvec_residual": {
+                  "count": 14,
+                  "gpu_ms": 0.08217599999999994,
+                  "weight_bytes": 9175040,
+                  "logical_bytes": 9318400
+                },
+                "mlp_fused": {
+                  "count": 14,
+                  "gpu_ms": 0.2574079999999994,
+                  "weight_bytes": 68812800,
+                  "logical_bytes": 73572352
+                },
+                "fold": {
+                  "count": 14,
+                  "gpu_ms": 0.060927999999999996,
+                  "weight_bytes": 0,
+                  "logical_bytes": 4702208
+                },
+                "attn_proj": {
+                  "count": 6,
+                  "gpu_ms": 0.0601599999999999,
+                  "weight_bytes": 7864320,
+                  "logical_bytes": 7962624
+                },
+                "attn_core_flash": {
+                  "count": 6,
+                  "gpu_ms": 0.08627199999999983,
+                  "weight_bytes": 0,
+                  "logical_bytes": 3199488
+                },
+                "attn_merge": {
+                  "count": 6,
+                  "gpu_ms": 0.025984,
+                  "weight_bytes": 0,
+                  "logical_bytes": 430080
+                },
+                "norm_head": {
+                  "count": 1,
+                  "gpu_ms": 0.09497600000000093,
+                  "weight_bytes": 42991616,
+                  "logical_bytes": 43261952
+                },
+                "sample_partial": {
+                  "count": 1,
+                  "gpu_ms": 0.010239999999999987,
+                  "weight_bytes": 0,
+                  "logical_bytes": 264192
+                },
+                "sample_final": {
+                  "count": 1,
+                  "gpu_ms": 0.0048639999999999985,
+                  "weight_bytes": 0,
+                  "logical_bytes": 2056
+                }
+              },
+              "dispatches": 80
+            },
+            "batched_table": {
+              "sum_gpu_ms": 0.9234560000000006,
+              "split_fraction": 0.2874370300002696,
+              "split_pass": false,
+              "kinds": {
+                "embed": {
+                  "count": 1,
+                  "gpu_ms": 0.007999999999999991,
+                  "weight_bytes": 0,
+                  "logical_bytes": 4756
+                },
+                "norm_matvec": {
+                  "count": 8,
+                  "gpu_ms": 0.10310399999999978,
+                  "weight_bytes": 15728640,
+                  "logical_bytes": 15843328
+                },
+                "conv_core": {
+                  "count": 8,
+                  "gpu_ms": 0.03039999999999997,
+                  "weight_bytes": 0,
+                  "logical_bytes": 262144
+                },
+                "matvec_residual": {
+                  "count": 14,
+                  "gpu_ms": 0.09503999999999982,
+                  "weight_bytes": 9175040,
+                  "logical_bytes": 9318400
+                },
+                "mlp_fused": {
+                  "count": 14,
+                  "gpu_ms": 0.283264000000001,
+                  "weight_bytes": 68812800,
+                  "logical_bytes": 73572352
+                },
+                "fold": {
+                  "count": 14,
+                  "gpu_ms": 0.07187199999999991,
+                  "weight_bytes": 0,
+                  "logical_bytes": 4702208
+                },
+                "attn_proj": {
+                  "count": 6,
+                  "gpu_ms": 0.06886399999999984,
+                  "weight_bytes": 7864320,
+                  "logical_bytes": 7962624
+                },
+                "attn_core_flash": {
+                  "count": 6,
+                  "gpu_ms": 0.09599999999999986,
+                  "weight_bytes": 0,
+                  "logical_bytes": 3199488
+                },
+                "attn_merge": {
+                  "count": 6,
+                  "gpu_ms": 0.029951999999999958,
+                  "weight_bytes": 0,
+                  "logical_bytes": 430080
+                },
+                "norm_head": {
+                  "count": 1,
+                  "gpu_ms": 0.12006400000000095,
+                  "weight_bytes": 42991616,
+                  "logical_bytes": 43261952
+                },
+                "sample_partial": {
+                  "count": 1,
+                  "gpu_ms": 0.011391999999999979,
+                  "weight_bytes": 0,
+                  "logical_bytes": 264192
+                },
+                "sample_final": {
+                  "count": 1,
+                  "gpu_ms": 0.005503999999999991,
+                  "weight_bytes": 0,
+                  "logical_bytes": 2056
+                }
+              },
+              "dispatches": 80
+            }
+          },
+          "dispatches_per_token": 80.0,
+          "submits_per_token": 1.0,
+          "live_gpu_bytes": 201265440,
+          "median_target_1500": false,
+          "median_target_2000": false
+        },
+        "correctness_pass": true,
+        "timing_admissible": true,
+        "split_pass": false,
+        "adoption_verdict": "NO_VERDICT_SPLIT"
+      },
+      "1024": {
+        "environment": "NATIVE_CHROME_FULLSCREEN",
+        "selected": {
+          "arm": "MIX_M40",
+          "blocks": 16,
+          "tokens_per_block": 64,
+          "wall_ms": 0.6977343708276749,
+          "wall_ci_95": [
+            0.6928125023841858,
+            0.7005468755960464
+          ],
+          "tps": 1433.2101754049581,
+          "tps_ci_95": [
+            1427.4562271784737,
+            1443.3919661649948
+          ],
+          "gpu_busy_ms": 0.689536,
+          "paired_control_wall_ms": 0.8411328122019768,
+          "paired_cost_ratio": 0.8281512019852264,
+          "paired_cost_ratio_ci_95": [
+            0.8209472188932486,
+            0.8296749426652094
+          ],
+          "paired_speedup": 1.2075089640669738,
+          "exact64_pass": true,
+          "thermal_drift": 0.02383082547288229,
+          "thermal_pass": true,
+          "tables": {
+            "table": {
+              "sum_gpu_ms": 0.7724800000000002,
+              "split_fraction": 0.11887618478878903,
+              "split_pass": true,
+              "kinds": {
+                "embed": {
+                  "count": 1,
+                  "gpu_ms": 0.005375999999999997,
+                  "weight_bytes": 0,
+                  "logical_bytes": 4756
+                },
+                "conv_proj_core": {
+                  "count": 8,
+                  "gpu_ms": 0.09753599999999982,
+                  "weight_bytes": 15728640,
+                  "logical_bytes": 16007168
+                },
+                "matvec_residual": {
+                  "count": 14,
+                  "gpu_ms": 0.08716799999999993,
+                  "weight_bytes": 9175040,
+                  "logical_bytes": 9318400
+                },
+                "mlp_fused": {
+                  "count": 14,
+                  "gpu_ms": 0.23526399999999956,
+                  "weight_bytes": 68812800,
+                  "logical_bytes": 71278592
+                },
+                "fold": {
+                  "count": 14,
+                  "gpu_ms": 0.05030400000000001,
+                  "weight_bytes": 0,
+                  "logical_bytes": 2408448
+                },
+                "attn_proj": {
+                  "count": 6,
+                  "gpu_ms": 0.05644799999999992,
+                  "weight_bytes": 7864320,
+                  "logical_bytes": 7962624
+                },
+                "attn_core_flash": {
+                  "count": 6,
+                  "gpu_ms": 0.09574399999999982,
+                  "weight_bytes": 0,
+                  "logical_bytes": 28328448
+                },
+                "attn_merge": {
+                  "count": 6,
+                  "gpu_ms": 0.030463999999999984,
+                  "weight_bytes": 0,
+                  "logical_bytes": 847872
+                },
+                "norm_head": {
+                  "count": 1,
+                  "gpu_ms": 0.09958400000000102,
+                  "weight_bytes": 42991616,
+                  "logical_bytes": 43261952
+                },
+                "sample_partial": {
+                  "count": 1,
+                  "gpu_ms": 0.00972799999999999,
+                  "weight_bytes": 0,
+                  "logical_bytes": 264192
+                },
+                "sample_final": {
+                  "count": 1,
+                  "gpu_ms": 0.0048639999999999985,
+                  "weight_bytes": 0,
+                  "logical_bytes": 2056
+                }
+              },
+              "dispatches": 72
+            },
+            "batched_table": {
+              "sum_gpu_ms": 0.8647680000000008,
+              "split_fraction": 0.25114428545656264,
+              "split_pass": false,
+              "kinds": {
+                "embed": {
+                  "count": 1,
+                  "gpu_ms": 0.005119999999999992,
+                  "weight_bytes": 0,
+                  "logical_bytes": 4756
+                },
+                "conv_proj_core": {
+                  "count": 8,
+                  "gpu_ms": 0.10694399999999978,
+                  "weight_bytes": 15728640,
+                  "logical_bytes": 16007168
+                },
+                "matvec_residual": {
+                  "count": 14,
+                  "gpu_ms": 0.09523199999999983,
+                  "weight_bytes": 9175040,
+                  "logical_bytes": 9318400
+                },
+                "mlp_fused": {
+                  "count": 14,
+                  "gpu_ms": 0.2642560000000006,
+                  "weight_bytes": 68812800,
+                  "logical_bytes": 71278592
+                },
+                "fold": {
+                  "count": 14,
+                  "gpu_ms": 0.055807999999999934,
+                  "weight_bytes": 0,
+                  "logical_bytes": 2408448
+                },
+                "attn_proj": {
+                  "count": 6,
+                  "gpu_ms": 0.06700799999999986,
+                  "weight_bytes": 7864320,
+                  "logical_bytes": 7962624
+                },
+                "attn_core_flash": {
+                  "count": 6,
+                  "gpu_ms": 0.10572800000000007,
+                  "weight_bytes": 0,
+                  "logical_bytes": 28328448
+                },
+                "attn_merge": {
+                  "count": 6,
+                  "gpu_ms": 0.03673599999999994,
+                  "weight_bytes": 0,
+                  "logical_bytes": 847872
+                },
+                "norm_head": {
+                  "count": 1,
+                  "gpu_ms": 0.11232000000000095,
+                  "weight_bytes": 42991616,
+                  "logical_bytes": 43261952
+                },
+                "sample_partial": {
+                  "count": 1,
+                  "gpu_ms": 0.01055999999999998,
+                  "weight_bytes": 0,
+                  "logical_bytes": 264192
+                },
+                "sample_final": {
+                  "count": 1,
+                  "gpu_ms": 0.005055999999999992,
+                  "weight_bytes": 0,
+                  "logical_bytes": 2056
+                }
+              },
+              "dispatches": 72
+            }
+          },
+          "dispatches_per_token": 72.0,
+          "submits_per_token": 1.0,
+          "live_gpu_bytes": 201265440,
+          "median_target_1500": false,
+          "median_target_2000": false
+        },
+        "baseline": {
+          "arm": "N80",
+          "blocks": 16,
+          "tokens_per_block": 64,
+          "wall_ms": 0.8448828160762787,
+          "wall_ci_95": [
+            0.8433593735098839,
+            0.8517187535762787
+          ],
+          "tps": 1183.5960928216073,
+          "tps_ci_95": [
+            1174.0964911258602,
+            1185.7341382692064
+          ],
+          "gpu_busy_ms": 0.844608,
+          "paired_control_wall_ms": 0.843984380364418,
+          "paired_cost_ratio": 1.0024123086538506,
+          "paired_cost_ratio_ci_95": [
+            0.9926491205617739,
+            1.0139582198615467
+          ],
+          "paired_speedup": 0.9975934965751866,
+          "exact64_pass": true,
+          "thermal_drift": 0.017309632475988823,
+          "thermal_pass": true,
+          "tables": {
+            "table": {
+              "sum_gpu_ms": 0.9447680000000002,
+              "split_fraction": 0.11854898465701233,
+              "split_pass": true,
+              "kinds": {
+                "embed": {
+                  "count": 1,
+                  "gpu_ms": 0.007423999999999995,
+                  "weight_bytes": 0,
+                  "logical_bytes": 4756
+                },
+                "norm_matvec": {
+                  "count": 8,
+                  "gpu_ms": 0.09484799999999985,
+                  "weight_bytes": 15728640,
+                  "logical_bytes": 15843328
+                },
+                "conv_core": {
+                  "count": 8,
+                  "gpu_ms": 0.025600000000000005,
+                  "weight_bytes": 0,
+                  "logical_bytes": 262144
+                },
+                "matvec_residual": {
+                  "count": 14,
+                  "gpu_ms": 0.0943359999999999,
+                  "weight_bytes": 9175040,
+                  "logical_bytes": 9318400
+                },
+                "mlp_fused": {
+                  "count": 14,
+                  "gpu_ms": 0.2487039999999995,
+                  "weight_bytes": 68812800,
+                  "logical_bytes": 73572352
+                },
+                "fold": {
+                  "count": 14,
+                  "gpu_ms": 0.06591999999999998,
+                  "weight_bytes": 0,
+                  "logical_bytes": 4702208
+                },
+                "attn_proj": {
+                  "count": 6,
+                  "gpu_ms": 0.05619199999999991,
+                  "weight_bytes": 7864320,
+                  "logical_bytes": 7962624
+                },
+                "attn_core_flash": {
+                  "count": 6,
+                  "gpu_ms": 0.20838400000000007,
+                  "weight_bytes": 0,
+                  "logical_bytes": 13423104
+                },
+                "attn_merge": {
+                  "count": 6,
+                  "gpu_ms": 0.030335999999999988,
+                  "weight_bytes": 0,
+                  "logical_bytes": 430080
+                },
+                "norm_head": {
+                  "count": 1,
+                  "gpu_ms": 0.09996800000000103,
+                  "weight_bytes": 42991616,
+                  "logical_bytes": 43261952
+                },
+                "sample_partial": {
+                  "count": 1,
+                  "gpu_ms": 0.006527999999999994,
+                  "weight_bytes": 0,
+                  "logical_bytes": 264192
+                },
+                "sample_final": {
+                  "count": 1,
+                  "gpu_ms": 0.006527999999999994,
+                  "weight_bytes": 0,
+                  "logical_bytes": 2056
+                }
+              },
+              "dispatches": 80
+            },
+            "batched_table": {
+              "sum_gpu_ms": 1.0601600000000044,
+              "split_fraction": 0.25512650499988826,
+              "split_pass": false,
+              "kinds": {
+                "embed": {
+                  "count": 1,
+                  "gpu_ms": 0.006079999999999994,
+                  "weight_bytes": 0,
+                  "logical_bytes": 4756
+                },
+                "norm_matvec": {
+                  "count": 8,
+                  "gpu_ms": 0.11071999999999975,
+                  "weight_bytes": 15728640,
+                  "logical_bytes": 15843328
+                },
+                "conv_core": {
+                  "count": 8,
+                  "gpu_ms": 0.026623999999999978,
+                  "weight_bytes": 0,
+                  "logical_bytes": 262144
+                },
+                "matvec_residual": {
+                  "count": 14,
+                  "gpu_ms": 0.1004159999999998,
+                  "weight_bytes": 9175040,
+                  "logical_bytes": 9318400
+                },
+                "mlp_fused": {
+                  "count": 14,
+                  "gpu_ms": 0.280192000000001,
+                  "weight_bytes": 68812800,
+                  "logical_bytes": 73572352
+                },
+                "fold": {
+                  "count": 14,
+                  "gpu_ms": 0.07135999999999991,
+                  "weight_bytes": 0,
+                  "logical_bytes": 4702208
+                },
+                "attn_proj": {
+                  "count": 6,
+                  "gpu_ms": 0.06483199999999986,
+                  "weight_bytes": 7864320,
+                  "logical_bytes": 7962624
+                },
+                "attn_core_flash": {
+                  "count": 6,
+                  "gpu_ms": 0.23033600000000307,
+                  "weight_bytes": 0,
+                  "logical_bytes": 13423104
+                },
+                "attn_merge": {
+                  "count": 6,
+                  "gpu_ms": 0.031231999999999954,
+                  "weight_bytes": 0,
+                  "logical_bytes": 430080
+                },
+                "norm_head": {
+                  "count": 1,
+                  "gpu_ms": 0.12332800000000126,
+                  "weight_bytes": 42991616,
+                  "logical_bytes": 43261952
+                },
+                "sample_partial": {
+                  "count": 1,
+                  "gpu_ms": 0.009087999999999985,
+                  "weight_bytes": 0,
+                  "logical_bytes": 264192
+                },
+                "sample_final": {
+                  "count": 1,
+                  "gpu_ms": 0.005951999999999989,
+                  "weight_bytes": 0,
+                  "logical_bytes": 2056
+                }
+              },
+              "dispatches": 80
+            }
+          },
+          "dispatches_per_token": 80.0,
+          "submits_per_token": 1.0,
+          "live_gpu_bytes": 201265440,
+          "median_target_1500": false,
+          "median_target_2000": false
+        },
+        "correctness_pass": true,
+        "timing_admissible": true,
+        "split_pass": false,
+        "adoption_verdict": "NO_VERDICT_SPLIT"
+      }
+    },
+    "windowed_confirmation": {
+      "source": "results/headed_windowed_confirmation.json",
+      "sha256": "8c440e4862d6616a3add3fa9369e20c401680ae710f1dac3b3b9585a7643c7f3",
+      "validation_errors": [],
+      "device_lost": [],
+      "status": "COMPLETE",
+      "webdriver": false,
+      "visibility": "visible",
+      "started_at": "2026-09-06T15:19:35.958Z",
+      "finished_at": "2026-09-06T15:19:54.417Z",
+      "errors": [],
+      "error_details": null,
+      "visibility_events": [],
+      "viewport": {
+        "inner_width": 1642,
+        "inner_height": 1519,
+        "outer_width": 1642,
+        "outer_height": 1662,
+        "screen_width": 3008,
+        "screen_height": 1692,
+        "dpr": 2
+      },
+      "jobs": [
+        {
+          "label": "reach_2112_depth_192",
+          "rows": [
+            {
+              "arm": "N80",
+              "blocks": 16,
+              "tokens_per_block": 64,
+              "wall_ms": 0.8072265684604645,
+              "wall_ci_95": [
+                0.8048437535762787,
+                0.8096093833446503
+              ],
+              "tps": 1238.8095722706344,
+              "tps_ci_95": [
+                1235.1635499440606,
+                1242.4771833744815
+              ],
+              "gpu_busy_ms": 0.801472,
+              "paired_control_wall_ms": 0.809453122317791,
+              "paired_cost_ratio": 1.0000007378465248,
+              "paired_cost_ratio_ci_95": [
+                0.9935576915740967,
+                1.0033365146114634
+              ],
+              "paired_speedup": 0.9999992621540197,
+              "exact64_pass": true,
+              "thermal_drift": 0.03547487261788318,
+              "thermal_pass": true,
+              "tables": {
+                "table": {
+                  "sum_gpu_ms": 0.9548800000000003,
+                  "split_fraction": 0.1900432988628939,
+                  "split_pass": false,
+                  "kinds": {
+                    "embed": {
+                      "count": 1,
+                      "gpu_ms": 0.018559999999999983,
+                      "weight_bytes": 0,
+                      "logical_bytes": 4756
+                    },
+                    "norm_matvec": {
+                      "count": 8,
+                      "gpu_ms": 0.11161599999999983,
+                      "weight_bytes": 15728640,
+                      "logical_bytes": 15843328
+                    },
+                    "conv_core": {
+                      "count": 8,
+                      "gpu_ms": 0.038911999999999995,
+                      "weight_bytes": 0,
+                      "logical_bytes": 262144
+                    },
+                    "matvec_residual": {
+                      "count": 14,
+                      "gpu_ms": 0.10291199999999989,
+                      "weight_bytes": 9175040,
+                      "logical_bytes": 9318400
+                    },
+                    "mlp_fused": {
+                      "count": 14,
+                      "gpu_ms": 0.2854399999999994,
+                      "weight_bytes": 68812800,
+                      "logical_bytes": 73572352
+                    },
+                    "fold": {
+                      "count": 14,
+                      "gpu_ms": 0.07180799999999997,
+                      "weight_bytes": 0,
+                      "logical_bytes": 4702208
+                    },
+                    "attn_proj": {
+                      "count": 6,
+                      "gpu_ms": 0.07231999999999988,
+                      "weight_bytes": 7864320,
+                      "logical_bytes": 7962624
+                    },
+                    "attn_core_flash": {
+                      "count": 6,
+                      "gpu_ms": 0.09868799999999983,
+                      "weight_bytes": 0,
+                      "logical_bytes": 3199488
+                    },
+                    "attn_merge": {
+                      "count": 6,
+                      "gpu_ms": 0.033919999999999985,
+                      "weight_bytes": 0,
+                      "logical_bytes": 430080
+                    },
+                    "norm_head": {
+                      "count": 1,
+                      "gpu_ms": 0.10483200000000113,
+                      "weight_bytes": 42991616,
+                      "logical_bytes": 43261952
+                    },
+                    "sample_partial": {
+                      "count": 1,
+                      "gpu_ms": 0.010623999999999988,
+                      "weight_bytes": 0,
+                      "logical_bytes": 264192
+                    },
+                    "sample_final": {
+                      "count": 1,
+                      "gpu_ms": 0.0052479999999999975,
+                      "weight_bytes": 0,
+                      "logical_bytes": 2056
+                    }
+                  },
+                  "dispatches": 80
+                },
+                "batched_table": {
+                  "sum_gpu_ms": 0.9268480000000002,
+                  "split_fraction": 0.15531698893300339,
+                  "split_pass": false,
+                  "kinds": {
+                    "embed": {
+                      "count": 1,
+                      "gpu_ms": 0.00972799999999999,
+                      "weight_bytes": 0,
+                      "logical_bytes": 4756
+                    },
+                    "norm_matvec": {
+                      "count": 8,
+                      "gpu_ms": 0.10412799999999978,
+                      "weight_bytes": 15728640,
+                      "logical_bytes": 15843328
+                    },
+                    "conv_core": {
+                      "count": 8,
+                      "gpu_ms": 0.034751999999999963,
+                      "weight_bytes": 0,
+                      "logical_bytes": 262144
+                    },
+                    "matvec_residual": {
+                      "count": 14,
+                      "gpu_ms": 0.1046399999999998,
+                      "weight_bytes": 9175040,
+                      "logical_bytes": 9318400
+                    },
+                    "mlp_fused": {
+                      "count": 14,
+                      "gpu_ms": 0.2728320000000007,
+                      "weight_bytes": 68812800,
+                      "logical_bytes": 73572352
+                    },
+                    "fold": {
+                      "count": 14,
+                      "gpu_ms": 0.0809599999999999,
+                      "weight_bytes": 0,
+                      "logical_bytes": 4702208
+                    },
+                    "attn_proj": {
+                      "count": 6,
+                      "gpu_ms": 0.06892799999999986,
+                      "weight_bytes": 7864320,
+                      "logical_bytes": 7962624
+                    },
+                    "attn_core_flash": {
+                      "count": 6,
+                      "gpu_ms": 0.09228799999999984,
+                      "weight_bytes": 0,
+                      "logical_bytes": 3199488
+                    },
+                    "attn_merge": {
+                      "count": 6,
+                      "gpu_ms": 0.03283199999999996,
+                      "weight_bytes": 0,
+                      "logical_bytes": 430080
+                    },
+                    "norm_head": {
+                      "count": 1,
+                      "gpu_ms": 0.10643200000000029,
+                      "weight_bytes": 42991616,
+                      "logical_bytes": 43261952
+                    },
+                    "sample_partial": {
+                      "count": 1,
+                      "gpu_ms": 0.012991999999999984,
+                      "weight_bytes": 0,
+                      "logical_bytes": 264192
+                    },
+                    "sample_final": {
+                      "count": 1,
+                      "gpu_ms": 0.00633599999999999,
+                      "weight_bytes": 0,
+                      "logical_bytes": 2056
+                    }
+                  },
+                  "dispatches": 80
+                }
+              },
+              "dispatches_per_token": 80.0,
+              "submits_per_token": 1.0,
+              "live_gpu_bytes": 201265440,
+              "median_target_1500": false,
+              "median_target_2000": false
+            },
+            {
+              "arm": "MIX_M40",
+              "blocks": 16,
+              "tokens_per_block": 64,
+              "wall_ms": 0.7216406241059303,
+              "wall_ci_95": [
+                0.7155859395861626,
+                0.7261718660593033
+              ],
+              "tps": 1385.7312997573276,
+              "tps_ci_95": [
+                1377.084470962325,
+                1397.4561889496035
+              ],
+              "gpu_busy_ms": 0.710016,
+              "paired_control_wall_ms": 0.804335929453373,
+              "paired_cost_ratio": 0.8966465429084898,
+              "paired_cost_ratio_ci_95": [
+                0.8859318060671719,
+                0.9050618627937355
+              ],
+              "paired_speedup": 1.1152666654535446,
+              "exact64_pass": true,
+              "thermal_drift": 0.024621018276443807,
+              "thermal_pass": true,
+              "tables": {
+                "table": {
+                  "sum_gpu_ms": 0.861568,
+                  "split_fraction": 0.21001034994082257,
+                  "split_pass": false,
+                  "kinds": {
+                    "embed": {
+                      "count": 1,
+                      "gpu_ms": 0.01663999999999998,
+                      "weight_bytes": 0,
+                      "logical_bytes": 4756
+                    },
+                    "conv_proj_core": {
+                      "count": 8,
+                      "gpu_ms": 0.10662399999999982,
+                      "weight_bytes": 15728640,
+                      "logical_bytes": 16007168
+                    },
+                    "matvec_residual": {
+                      "count": 14,
+                      "gpu_ms": 0.1112319999999999,
+                      "weight_bytes": 9175040,
+                      "logical_bytes": 9318400
+                    },
+                    "mlp_fused": {
+                      "count": 14,
+                      "gpu_ms": 0.2716159999999994,
+                      "weight_bytes": 68812800,
+                      "logical_bytes": 71278592
+                    },
+                    "fold": {
+                      "count": 14,
+                      "gpu_ms": 0.07398399999999998,
+                      "weight_bytes": 0,
+                      "logical_bytes": 2408448
+                    },
+                    "attn_proj": {
+                      "count": 6,
+                      "gpu_ms": 0.061055999999999916,
+                      "weight_bytes": 7864320,
+                      "logical_bytes": 7962624
+                    },
+                    "attn_core_flash": {
+                      "count": 6,
+                      "gpu_ms": 0.04991999999999994,
+                      "weight_bytes": 0,
+                      "logical_bytes": 7881216
+                    },
+                    "attn_merge": {
+                      "count": 6,
+                      "gpu_ms": 0.03903999999999998,
+                      "weight_bytes": 0,
+                      "logical_bytes": 847872
+                    },
+                    "norm_head": {
+                      "count": 1,
+                      "gpu_ms": 0.10841600000000104,
+                      "weight_bytes": 42991616,
+                      "logical_bytes": 43261952
+                    },
+                    "sample_partial": {
+                      "count": 1,
+                      "gpu_ms": 0.01779199999999999,
+                      "weight_bytes": 0,
+                      "logical_bytes": 264192
+                    },
+                    "sample_final": {
+                      "count": 1,
+                      "gpu_ms": 0.005247999999999997,
+                      "weight_bytes": 0,
+                      "logical_bytes": 2056
+                    }
+                  },
+                  "dispatches": 72
+                },
+                "batched_table": {
+                  "sum_gpu_ms": 0.8353920000000002,
+                  "split_fraction": 0.17373744743837508,
+                  "split_pass": false,
+                  "kinds": {
+                    "embed": {
+                      "count": 1,
+                      "gpu_ms": 0.005695999999999991,
+                      "weight_bytes": 0,
+                      "logical_bytes": 4756
+                    },
+                    "conv_proj_core": {
+                      "count": 8,
+                      "gpu_ms": 0.10502399999999978,
+                      "weight_bytes": 15728640,
+                      "logical_bytes": 16007168
+                    },
+                    "matvec_residual": {
+                      "count": 14,
+                      "gpu_ms": 0.10719999999999984,
+                      "weight_bytes": 9175040,
+                      "logical_bytes": 9318400
+                    },
+                    "mlp_fused": {
+                      "count": 14,
+                      "gpu_ms": 0.26681600000000055,
+                      "weight_bytes": 68812800,
+                      "logical_bytes": 71278592
+                    },
+                    "fold": {
+                      "count": 14,
+                      "gpu_ms": 0.07628799999999991,
+                      "weight_bytes": 0,
+                      "logical_bytes": 2408448
+                    },
+                    "attn_proj": {
+                      "count": 6,
+                      "gpu_ms": 0.06348799999999988,
+                      "weight_bytes": 7864320,
+                      "logical_bytes": 7962624
+                    },
+                    "attn_core_flash": {
+                      "count": 6,
+                      "gpu_ms": 0.05100799999999991,
+                      "weight_bytes": 0,
+                      "logical_bytes": 7881216
+                    },
+                    "attn_merge": {
+                      "count": 6,
+                      "gpu_ms": 0.03731199999999995,
+                      "weight_bytes": 0,
+                      "logical_bytes": 847872
+                    },
+                    "norm_head": {
+                      "count": 1,
+                      "gpu_ms": 0.10598400000000027,
+                      "weight_bytes": 42991616,
+                      "logical_bytes": 43261952
+                    },
+                    "sample_partial": {
+                      "count": 1,
+                      "gpu_ms": 0.01055999999999998,
+                      "weight_bytes": 0,
+                      "logical_bytes": 264192
+                    },
+                    "sample_final": {
+                      "count": 1,
+                      "gpu_ms": 0.006015999999999991,
+                      "weight_bytes": 0,
+                      "logical_bytes": 2056
+                    }
+                  },
+                  "dispatches": 72
+                }
+              },
+              "dispatches_per_token": 72.0,
+              "submits_per_token": 1.0,
+              "live_gpu_bytes": 201265440,
+              "median_target_1500": false,
+              "median_target_2000": false
+            }
+          ],
+          "validation_errors": [],
+          "device_lost": [],
+          "environment": {
+            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+            "cross_origin_isolated": true,
+            "timer_resolution_ms": 0.0049991607666015625,
+            "hardware_concurrency": 16,
+            "webgpu": true
+          },
+          "protocol": {
+            "interleave": "round_robin",
+            "execution_order": [
+              {
+                "block": 0,
+                "arm": "N80",
+                "control_first": false
+              },
+              {
+                "block": 0,
+                "arm": "MIX_M40",
+                "control_first": false
+              },
+              {
+                "block": 1,
+                "arm": "MIX_M40",
+                "control_first": true
+              },
+              {
+                "block": 1,
+                "arm": "N80",
+                "control_first": true
+              },
+              {
+                "block": 2,
+                "arm": "MIX_M40",
+                "control_first": false
+              },
+              {
+                "block": 2,
+                "arm": "N80",
+                "control_first": false
+              },
+              {
+                "block": 3,
+                "arm": "N80",
+                "control_first": true
+              },
+              {
+                "block": 3,
+                "arm": "MIX_M40",
+                "control_first": true
+              },
+              {
+                "block": 4,
+                "arm": "N80",
+                "control_first": false
+              },
+              {
+                "block": 4,
+                "arm": "MIX_M40",
+                "control_first": false
+              },
+              {
+                "block": 5,
+                "arm": "MIX_M40",
+                "control_first": true
+              },
+              {
+                "block": 5,
+                "arm": "N80",
+                "control_first": true
+              },
+              {
+                "block": 6,
+                "arm": "MIX_M40",
+                "control_first": false
+              },
+              {
+                "block": 6,
+                "arm": "N80",
+                "control_first": false
+              },
+              {
+                "block": 7,
+                "arm": "N80",
+                "control_first": true
+              },
+              {
+                "block": 7,
+                "arm": "MIX_M40",
+                "control_first": true
+              },
+              {
+                "block": 8,
+                "arm": "N80",
+                "control_first": false
+              },
+              {
+                "block": 8,
+                "arm": "MIX_M40",
+                "control_first": false
+              },
+              {
+                "block": 9,
+                "arm": "MIX_M40",
+                "control_first": true
+              },
+              {
+                "block": 9,
+                "arm": "N80",
+                "control_first": true
+              },
+              {
+                "block": 10,
+                "arm": "MIX_M40",
+                "control_first": false
+              },
+              {
+                "block": 10,
+                "arm": "N80",
+                "control_first": false
+              },
+              {
+                "block": 11,
+                "arm": "N80",
+                "control_first": true
+              },
+              {
+                "block": 11,
+                "arm": "MIX_M40",
+                "control_first": true
+              },
+              {
+                "block": 12,
+                "arm": "N80",
+                "control_first": false
+              },
+              {
+                "block": 12,
+                "arm": "MIX_M40",
+                "control_first": false
+              },
+              {
+                "block": 13,
+                "arm": "MIX_M40",
+                "control_first": true
+              },
+              {
+                "block": 13,
+                "arm": "N80",
+                "control_first": true
+              },
+              {
+                "block": 14,
+                "arm": "MIX_M40",
+                "control_first": false
+              },
+              {
+                "block": 14,
+                "arm": "N80",
+                "control_first": false
+              },
+              {
+                "block": 15,
+                "arm": "N80",
+                "control_first": true
+              },
+              {
+                "block": 15,
+                "arm": "MIX_M40",
+                "control_first": true
+              }
+            ],
+            "serial_reps": 512,
+            "batched_reps": 1024
+          }
+        }
+      ]
+    },
+    "gates": {
+      "fullscreen_1500_measured": true,
+      "fullscreen_1500_ci_upper_pass": true,
+      "fullscreen_2000_measured": false,
+      "full_correctness": true,
+      "thermal_and_runtime": true,
+      "split": false,
+      "adoption": "NO_VERDICT_SPLIT"
+    }
+  },
+  "B1_11a": {
+    "status": "PRICE_MEASURED_ENV_OR_THERMAL_NOT_ADJUDICABLE",
+    "mechanism": {
+      "registered_reading": "ATOMICS_ONLY_OBSERVED",
+      "passing_pattern": "W2_R4",
+      "passing_plain_read_patterns": 0,
+      "hoisting_vs_L1": "NOT_IDENTIFIED",
+      "reason": "Fresh addresses, flag-dependent addresses and their combination all failed. The legal all-atomic cell passed; mixed atomic/plain cells cannot isolate write versus read side under this API.",
+      "desk_priors": {
+        "hoisting": 0.4,
+        "L1_staleness": 0.4,
+        "atomics_only": 0.15,
+        "nothing": 0.05
+      }
+    },
+    "gates": {
+      "DEAD_STACK": false,
+      "DEAD_PRICE": false,
+      "MEMORY_CONTRACT_PASS": true,
+      "P0_GO": false,
+      "P1_OPEN": false,
+      "ADOPT": 0,
+      "fired": "MEASURED_PRICE_PRECONDITION_STOP"
+    },
+    "P0-D": {
+      "depths_and_WG": [
+        {
+          "positions": 192,
+          "WG": 512,
+          "pattern": "W2_R4",
+          "pool": 200,
+          "baseline_gpu_ms": 0.6164669824218751,
+          "baseline_t_AR_wall_ms": 0.6191748045384884,
+          "chain_floor_ms": 0.07617482709613696,
+          "hop_72_ms": 0.06070387977392449,
+          "chain_recovery_ms": 0.01547094732221247,
+          "hop_source_WG": 512,
+          "WG1024_hop_extrapolated": false,
+          "tails_ms": 0.02475852156506856,
+          "overlap_ms": 0,
+          "maximal_overlap_bound_ms": 0.09090543617463853,
+          "tax_geometry_ms": 0.026229237304687514,
+          "tax_common_entry_and_mapping_ms": 0.6310156230468748,
+          "tax_common_entry_and_mapping_CI95_ms": [
+            0.6273087812500002,
+            0.6347317070312493
+          ],
+          "tax_U_ms": 0.6572448603515623,
+          "tax_C_total_ms": 0.10074126562499919,
+          "tax_C_total_CI95_ms": [
+            0.09697983496093798,
+            0.1034015263671888
+          ],
+          "tax_U_plus_C_ms": 0.7579861259765615,
+          "gain_net_ms": -0.7177566570892804,
+          "gain_net_CI95_ms": [
+            -0.7216309426725087,
+            -0.7136205194411256
+          ],
+          "gain_net_maximal_overlap_ms": -0.6268512209146418,
+          "gain_net_maximal_overlap_CI95_ms": [
+            -0.6307255064978702,
+            -0.6227150832664871
+          ],
+          "maximal_overlap_gain_per_block_ms": [
+            -0.6265086418130801,
+            -0.620404065641206,
+            -0.6231543957193308,
+            -0.6256051925943307,
+            -0.6298843332193307,
+            -0.6280367902505815,
+            -0.6249058371255802,
+            -0.6296144425943302,
+            -0.6245802238443303,
+            -0.6329466027505799,
+            -0.6260588781412055,
+            -0.6249545617349561,
+            -0.62729234884433,
+            -0.6285082980630805,
+            -0.6306050129068306,
+            -0.6271938000162038
+          ],
+          "maximal_overlap_best_block_gain_ms": -0.620404065641206,
+          "inclusive_idle_and_overlap_gain_ms": -0.29368450380362465,
+          "entire_baseline_time_recovered_zero_hop_bound_ms": -0.1415191435546863,
+          "predicted_t_mega_ms": 1.3342236395111555,
+          "predicted_t_mega_maximal_overlap_ms": 1.2433182033365169,
+          "GO_threshold_ms": 0.06,
+          "DEAD_PRICE_model": true,
+          "thermal_pass_10pct": false,
+          "largest_negative_term": "COMMON_ENTRY_POINT_AND_RESOURCE_MAPPING",
+          "CI_scope": "Joint resampling of all paired block indices and hop blocks; fixed timestamp-based T model."
+        },
+        {
+          "positions": 192,
+          "WG": 1024,
+          "pattern": "W2_R4",
+          "pool": 120,
+          "baseline_gpu_ms": 0.6141992392578124,
+          "baseline_t_AR_wall_ms": 0.6169726559892297,
+          "chain_floor_ms": 0.07617482709613696,
+          "hop_72_ms": 0.06070387977392449,
+          "chain_recovery_ms": 0.01547094732221247,
+          "hop_source_WG": 512,
+          "WG1024_hop_extrapolated": true,
+          "tails_ms": 0.029487610023586793,
+          "overlap_ms": 0,
+          "maximal_overlap_bound_ms": 0.09052388301043074,
+          "tax_geometry_ms": 0.05748447851562455,
+          "tax_common_entry_and_mapping_ms": 1.0494449375000006,
+          "tax_common_entry_and_mapping_CI95_ms": [
+            1.044800517578125,
+            1.0543308964843752
+          ],
+          "tax_U_ms": 1.1069294160156251,
+          "tax_C_total_ms": 0.149418698242187,
+          "tax_C_total_CI95_ms": [
+            0.1452562587890629,
+            0.15242272949218738
+          ],
+          "tax_U_plus_C_ms": 1.2563481142578121,
+          "gain_net_ms": -1.2113895569120128,
+          "gain_net_CI95_ms": [
+            -1.215437393665744,
+            -1.20680800962118
+          ],
+          "gain_net_maximal_overlap_ms": -1.120865673901582,
+          "gain_net_maximal_overlap_CI95_ms": [
+            -1.1249135106553134,
+            -1.116284126610749
+          ],
+          "maximal_overlap_gain_per_block_ms": [
+            -1.1251087315187698,
+            -1.1142463565187701,
+            -1.116262303784396,
+            -1.11752966120627,
+            -1.1136108780031446,
+            -1.1275464014406449,
+            -1.11960683308127,
+            -1.1215201514406452,
+            -1.1071060225343952,
+            -1.12155208308127,
+            -1.125864596753145,
+            -1.1205066201906437,
+            -1.1212247276125207,
+            -1.1201973819093958,
+            -1.1232656944093937,
+            -1.1245795362062698
+          ],
+          "maximal_overlap_best_block_gain_ms": -1.1071060225343952,
+          "inclusive_idle_and_overlap_gain_ms": -0.812011452715888,
+          "entire_baseline_time_recovered_zero_hop_bound_ms": -0.6421488749999997,
+          "predicted_t_mega_ms": 1.8255887961698252,
+          "predicted_t_mega_maximal_overlap_ms": 1.7350649131593945,
+          "GO_threshold_ms": 0.06,
+          "DEAD_PRICE_model": true,
+          "thermal_pass_10pct": false,
+          "largest_negative_term": "COMMON_ENTRY_POINT_AND_RESOURCE_MAPPING",
+          "CI_scope": "Joint resampling of all paired block indices and hop blocks; fixed timestamp-based T model."
+        },
+        {
+          "positions": 1024,
+          "WG": 512,
+          "pattern": "W2_R4",
+          "pool": 200,
+          "baseline_gpu_ms": 1.0552176191406248,
+          "baseline_t_AR_wall_ms": 1.0583837889134884,
+          "chain_floor_ms": 0.07617482709613696,
+          "hop_72_ms": 0.06070387977392449,
+          "chain_recovery_ms": 0.01547094732221247,
+          "hop_source_WG": 512,
+          "WG1024_hop_extrapolated": false,
+          "tails_ms": 0.06766965883412727,
+          "overlap_ms": 0,
+          "maximal_overlap_bound_ms": 0.2271586538902116,
+          "tax_geometry_ms": 0.1403214648437502,
+          "tax_common_entry_and_mapping_ms": 1.3842314824218733,
+          "tax_common_entry_and_mapping_CI95_ms": [
+            1.1739486074218761,
+            1.6128621289062497
+          ],
+          "tax_U_ms": 1.5245529472656236,
+          "tax_C_total_ms": 0.16603645800781353,
+          "tax_C_total_CI95_ms": [
+            -0.054568767578124344,
+            0.48765199999999975
+          ],
+          "tax_U_plus_C_ms": 1.6905894052734372,
+          "gain_net_ms": -1.6074487991170974,
+          "gain_net_CI95_ms": [
+            -1.8728625228828046,
+            -1.4773111695549457
+          ],
+          "gain_net_maximal_overlap_ms": -1.3802901452268859,
+          "gain_net_maximal_overlap_CI95_ms": [
+            -1.6457038689925931,
+            -1.2501525156647342
+          ],
+          "maximal_overlap_gain_per_block_ms": [
+            -0.7734516540159482,
+            -0.9447044743284501,
+            -0.9478194821409482,
+            -1.406982556359698,
+            -1.2537922516721969,
+            -1.4313586422971984,
+            -2.3206714508909507,
+            -2.0814693708128225,
+            -1.6183159626096992,
+            -1.8856647926878238,
+            -1.3535977340940735,
+            -1.9871062907346972,
+            -1.209777093469073,
+            -1.5600483278440729,
+            -1.2712384430784487,
+            -1.350792527062826
+          ],
+          "maximal_overlap_best_block_gain_ms": -0.7734516540159482,
+          "inclusive_idle_and_overlap_gain_ms": -0.8278438965574831,
+          "entire_baseline_time_recovered_zero_hop_bound_ms": -0.6353717861328123,
+          "predicted_t_mega_ms": 2.6626664182577224,
+          "predicted_t_mega_maximal_overlap_ms": 2.435507764367511,
+          "GO_threshold_ms": 0.06,
+          "DEAD_PRICE_model": true,
+          "thermal_pass_10pct": false,
+          "largest_negative_term": "COMMON_ENTRY_POINT_AND_RESOURCE_MAPPING",
+          "CI_scope": "Joint resampling of all paired block indices and hop blocks; fixed timestamp-based T model."
+        },
+        {
+          "positions": 1024,
+          "WG": 1024,
+          "pattern": "W2_R4",
+          "pool": 120,
+          "baseline_gpu_ms": 0.8827385273437499,
+          "baseline_t_AR_wall_ms": 0.8856982411816716,
+          "chain_floor_ms": 0.07617482709613696,
+          "hop_72_ms": 0.06070387977392449,
+          "chain_recovery_ms": 0.01547094732221247,
+          "hop_source_WG": 512,
+          "WG1024_hop_extrapolated": true,
+          "tails_ms": 0.058520090948581904,
+          "overlap_ms": 0,
+          "maximal_overlap_bound_ms": 0.18713985324620047,
+          "tax_geometry_ms": 0.2267575068359372,
+          "tax_common_entry_and_mapping_ms": 2.672253708984376,
+          "tax_common_entry_and_mapping_CI95_ms": [
+            2.417814046875003,
+            3.357242964843751
+          ],
+          "tax_U_ms": 2.8990112158203134,
+          "tax_C_total_ms": 0.012738566406248708,
+          "tax_C_total_CI95_ms": [
+            -0.43492496289062643,
+            0.23373514257812822
+          ],
+          "tax_U_plus_C_ms": 2.911749782226562,
+          "gain_net_ms": -2.8377587439557677,
+          "gain_net_CI95_ms": [
+            -3.301865550398335,
+            -2.5543364456858
+          ],
+          "gain_net_maximal_overlap_ms": -2.650618890709567,
+          "gain_net_maximal_overlap_CI95_ms": [
+            -3.1147256971521347,
+            -2.3671965924395995
+          ],
+          "maximal_overlap_gain_per_block_ms": [
+            -1.856237987389255,
+            -1.8631940205923807,
+            -2.2047858272330045,
+            -2.3386427315298763,
+            -3.0318633955923793,
+            -3.686136864342381,
+            -3.111969637779878,
+            -3.932373815514251,
+            -3.4442300264517565,
+            -3.457720979576752,
+            -2.7558127100455048,
+            -2.872770579186133,
+            -2.3689737256705037,
+            -2.54542507137363,
+            -2.392882165123629,
+            -2.4473159522330064
+          ],
+          "maximal_overlap_best_block_gain_ms": -1.856237987389255,
+          "inclusive_idle_and_overlap_gain_ms": -2.22404990498638,
+          "entire_baseline_time_recovered_zero_hop_bound_ms": -2.0290112548828123,
+          "predicted_t_mega_ms": 3.7204972712995175,
+          "predicted_t_mega_maximal_overlap_ms": 3.533357418053317,
+          "GO_threshold_ms": 0.06,
+          "DEAD_PRICE_model": true,
+          "thermal_pass_10pct": false,
+          "largest_negative_term": "COMMON_ENTRY_POINT_AND_RESOURCE_MAPPING",
+          "CI_scope": "Joint resampling of all paired block indices and hop blocks; fixed timestamp-based T model."
+        }
+      ],
+      "depths": [
+        {
+          "positions": 192,
+          "WG": 512,
+          "pattern": "W2_R4",
+          "pool": 200,
+          "baseline_gpu_ms": 0.6164669824218751,
+          "baseline_t_AR_wall_ms": 0.6191748045384884,
+          "chain_floor_ms": 0.07617482709613696,
+          "hop_72_ms": 0.06070387977392449,
+          "chain_recovery_ms": 0.01547094732221247,
+          "hop_source_WG": 512,
+          "WG1024_hop_extrapolated": false,
+          "tails_ms": 0.02475852156506856,
+          "overlap_ms": 0,
+          "maximal_overlap_bound_ms": 0.09090543617463853,
+          "tax_geometry_ms": 0.026229237304687514,
+          "tax_common_entry_and_mapping_ms": 0.6310156230468748,
+          "tax_common_entry_and_mapping_CI95_ms": [
+            0.6273087812500002,
+            0.6347317070312493
+          ],
+          "tax_U_ms": 0.6572448603515623,
+          "tax_C_total_ms": 0.10074126562499919,
+          "tax_C_total_CI95_ms": [
+            0.09697983496093798,
+            0.1034015263671888
+          ],
+          "tax_U_plus_C_ms": 0.7579861259765615,
+          "gain_net_ms": -0.7177566570892804,
+          "gain_net_CI95_ms": [
+            -0.7216309426725087,
+            -0.7136205194411256
+          ],
+          "gain_net_maximal_overlap_ms": -0.6268512209146418,
+          "gain_net_maximal_overlap_CI95_ms": [
+            -0.6307255064978702,
+            -0.6227150832664871
+          ],
+          "maximal_overlap_gain_per_block_ms": [
+            -0.6265086418130801,
+            -0.620404065641206,
+            -0.6231543957193308,
+            -0.6256051925943307,
+            -0.6298843332193307,
+            -0.6280367902505815,
+            -0.6249058371255802,
+            -0.6296144425943302,
+            -0.6245802238443303,
+            -0.6329466027505799,
+            -0.6260588781412055,
+            -0.6249545617349561,
+            -0.62729234884433,
+            -0.6285082980630805,
+            -0.6306050129068306,
+            -0.6271938000162038
+          ],
+          "maximal_overlap_best_block_gain_ms": -0.620404065641206,
+          "inclusive_idle_and_overlap_gain_ms": -0.29368450380362465,
+          "entire_baseline_time_recovered_zero_hop_bound_ms": -0.1415191435546863,
+          "predicted_t_mega_ms": 1.3342236395111555,
+          "predicted_t_mega_maximal_overlap_ms": 1.2433182033365169,
+          "GO_threshold_ms": 0.06,
+          "DEAD_PRICE_model": true,
+          "thermal_pass_10pct": false,
+          "largest_negative_term": "COMMON_ENTRY_POINT_AND_RESOURCE_MAPPING",
+          "CI_scope": "Joint resampling of all paired block indices and hop blocks; fixed timestamp-based T model."
+        },
+        {
+          "positions": 1024,
+          "WG": 512,
+          "pattern": "W2_R4",
+          "pool": 200,
+          "baseline_gpu_ms": 1.0552176191406248,
+          "baseline_t_AR_wall_ms": 1.0583837889134884,
+          "chain_floor_ms": 0.07617482709613696,
+          "hop_72_ms": 0.06070387977392449,
+          "chain_recovery_ms": 0.01547094732221247,
+          "hop_source_WG": 512,
+          "WG1024_hop_extrapolated": false,
+          "tails_ms": 0.06766965883412727,
+          "overlap_ms": 0,
+          "maximal_overlap_bound_ms": 0.2271586538902116,
+          "tax_geometry_ms": 0.1403214648437502,
+          "tax_common_entry_and_mapping_ms": 1.3842314824218733,
+          "tax_common_entry_and_mapping_CI95_ms": [
+            1.1739486074218761,
+            1.6128621289062497
+          ],
+          "tax_U_ms": 1.5245529472656236,
+          "tax_C_total_ms": 0.16603645800781353,
+          "tax_C_total_CI95_ms": [
+            -0.054568767578124344,
+            0.48765199999999975
+          ],
+          "tax_U_plus_C_ms": 1.6905894052734372,
+          "gain_net_ms": -1.6074487991170974,
+          "gain_net_CI95_ms": [
+            -1.8728625228828046,
+            -1.4773111695549457
+          ],
+          "gain_net_maximal_overlap_ms": -1.3802901452268859,
+          "gain_net_maximal_overlap_CI95_ms": [
+            -1.6457038689925931,
+            -1.2501525156647342
+          ],
+          "maximal_overlap_gain_per_block_ms": [
+            -0.7734516540159482,
+            -0.9447044743284501,
+            -0.9478194821409482,
+            -1.406982556359698,
+            -1.2537922516721969,
+            -1.4313586422971984,
+            -2.3206714508909507,
+            -2.0814693708128225,
+            -1.6183159626096992,
+            -1.8856647926878238,
+            -1.3535977340940735,
+            -1.9871062907346972,
+            -1.209777093469073,
+            -1.5600483278440729,
+            -1.2712384430784487,
+            -1.350792527062826
+          ],
+          "maximal_overlap_best_block_gain_ms": -0.7734516540159482,
+          "inclusive_idle_and_overlap_gain_ms": -0.8278438965574831,
+          "entire_baseline_time_recovered_zero_hop_bound_ms": -0.6353717861328123,
+          "predicted_t_mega_ms": 2.6626664182577224,
+          "predicted_t_mega_maximal_overlap_ms": 2.435507764367511,
+          "GO_threshold_ms": 0.06,
+          "DEAD_PRICE_model": true,
+          "thermal_pass_10pct": false,
+          "largest_negative_term": "COMMON_ENTRY_POINT_AND_RESOURCE_MAPPING",
+          "CI_scope": "Joint resampling of all paired block indices and hop blocks; fixed timestamp-based T model."
+        }
+      ],
+      "missing_terms": [],
+      "overlap_measured": false,
+      "overlap_registration": "Zero for no-prefetch design; measured non-weight execution time bounds any benefit. No overlap implementation is needed when even the bound fails the registered threshold.",
+      "tax_C_includes": [
+        "atomic reads",
+        "atomic stores",
+        "f16 CAS packing",
+        "integration effects"
+      ],
+      "weight_bytes_directly_taxed": 0,
+      "parent_003_012_gain_basis": "DESK_PRIOR",
+      "prediction_is_measurement_of_persistent_kernel": false,
+      "status": "MEASURED_NOT_ADJUDICABLE",
+      "environment_pass": false,
+      "thermal_pass": false,
+      "negative_price_all_blocks_and_CI": true,
+      "observed_DEAD_PRICE_model": true,
+      "raw_pricing": "results/pricing_confirmation_v1_pricing.json"
+    },
+    "pricing_certificates": {
+      "U_C_raw": "results/pricing_full_v2.json",
+      "G_raw": "results/pricing_geometry_cert_v1.json",
+      "U_C_cases": 64,
+      "G_cases": 32,
+      "tokens_per_case": 256,
+      "all_greedy_sequences_exact": true,
+      "source_identity": true,
+      "determinism_tests": 8,
+      "determinism_runs_each": 3,
+      "atomic_pack_failures": 0,
+      "device_lost": 0,
+      "shader_sha256": {
+        "U512": "d1e2f2dcce96703b75d2e481318f63843a654c51006e90a9b08a68bd23b8b44e",
+        "C512": "b6dacabbc5679caf06b8cb0d3ccc19c96bb4e45790eca5f5b027843ef6532354",
+        "U1024": "3aee086fa436bde365f50c5c913f5ec8e6e489ba7a922882a3ca2fbd14e0bb71",
+        "C1024": "29a9e7fac70432393b74fd5a14d6be0e4246d55ac2ca651d93c56e40c6b87008"
+      }
+    },
+    "P0-M": {
+      "target_handoffs_per_cell": 100000,
+      "pool": 200,
+      "workgroup_size": 512,
+      "shared_bytes": 16384,
+      "payload_bytes": 4096,
+      "raw": "results/m_full_v1.json",
+      "cells": [
+        {
+          "cell": "W1_R1",
+          "status": "FAIL",
+          "target_handoffs": 100000,
+          "handoffs": 100,
+          "stale_words": 101728,
+          "checksum_failures": 100,
+          "timeouts": 0,
+          "footprint_errors": 0,
+          "pass": false,
+          "slots": 1,
+          "payload_allocation_bytes": 409600,
+          "validation_errors": [],
+          "device_lost": []
+        },
+        {
+          "cell": "W1_R2",
+          "status": "FAIL",
+          "target_handoffs": 100000,
+          "handoffs": 100,
+          "stale_words": 102400,
+          "checksum_failures": 100,
+          "timeouts": 0,
+          "footprint_errors": 0,
+          "pass": false,
+          "slots": 32,
+          "payload_allocation_bytes": 13107200,
+          "validation_errors": [],
+          "device_lost": []
+        },
+        {
+          "cell": "W1_R3",
+          "status": "FAIL",
+          "target_handoffs": 100000,
+          "handoffs": 100,
+          "stale_words": 102400,
+          "checksum_failures": 100,
+          "timeouts": 0,
+          "footprint_errors": 0,
+          "pass": false,
+          "slots": 2,
+          "payload_allocation_bytes": 819200,
+          "validation_errors": [],
+          "device_lost": []
+        },
+        {
+          "cell": "W1_R4",
+          "status": "NOT_EXPRESSIBLE",
+          "stale_words": null,
+          "handoffs": 0,
+          "pass": null,
+          "reason": "WGSL atomic types support only atomic operations; overlapping writable plain/atomic buffer bindings are invalid WebGPU."
+        },
+        {
+          "cell": "W2_R1",
+          "status": "NOT_EXPRESSIBLE",
+          "stale_words": null,
+          "handoffs": 0,
+          "pass": null,
+          "reason": "WGSL atomic types support only atomic operations; overlapping writable plain/atomic buffer bindings are invalid WebGPU."
+        },
+        {
+          "cell": "W2_R4",
+          "status": "PASS",
+          "target_handoffs": 100000,
+          "handoffs": 100000,
+          "stale_words": 0,
+          "checksum_failures": 0,
+          "timeouts": 0,
+          "footprint_errors": 0,
+          "pass": true,
+          "slots": 1,
+          "payload_allocation_bytes": 409600,
+          "validation_errors": [],
+          "device_lost": []
+        },
+        {
+          "cell": "W1_R5",
+          "status": "FAIL",
+          "target_handoffs": 100000,
+          "handoffs": 100,
+          "stale_words": 102352,
+          "checksum_failures": 100,
+          "timeouts": 0,
+          "footprint_errors": 0,
+          "pass": false,
+          "slots": 32,
+          "payload_allocation_bytes": 13107200,
+          "validation_errors": [],
+          "device_lost": []
+        }
+      ],
+      "passing_cell_single_dispatch_confirmation": {
+        "raw": "results/m_single_dispatch_v1.json",
+        "handoffs": 100000,
+        "dispatches": 1,
+        "gpu_ms": 26.509084,
+        "stale_words": 0,
+        "checksum_errors": 0,
+        "timeouts": 0,
+        "pass": true
+      },
+      "separate_dispatch_controls": [
+        {
+          "cell": "W1_R1",
+          "status": "PASS",
+          "target_handoffs": 1000,
+          "handoffs": 1000,
+          "stale_words": 0,
+          "checksum_failures": 0,
+          "timeouts": 0,
+          "footprint_errors": 0,
+          "pass": true,
+          "slots": 1,
+          "payload_allocation_bytes": 409600,
+          "validation_errors": [],
+          "device_lost": []
+        },
+        {
+          "cell": "W1_R2",
+          "status": "PASS",
+          "target_handoffs": 1000,
+          "handoffs": 1000,
+          "stale_words": 0,
+          "checksum_failures": 0,
+          "timeouts": 0,
+          "footprint_errors": 0,
+          "pass": true,
+          "slots": 1,
+          "payload_allocation_bytes": 409600,
+          "validation_errors": [],
+          "device_lost": []
+        },
+        {
+          "cell": "W1_R3",
+          "status": "PASS",
+          "target_handoffs": 1000,
+          "handoffs": 1000,
+          "stale_words": 0,
+          "checksum_failures": 0,
+          "timeouts": 0,
+          "footprint_errors": 0,
+          "pass": true,
+          "slots": 2,
+          "payload_allocation_bytes": 819200,
+          "validation_errors": [],
+          "device_lost": []
+        },
+        {
+          "cell": "W1_R4",
+          "status": "NOT_EXPRESSIBLE",
+          "stale_words": null,
+          "handoffs": 0,
+          "pass": null,
+          "reason": "WGSL atomic types support only atomic operations; overlapping writable plain/atomic buffer bindings are invalid WebGPU."
+        },
+        {
+          "cell": "W2_R1",
+          "status": "NOT_EXPRESSIBLE",
+          "stale_words": null,
+          "handoffs": 0,
+          "pass": null,
+          "reason": "WGSL atomic types support only atomic operations; overlapping writable plain/atomic buffer bindings are invalid WebGPU."
+        },
+        {
+          "cell": "W2_R4",
+          "status": "PASS",
+          "target_handoffs": 1000,
+          "handoffs": 1000,
+          "stale_words": 0,
+          "checksum_failures": 0,
+          "timeouts": 0,
+          "footprint_errors": 0,
+          "pass": true,
+          "slots": 1,
+          "payload_allocation_bytes": 409600,
+          "validation_errors": [],
+          "device_lost": []
+        },
+        {
+          "cell": "W1_R5",
+          "status": "PASS",
+          "target_handoffs": 1000,
+          "handoffs": 1000,
+          "stale_words": 0,
+          "checksum_failures": 0,
+          "timeouts": 0,
+          "footprint_errors": 0,
+          "pass": true,
+          "slots": 1,
+          "payload_allocation_bytes": 409600,
+          "validation_errors": [],
+          "device_lost": []
+        }
+      ],
+      "mixed_cells": {
+        "W1_R4": "NOT_EXPRESSIBLE",
+        "W2_R1": "NOT_EXPRESSIBLE"
+      }
+    },
+    "P0-F": {
+      "status": "COMPLETE",
+      "cell": "W2_R4",
+      "pool": 200,
+      "wg": 512,
+      "shared_bytes": 16384,
+      "target_handoffs": 100000,
+      "handoffs": 100000,
+      "timeouts": 0,
+      "stale_words": 0,
+      "checksum_errors": 0,
+      "footprint_errors": 0,
+      "pass": true,
+      "validation_errors": [],
+      "device_lost": []
+    },
+    "P0-F_single_dispatch_ms": 562.940778,
+    "P0-C": {
+      "bandwidths": [
+        {
+          "payload_bytes_per_workgroup": 4096,
+          "workgroups": 200,
+          "window_bytes": 819200,
+          "windows": 655,
+          "footprint_bytes": 536576000,
+          "plain_ms": 0.004143916666666667,
+          "atomic_ms": 0.004097041666666666,
+          "plain_GBps": 197.6873730568906,
+          "atomic_GBps": 199.94915030153874,
+          "paired_ratio": 0.9931863085194894,
+          "paired_delta_ms": -2.9479166666665935e-05,
+          "late_plain_drift": 0.01886299193597052,
+          "late_atomic_drift": 0.00594941471997068,
+          "lateA": {
+            "arm": "R1",
+            "lo": {
+              "gpu_ms": 0.017042,
+              "wall_ms": 0.14999961853027344
+            },
+            "hi": {
+              "gpu_ms": 0.065831,
+              "wall_ms": 0.2049999237060547
+            },
+            "ms": 0.00406575,
+            "GBps": 201.4880403369612
+          },
+          "lateB": {
+            "arm": "R4",
+            "lo": {
+              "gpu_ms": 0.017042,
+              "wall_ms": 0.15000057220458984
+            },
+            "hi": {
+              "gpu_ms": 0.065914,
+              "wall_ms": 0.19499969482421875
+            },
+            "ms": 0.004072666666666666,
+            "GBps": 201.14585038467837
+          },
+          "paired_ratio_CI95": [
+            0.9832792713176738,
+            0.9991290874659484
+          ],
+          "paired_delta_ms_CI95": [
+            -6.937499999999999e-05,
+            -3.5833333333328693e-06
+          ],
+          "reciprocal_bandwidth_ms_per_byte_difference": -5.722045898437587e-11,
+          "reciprocal_bandwidth_difference_CI95": [
+            -1.716613769531241e-10,
+            8.595784505208106e-12
+          ],
+          "paired_ms_per_byte_difference": -3.598531087239494e-11,
+          "paired_ms_per_byte_difference_CI95": [
+            -8.687337239583357e-11,
+            -4.3741861979161e-12
+          ],
+          "late_repeat_above_10pct": false
+        },
+        {
+          "payload_bytes_per_workgroup": 16384,
+          "workgroups": 200,
+          "window_bytes": 3276800,
+          "windows": 163,
+          "footprint_bytes": 534118400,
+          "plain_ms": 0.009269041666666667,
+          "atomic_ms": 0.009117875000000001,
+          "plain_GBps": 353.5209051636946,
+          "atomic_GBps": 359.3819831923556,
+          "paired_ratio": 0.99600349337857,
+          "paired_delta_ms": -3.73333333333354e-05,
+          "late_plain_drift": 0.036532902987993054,
+          "late_atomic_drift": 0.019023986765922207,
+          "lateA": {
+            "arm": "R1",
+            "lo": {
+              "gpu_ms": 0.038875,
+              "wall_ms": 0.17500019073486328
+            },
+            "hi": {
+              "gpu_ms": 0.14604,
+              "wall_ms": 0.28999996185302734
+            },
+            "ms": 0.008930416666666668,
+            "GBps": 366.9257686744739
+          },
+          "lateB": {
+            "arm": "R4",
+            "lo": {
+              "gpu_ms": 0.037707,
+              "wall_ms": 0.2049999237060547
+            },
+            "hi": {
+              "gpu_ms": 0.14504,
+              "wall_ms": 0.28999996185302734
+            },
+            "ms": 0.008944416666666668,
+            "GBps": 366.35144829642326
+          },
+          "paired_ratio_CI95": [
+            0.9772250033023744,
+            1.0042345517279554
+          ],
+          "paired_delta_ms_CI95": [
+            -0.00020833333333333467,
+            4.166666666666728e-05
+          ],
+          "reciprocal_bandwidth_ms_per_byte_difference": -4.613240559895801e-11,
+          "reciprocal_bandwidth_difference_CI95": [
+            -9.114583333333361e-11,
+            5.823771158854521e-12
+          ],
+          "paired_ms_per_byte_difference": -1.1393229166667297e-11,
+          "paired_ms_per_byte_difference_CI95": [
+            -6.357828776041707e-11,
+            1.271565755208352e-11
+          ],
+          "late_repeat_above_10pct": false
+        },
+        {
+          "payload_bytes_per_workgroup": 163840,
+          "workgroups": 200,
+          "window_bytes": 32768000,
+          "windows": 16,
+          "footprint_bytes": 524288000,
+          "plain_ms": 0.07061520833333333,
+          "atomic_ms": 0.0709555,
+          "plain_GBps": 464.03601679288874,
+          "atomic_GBps": 461.8105714144781,
+          "paired_ratio": 1.007007439800861,
+          "paired_delta_ms": 0.0004904791666666686,
+          "late_plain_drift": 0.04260590701365685,
+          "late_atomic_drift": 0.1478567552902874,
+          "lateA": {
+            "arm": "R1",
+            "lo": {
+              "gpu_ms": 0.283121,
+              "wall_ms": 0.49499988555908203
+            },
+            "hi": {
+              "gpu_ms": 1.166607,
+              "wall_ms": 1.3899993896484375
+            },
+            "ms": 0.07362383333333333,
+            "GBps": 445.07326658260575
+          },
+          "lateB": {
+            "arm": "R4",
+            "lo": {
+              "gpu_ms": 0.279037,
+              "wall_ms": 0.4700002670288086
+            },
+            "hi": {
+              "gpu_ms": 1.256398,
+              "wall_ms": 1.4749994277954102
+            },
+            "ms": 0.08144675,
+            "GBps": 402.3242179706373
+          },
+          "paired_ratio_CI95": [
+            0.9791437819384835,
+            1.023521097307618
+          ],
+          "paired_delta_ms_CI95": [
+            -0.0014825416666666702,
+            0.0016543750000000135
+          ],
+          "reciprocal_bandwidth_ms_per_byte_difference": 1.0384877522786642e-11,
+          "reciprocal_bandwidth_difference_CI95": [
+            -1.9017537434895654e-11,
+            3.5287221272786136e-11
+          ],
+          "paired_ms_per_byte_difference": 1.4968236287434953e-11,
+          "paired_ms_per_byte_difference_CI95": [
+            -4.5243581136067814e-11,
+            5.0487518310547287e-11
+          ],
+          "late_repeat_above_10pct": true
+        }
+      ],
+      "read_tax_by_depth": [
+        {
+          "positions": 192,
+          "pattern": "W2_R4",
+          "activation_source_load_bytes": 24112128,
+          "activation_unique_bytes": 18642948,
+          "bytes_by_measured_payload_bin": {
+            "4096": 20966400,
+            "16384": 3145728,
+            "163840": 0
+          },
+          "tax_C_read_ms": -0.0013448270312500172,
+          "tax_C_read_CI95_ms": [
+            -0.0037876029687500127,
+            6.417546874997297e-05
+          ],
+          "tax_C_read_paired_delta_alternative_ms": -0.0007903224218749833,
+          "tax_C_read_unique_byte_alternative_ms": -0.001057765541381851,
+          "all_bytes_single_bin_sensitivity_ms": {
+            "4096": -0.001379707031250021,
+            "16384": -0.0011123504687499922,
+            "163840": 0.00025040149609375443
+          },
+          "weight_bytes_taxed": 0,
+          "tax_C_total_ms": 0.10074126562499919,
+          "formula": "sum(bytes_in_bin * (1/BW_atomic_GBps - 1/BW_plain_GBps) / 1e6)",
+          "basis": "Source-counted task plan and reciprocal published median bandwidths. CI resamples paired ABAB blocks. Not a whole-token measurement.",
+          "tax_C_total_CI95_ms": [
+            0.09697983496093798,
+            0.1034015263671888
+          ],
+          "activation_write_bytes": 3684360,
+          "increment_beyond_read_microbenchmark_ms": 0.10208609265624921,
+          "integration_basis": "C512-U512 paired-control tax difference. Reads, stores, f16 CAS packing and common-pipeline interaction jointly measured; write-only attribution is not claimed."
+        },
+        {
+          "positions": 1024,
+          "pattern": "W2_R4",
+          "activation_source_load_bytes": 44559360,
+          "activation_unique_bytes": 28866564,
+          "bytes_by_measured_payload_bin": {
+            "4096": 13913088,
+            "16384": 30646272,
+            "163840": 0
+          },
+          "tax_C_read_ms": -0.0022098995312500023,
+          "tax_C_read_CI95_ms": [
+            -0.004562420625000004,
+            -0.0004191093750000003
+          ],
+          "tax_C_read_paired_delta_alternative_ms": -0.0008498267968750069,
+          "tax_C_read_unique_byte_alternative_ms": -0.0014859417913818433,
+          "all_bytes_single_bin_sensitivity_ms": {
+            "4096": -0.0025497070312500386,
+            "16384": -0.0020556304687499856,
+            "163840": 0.0004627434960937582
+          },
+          "weight_bytes_taxed": 0,
+          "tax_C_total_ms": 0.16603645800781353,
+          "formula": "sum(bytes_in_bin * (1/BW_atomic_GBps - 1/BW_plain_GBps) / 1e6)",
+          "basis": "Source-counted task plan and reciprocal published median bandwidths. CI resamples paired ABAB blocks. Not a whole-token measurement.",
+          "tax_C_total_CI95_ms": [
+            -0.054568767578124344,
+            0.48765199999999975
+          ],
+          "activation_write_bytes": 3684360,
+          "increment_beyond_read_microbenchmark_ms": 0.16824635753906353,
+          "integration_basis": "C512-U512 paired-control tax difference. Reads, stores, f16 CAS packing and common-pipeline interaction jointly measured; write-only attribution is not claimed."
+        }
+      ],
+      "activation_traffic": "results/activation_traffic.json",
+      "activation_prior_used": false,
+      "method": "Cold-window two-count GPU timestamp slope, 200 WG512, R1/R4 identical sums, ABAB. Read tax only; atomic producer store tax excluded.",
+      "raw": "results/c_confirmation_v1.json",
+      "initial_raw": "results/c_full_v1.json",
+      "cost_limitations": [
+        "160KiB late atomic repeat drift14.79%; retain uncertainty.",
+        "Bandwidth kernels use64 bytes of workgroup reduction memory; P0-M/F use16KiB.",
+        "Bootstrap intervals do not capture cross-session systematic effects; negative read taxes are not an adoption claim.",
+        "Read-only bandwidth taxes remain the original microbenchmark result; whole-model C-U supersedes them for the complete contract price."
+      ],
+      "full_contract_measurement": {
+        "raw": "results/pricing_confirmation_v1.json",
+        "pattern": "W2_R4",
+        "depths": [
+          {
+            "positions": 192,
+            "WG": 512,
+            "tax_C_total_ms": 0.10074126562499919,
+            "tax_C_total_CI95_ms": [
+              0.09697983496093798,
+              0.1034015263671888
+            ]
+          },
+          {
+            "positions": 192,
+            "WG": 1024,
+            "tax_C_total_ms": 0.149418698242187,
+            "tax_C_total_CI95_ms": [
+              0.1452562587890629,
+              0.15242272949218738
+            ]
+          },
+          {
+            "positions": 1024,
+            "WG": 512,
+            "tax_C_total_ms": 0.16603645800781353,
+            "tax_C_total_CI95_ms": [
+              -0.054568767578124344,
+              0.48765199999999975
+            ]
+          },
+          {
+            "positions": 1024,
+            "WG": 1024,
+            "tax_C_total_ms": 0.012738566406248708,
+            "tax_C_total_CI95_ms": [
+              -0.43492496289062643,
+              0.23373514257812822
+            ]
+          }
+        ],
+        "includes": [
+          "atomic reads",
+          "atomic stores",
+          "f16 CAS packing",
+          "integration effects"
+        ],
+        "weight_bytes_directly_taxed": 0,
+        "read_microbenchmark_does_not_predict_integration_cost": true
+      }
+    }
+  },
+  "sources": {
+    "B1_8": {
+      "file": "experiments/kernel_efficiency_b1_8/results/results.json",
+      "sha256": "31b3fafd8706b29ebc1cbb42e0e3f2b3d9c7356c9ff1b10b9ac7dc40c9fca234"
+    },
+    "B1_11a": {
+      "file": "experiments/visibility_contract_b1_11a/results.json",
+      "sha256": "2240914cb809a34552604c51e9c773f401c45ab8d1620d79b6f88ac50b9ec077"
+    }
+  },
+  "weight_sha256": "ca1fea89fd9f3ca7e5d6d5720705c96f457a92edd0cfc811cf8d9391ac784cb0"
+}

@@ -26,3 +26,6 @@ pnpm-debug.log*
 .wrangler/
 
 .alchemy/
+
+# Verified model transport chunks are restored from the canonical research blob.
+public/monarch/weights/

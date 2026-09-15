@@ -1,0 +1,1179 @@
+{
+  "runtime": {
+    "shape": {
+      "layerTypes": [
+        "conv",
+        "conv",
+        "attention",
+        "conv",
+        "attention",
+        "conv",
+        "attention",
+        "conv",
+        "attention",
+        "conv",
+        "attention",
+        "conv",
+        "attention",
+        "conv"
+      ],
+      "hidden": 1024,
+      "ffn": 2560,
+      "vocab": 65536,
+      "heads": 16,
+      "kvHeads": 8,
+      "headDim": 64,
+      "convCache": 3,
+      "quantBits": 4,
+      "quantBlock": 32
+    },
+    "weightsUrl": "/weights.bin",
+    "weightBytes": 168647680,
+    "sections": [
+      {
+        "name": "L0.conv.in_proj.quant",
+        "offset": 0,
+        "bytes": 1572864
+      },
+      {
+        "name": "L0.conv.in_proj.scales",
+        "offset": 1572864,
+        "bytes": 393216
+      },
+      {
+        "name": "L0.conv.out_proj.quant",
+        "offset": 1966080,
+        "bytes": 524288
+      },
+      {
+        "name": "L0.conv.out_proj.scales",
+        "offset": 2490368,
+        "bytes": 131072
+      },
+      {
+        "name": "L0.mlp.gate_up.quant",
+        "offset": 2621440,
+        "bytes": 2621440
+      },
+      {
+        "name": "L0.mlp.gate_up.scales",
+        "offset": 5242880,
+        "bytes": 655360
+      },
+      {
+        "name": "L0.mlp.down.quant",
+        "offset": 5898240,
+        "bytes": 1310720
+      },
+      {
+        "name": "L0.mlp.down.scales",
+        "offset": 7208960,
+        "bytes": 327680
+      },
+      {
+        "name": "L1.conv.in_proj.quant",
+        "offset": 7536640,
+        "bytes": 1572864
+      },
+      {
+        "name": "L1.conv.in_proj.scales",
+        "offset": 9109504,
+        "bytes": 393216
+      },
+      {
+        "name": "L1.conv.out_proj.quant",
+        "offset": 9502720,
+        "bytes": 524288
+      },
+      {
+        "name": "L1.conv.out_proj.scales",
+        "offset": 10027008,
+        "bytes": 131072
+      },
+      {
+        "name": "L1.mlp.gate_up.quant",
+        "offset": 10158080,
+        "bytes": 2621440
+      },
+      {
+        "name": "L1.mlp.gate_up.scales",
+        "offset": 12779520,
+        "bytes": 655360
+      },
+      {
+        "name": "L1.mlp.down.quant",
+        "offset": 13434880,
+        "bytes": 1310720
+      },
+      {
+        "name": "L1.mlp.down.scales",
+        "offset": 14745600,
+        "bytes": 327680
+      },
+      {
+        "name": "L2.attn.qkv.quant",
+        "offset": 15073280,
+        "bytes": 1048576
+      },
+      {
+        "name": "L2.attn.qkv.scales",
+        "offset": 16121856,
+        "bytes": 262144
+      },
+      {
+        "name": "L2.attn.o_proj.quant",
+        "offset": 16384000,
+        "bytes": 524288
+      },
+      {
+        "name": "L2.attn.o_proj.scales",
+        "offset": 16908288,
+        "bytes": 131072
+      },
+      {
+        "name": "L2.mlp.gate_up.quant",
+        "offset": 17039360,
+        "bytes": 2621440
+      },
+      {
+        "name": "L2.mlp.gate_up.scales",
+        "offset": 19660800,
+        "bytes": 655360
+      },
+      {
+        "name": "L2.mlp.down.quant",
+        "offset": 20316160,
+        "bytes": 1310720
+      },
+      {
+        "name": "L2.mlp.down.scales",
+        "offset": 21626880,
+        "bytes": 327680
+      },
+      {
+        "name": "L3.conv.in_proj.quant",
+        "offset": 21954560,
+        "bytes": 1572864
+      },
+      {
+        "name": "L3.conv.in_proj.scales",
+        "offset": 23527424,
+        "bytes": 393216
+      },
+      {
+        "name": "L3.conv.out_proj.quant",
+        "offset": 23920640,
+        "bytes": 524288
+      },
+      {
+        "name": "L3.conv.out_proj.scales",
+        "offset": 24444928,
+        "bytes": 131072
+      },
+      {
+        "name": "L3.mlp.gate_up.quant",
+        "offset": 24576000,
+        "bytes": 2621440
+      },
+      {
+        "name": "L3.mlp.gate_up.scales",
+        "offset": 27197440,
+        "bytes": 655360
+      },
+      {
+        "name": "L3.mlp.down.quant",
+        "offset": 27852800,
+        "bytes": 1310720
+      },
+      {
+        "name": "L3.mlp.down.scales",
+        "offset": 29163520,
+        "bytes": 327680
+      },
+      {
+        "name": "L4.attn.qkv.quant",
+        "offset": 29491200,
+        "bytes": 1048576
+      },
+      {
+        "name": "L4.attn.qkv.scales",
+        "offset": 30539776,
+        "bytes": 262144
+      },
+      {
+        "name": "L4.attn.o_proj.quant",
+        "offset": 30801920,
+        "bytes": 524288
+      },
+      {
+        "name": "L4.attn.o_proj.scales",
+        "offset": 31326208,
+        "bytes": 131072
+      },
+      {
+        "name": "L4.mlp.gate_up.quant",
+        "offset": 31457280,
+        "bytes": 2621440
+      },
+      {
+        "name": "L4.mlp.gate_up.scales",
+        "offset": 34078720,
+        "bytes": 655360
+      },
+      {
+        "name": "L4.mlp.down.quant",
+        "offset": 34734080,
+        "bytes": 1310720
+      },
+      {
+        "name": "L4.mlp.down.scales",
+        "offset": 36044800,
+        "bytes": 327680
+      },
+      {
+        "name": "L5.conv.in_proj.quant",
+        "offset": 36372480,
+        "bytes": 1572864
+      },
+      {
+        "name": "L5.conv.in_proj.scales",
+        "offset": 37945344,
+        "bytes": 393216
+      },
+      {
+        "name": "L5.conv.out_proj.quant",
+        "offset": 38338560,
+        "bytes": 524288
+      },
+      {
+        "name": "L5.conv.out_proj.scales",
+        "offset": 38862848,
+        "bytes": 131072
+      },
+      {
+        "name": "L5.mlp.gate_up.quant",
+        "offset": 38993920,
+        "bytes": 2621440
+      },
+      {
+        "name": "L5.mlp.gate_up.scales",
+        "offset": 41615360,
+        "bytes": 655360
+      },
+      {
+        "name": "L5.mlp.down.quant",
+        "offset": 42270720,
+        "bytes": 1310720
+      },
+      {
+        "name": "L5.mlp.down.scales",
+        "offset": 43581440,
+        "bytes": 327680
+      },
+      {
+        "name": "L6.attn.qkv.quant",
+        "offset": 43909120,
+        "bytes": 1048576
+      },
+      {
+        "name": "L6.attn.qkv.scales",
+        "offset": 44957696,
+        "bytes": 262144
+      },
+      {
+        "name": "L6.attn.o_proj.quant",
+        "offset": 45219840,
+        "bytes": 524288
+      },
+      {
+        "name": "L6.attn.o_proj.scales",
+        "offset": 45744128,
+        "bytes": 131072
+      },
+      {
+        "name": "L6.mlp.gate_up.quant",
+        "offset": 45875200,
+        "bytes": 2621440
+      },
+      {
+        "name": "L6.mlp.gate_up.scales",
+        "offset": 48496640,
+        "bytes": 655360
+      },
+      {
+        "name": "L6.mlp.down.quant",
+        "offset": 49152000,
+        "bytes": 1310720
+      },
+      {
+        "name": "L6.mlp.down.scales",
+        "offset": 50462720,
+        "bytes": 327680
+      },
+      {
+        "name": "L7.conv.in_proj.quant",
+        "offset": 50790400,
+        "bytes": 1572864
+      },
+      {
+        "name": "L7.conv.in_proj.scales",
+        "offset": 52363264,
+        "bytes": 393216
+      },
+      {
+        "name": "L7.conv.out_proj.quant",
+        "offset": 52756480,
+        "bytes": 524288
+      },
+      {
+        "name": "L7.conv.out_proj.scales",
+        "offset": 53280768,
+        "bytes": 131072
+      },
+      {
+        "name": "L7.mlp.gate_up.quant",
+        "offset": 53411840,
+        "bytes": 2621440
+      },
+      {
+        "name": "L7.mlp.gate_up.scales",
+        "offset": 56033280,
+        "bytes": 655360
+      },
+      {
+        "name": "L7.mlp.down.quant",
+        "offset": 56688640,
+        "bytes": 1310720
+      },
+      {
+        "name": "L7.mlp.down.scales",
+        "offset": 57999360,
+        "bytes": 327680
+      },
+      {
+        "name": "L8.attn.qkv.quant",
+        "offset": 58327040,
+        "bytes": 1048576
+      },
+      {
+        "name": "L8.attn.qkv.scales",
+        "offset": 59375616,
+        "bytes": 262144
+      },
+      {
+        "name": "L8.attn.o_proj.quant",
+        "offset": 59637760,
+        "bytes": 524288
+      },
+      {
+        "name": "L8.attn.o_proj.scales",
+        "offset": 60162048,
+        "bytes": 131072
+      },
+      {
+        "name": "L8.mlp.gate_up.quant",
+        "offset": 60293120,
+        "bytes": 2621440
+      },
+      {
+        "name": "L8.mlp.gate_up.scales",
+        "offset": 62914560,
+        "bytes": 655360
+      },
+      {
+        "name": "L8.mlp.down.quant",
+        "offset": 63569920,
+        "bytes": 1310720
+      },
+      {
+        "name": "L8.mlp.down.scales",
+        "offset": 64880640,
+        "bytes": 327680
+      },
+      {
+        "name": "L9.conv.in_proj.quant",
+        "offset": 65208320,
+        "bytes": 1572864
+      },
+      {
+        "name": "L9.conv.in_proj.scales",
+        "offset": 66781184,
+        "bytes": 393216
+      },
+      {
+        "name": "L9.conv.out_proj.quant",
+        "offset": 67174400,
+        "bytes": 524288
+      },
+      {
+        "name": "L9.conv.out_proj.scales",
+        "offset": 67698688,
+        "bytes": 131072
+      },
+      {
+        "name": "L9.mlp.gate_up.quant",
+        "offset": 67829760,
+        "bytes": 2621440
+      },
+      {
+        "name": "L9.mlp.gate_up.scales",
+        "offset": 70451200,
+        "bytes": 655360
+      },
+      {
+        "name": "L9.mlp.down.quant",
+        "offset": 71106560,
+        "bytes": 1310720
+      },
+      {
+        "name": "L9.mlp.down.scales",
+        "offset": 72417280,
+        "bytes": 327680
+      },
+      {
+        "name": "L10.attn.qkv.quant",
+        "offset": 72744960,
+        "bytes": 1048576
+      },
+      {
+        "name": "L10.attn.qkv.scales",
+        "offset": 73793536,
+        "bytes": 262144
+      },
+      {
+        "name": "L10.attn.o_proj.quant",
+        "offset": 74055680,
+        "bytes": 524288
+      },
+      {
+        "name": "L10.attn.o_proj.scales",
+        "offset": 74579968,
+        "bytes": 131072
+      },
+      {
+        "name": "L10.mlp.gate_up.quant",
+        "offset": 74711040,
+        "bytes": 2621440
+      },
+      {
+        "name": "L10.mlp.gate_up.scales",
+        "offset": 77332480,
+        "bytes": 655360
+      },
+      {
+        "name": "L10.mlp.down.quant",
+        "offset": 77987840,
+        "bytes": 1310720
+      },
+      {
+        "name": "L10.mlp.down.scales",
+        "offset": 79298560,
+        "bytes": 327680
+      },
+      {
+        "name": "L11.conv.in_proj.quant",
+        "offset": 79626240,
+        "bytes": 1572864
+      },
+      {
+        "name": "L11.conv.in_proj.scales",
+        "offset": 81199104,
+        "bytes": 393216
+      },
+      {
+        "name": "L11.conv.out_proj.quant",
+        "offset": 81592320,
+        "bytes": 524288
+      },
+      {
+        "name": "L11.conv.out_proj.scales",
+        "offset": 82116608,
+        "bytes": 131072
+      },
+      {
+        "name": "L11.mlp.gate_up.quant",
+        "offset": 82247680,
+        "bytes": 2621440
+      },
+      {
+        "name": "L11.mlp.gate_up.scales",
+        "offset": 84869120,
+        "bytes": 655360
+      },
+      {
+        "name": "L11.mlp.down.quant",
+        "offset": 85524480,
+        "bytes": 1310720
+      },
+      {
+        "name": "L11.mlp.down.scales",
+        "offset": 86835200,
+        "bytes": 327680
+      },
+      {
+        "name": "L12.attn.qkv.quant",
+        "offset": 87162880,
+        "bytes": 1048576
+      },
+      {
+        "name": "L12.attn.qkv.scales",
+        "offset": 88211456,
+        "bytes": 262144
+      },
+      {
+        "name": "L12.attn.o_proj.quant",
+        "offset": 88473600,
+        "bytes": 524288
+      },
+      {
+        "name": "L12.attn.o_proj.scales",
+        "offset": 88997888,
+        "bytes": 131072
+      },
+      {
+        "name": "L12.mlp.gate_up.quant",
+        "offset": 89128960,
+        "bytes": 2621440
+      },
+      {
+        "name": "L12.mlp.gate_up.scales",
+        "offset": 91750400,
+        "bytes": 655360
+      },
+      {
+        "name": "L12.mlp.down.quant",
+        "offset": 92405760,
+        "bytes": 1310720
+      },
+      {
+        "name": "L12.mlp.down.scales",
+        "offset": 93716480,
+        "bytes": 327680
+      },
+      {
+        "name": "L13.conv.in_proj.quant",
+        "offset": 94044160,
+        "bytes": 1572864
+      },
+      {
+        "name": "L13.conv.in_proj.scales",
+        "offset": 95617024,
+        "bytes": 393216
+      },
+      {
+        "name": "L13.conv.out_proj.quant",
+        "offset": 96010240,
+        "bytes": 524288
+      },
+      {
+        "name": "L13.conv.out_proj.scales",
+        "offset": 96534528,
+        "bytes": 131072
+      },
+      {
+        "name": "L13.mlp.gate_up.quant",
+        "offset": 96665600,
+        "bytes": 2621440
+      },
+      {
+        "name": "L13.mlp.gate_up.scales",
+        "offset": 99287040,
+        "bytes": 655360
+      },
+      {
+        "name": "L13.mlp.down.quant",
+        "offset": 99942400,
+        "bytes": 1310720
+      },
+      {
+        "name": "L13.mlp.down.scales",
+        "offset": 101253120,
+        "bytes": 327680
+      },
+      {
+        "name": "head.quant",
+        "offset": 101580800,
+        "bytes": 33554432
+      },
+      {
+        "name": "head.scales",
+        "offset": 135135232,
+        "bytes": 8388608
+      },
+      {
+        "name": "head.zero_points",
+        "offset": 143523840,
+        "bytes": 1048576
+      },
+      {
+        "name": "embed.quant",
+        "offset": 101580800,
+        "bytes": 33554432
+      },
+      {
+        "name": "embed.scales",
+        "offset": 135135232,
+        "bytes": 8388608
+      },
+      {
+        "name": "embed.zero_points",
+        "offset": 143523840,
+        "bytes": 1048576
+      },
+      {
+        "name": "L0.conv.in_proj.norm",
+        "offset": 144572416,
+        "bytes": 4096
+      },
+      {
+        "name": "L0.conv.core.taps",
+        "offset": 144576512,
+        "bytes": 12288
+      },
+      {
+        "name": "L0.mlp.gate_up.norm",
+        "offset": 144588800,
+        "bytes": 4096
+      },
+      {
+        "name": "L1.conv.in_proj.norm",
+        "offset": 144592896,
+        "bytes": 4096
+      },
+      {
+        "name": "L1.conv.core.taps",
+        "offset": 144596992,
+        "bytes": 12288
+      },
+      {
+        "name": "L1.mlp.gate_up.norm",
+        "offset": 144609280,
+        "bytes": 4096
+      },
+      {
+        "name": "L2.attn.qkv.norm",
+        "offset": 144613376,
+        "bytes": 4096
+      },
+      {
+        "name": "L2.attn.qkv.q_norm",
+        "offset": 144617472,
+        "bytes": 256
+      },
+      {
+        "name": "L2.attn.qkv.k_norm",
+        "offset": 144617728,
+        "bytes": 256
+      },
+      {
+        "name": "L2.mlp.gate_up.norm",
+        "offset": 144617984,
+        "bytes": 4096
+      },
+      {
+        "name": "L3.conv.in_proj.norm",
+        "offset": 144622080,
+        "bytes": 4096
+      },
+      {
+        "name": "L3.conv.core.taps",
+        "offset": 144626176,
+        "bytes": 12288
+      },
+      {
+        "name": "L3.mlp.gate_up.norm",
+        "offset": 144638464,
+        "bytes": 4096
+      },
+      {
+        "name": "L4.attn.qkv.norm",
+        "offset": 144642560,
+        "bytes": 4096
+      },
+      {
+        "name": "L4.attn.qkv.q_norm",
+        "offset": 144646656,
+        "bytes": 256
+      },
+      {
+        "name": "L4.attn.qkv.k_norm",
+        "offset": 144646912,
+        "bytes": 256
+      },
+      {
+        "name": "L4.mlp.gate_up.norm",
+        "offset": 144647168,
+        "bytes": 4096
+      },
+      {
+        "name": "L5.conv.in_proj.norm",
+        "offset": 144651264,
+        "bytes": 4096
+      },
+      {
+        "name": "L5.conv.core.taps",
+        "offset": 144655360,
+        "bytes": 12288
+      },
+      {
+        "name": "L5.mlp.gate_up.norm",
+        "offset": 144667648,
+        "bytes": 4096
+      },
+      {
+        "name": "L6.attn.qkv.norm",
+        "offset": 144671744,
+        "bytes": 4096
+      },
+      {
+        "name": "L6.attn.qkv.q_norm",
+        "offset": 144675840,
+        "bytes": 256
+      },
+      {
+        "name": "L6.attn.qkv.k_norm",
+        "offset": 144676096,
+        "bytes": 256
+      },
+      {
+        "name": "L6.mlp.gate_up.norm",
+        "offset": 144676352,
+        "bytes": 4096
+      },
+      {
+        "name": "L7.conv.in_proj.norm",
+        "offset": 144680448,
+        "bytes": 4096
+      },
+      {
+        "name": "L7.conv.core.taps",
+        "offset": 144684544,
+        "bytes": 12288
+      },
+      {
+        "name": "L7.mlp.gate_up.norm",
+        "offset": 144696832,
+        "bytes": 4096
+      },
+      {
+        "name": "L8.attn.qkv.norm",
+        "offset": 144700928,
+        "bytes": 4096
+      },
+      {
+        "name": "L8.attn.qkv.q_norm",
+        "offset": 144705024,
+        "bytes": 256
+      },
+      {
+        "name": "L8.attn.qkv.k_norm",
+        "offset": 144705280,
+        "bytes": 256
+      },
+      {
+        "name": "L8.mlp.gate_up.norm",
+        "offset": 144705536,
+        "bytes": 4096
+      },
+      {
+        "name": "L9.conv.in_proj.norm",
+        "offset": 144709632,
+        "bytes": 4096
+      },
+      {
+        "name": "L9.conv.core.taps",
+        "offset": 144713728,
+        "bytes": 12288
+      },
+      {
+        "name": "L9.mlp.gate_up.norm",
+        "offset": 144726016,
+        "bytes": 4096
+      },
+      {
+        "name": "L10.attn.qkv.norm",
+        "offset": 144730112,
+        "bytes": 4096
+      },
+      {
+        "name": "L10.attn.qkv.q_norm",
+        "offset": 144734208,
+        "bytes": 256
+      },
+      {
+        "name": "L10.attn.qkv.k_norm",
+        "offset": 144734464,
+        "bytes": 256
+      },
+      {
+        "name": "L10.mlp.gate_up.norm",
+        "offset": 144734720,
+        "bytes": 4096
+      },
+      {
+        "name": "L11.conv.in_proj.norm",
+        "offset": 144738816,
+        "bytes": 4096
+      },
+      {
+        "name": "L11.conv.core.taps",
+        "offset": 144742912,
+        "bytes": 12288
+      },
+      {
+        "name": "L11.mlp.gate_up.norm",
+        "offset": 144755200,
+        "bytes": 4096
+      },
+      {
+        "name": "L12.attn.qkv.norm",
+        "offset": 144759296,
+        "bytes": 4096
+      },
+      {
+        "name": "L12.attn.qkv.q_norm",
+        "offset": 144763392,
+        "bytes": 256
+      },
+      {
+        "name": "L12.attn.qkv.k_norm",
+        "offset": 144763648,
+        "bytes": 256
+      },
+      {
+        "name": "L12.mlp.gate_up.norm",
+        "offset": 144763904,
+        "bytes": 4096
+      },
+      {
+        "name": "L13.conv.in_proj.norm",
+        "offset": 144768000,
+        "bytes": 4096
+      },
+      {
+        "name": "L13.conv.core.taps",
+        "offset": 144772096,
+        "bytes": 12288
+      },
+      {
+        "name": "L13.mlp.gate_up.norm",
+        "offset": 144784384,
+        "bytes": 4096
+      },
+      {
+        "name": "head.norm",
+        "offset": 144788480,
+        "bytes": 4096
+      },
+      {
+        "name": "rope.cos",
+        "offset": 144792576,
+        "bytes": 131072
+      },
+      {
+        "name": "rope.sin",
+        "offset": 144923648,
+        "bytes": 131072
+      },
+      {
+        "name": "L0.mlp.down.kquant",
+        "offset": 145054720,
+        "bytes": 1310720
+      },
+      {
+        "name": "L0.mlp.down.kscales",
+        "offset": 146365440,
+        "bytes": 327680
+      },
+      {
+        "name": "L1.mlp.down.kquant",
+        "offset": 146693120,
+        "bytes": 1310720
+      },
+      {
+        "name": "L1.mlp.down.kscales",
+        "offset": 148003840,
+        "bytes": 327680
+      },
+      {
+        "name": "L2.mlp.down.kquant",
+        "offset": 148331520,
+        "bytes": 1310720
+      },
+      {
+        "name": "L2.mlp.down.kscales",
+        "offset": 149642240,
+        "bytes": 327680
+      },
+      {
+        "name": "L3.mlp.down.kquant",
+        "offset": 149969920,
+        "bytes": 1310720
+      },
+      {
+        "name": "L3.mlp.down.kscales",
+        "offset": 151280640,
+        "bytes": 327680
+      },
+      {
+        "name": "L4.mlp.down.kquant",
+        "offset": 151608320,
+        "bytes": 1310720
+      },
+      {
+        "name": "L4.mlp.down.kscales",
+        "offset": 152919040,
+        "bytes": 327680
+      },
+      {
+        "name": "L5.mlp.down.kquant",
+        "offset": 153246720,
+        "bytes": 1310720
+      },
+      {
+        "name": "L5.mlp.down.kscales",
+        "offset": 154557440,
+        "bytes": 327680
+      },
+      {
+        "name": "L6.mlp.down.kquant",
+        "offset": 154885120,
+        "bytes": 1310720
+      },
+      {
+        "name": "L6.mlp.down.kscales",
+        "offset": 156195840,
+        "bytes": 327680
+      },
+      {
+        "name": "L7.mlp.down.kquant",
+        "offset": 156523520,
+        "bytes": 1310720
+      },
+      {
+        "name": "L7.mlp.down.kscales",
+        "offset": 157834240,
+        "bytes": 327680
+      },
+      {
+        "name": "L8.mlp.down.kquant",
+        "offset": 158161920,
+        "bytes": 1310720
+      },
+      {
+        "name": "L8.mlp.down.kscales",
+        "offset": 159472640,
+        "bytes": 327680
+      },
+      {
+        "name": "L9.mlp.down.kquant",
+        "offset": 159800320,
+        "bytes": 1310720
+      },
+      {
+        "name": "L9.mlp.down.kscales",
+        "offset": 161111040,
+        "bytes": 327680
+      },
+      {
+        "name": "L10.mlp.down.kquant",
+        "offset": 161438720,
+        "bytes": 1310720
+      },
+      {
+        "name": "L10.mlp.down.kscales",
+        "offset": 162749440,
+        "bytes": 327680
+      },
+      {
+        "name": "L11.mlp.down.kquant",
+        "offset": 163077120,
+        "bytes": 1310720
+      },
+      {
+        "name": "L11.mlp.down.kscales",
+        "offset": 164387840,
+        "bytes": 327680
+      },
+      {
+        "name": "L12.mlp.down.kquant",
+        "offset": 164715520,
+        "bytes": 1310720
+      },
+      {
+        "name": "L12.mlp.down.kscales",
+        "offset": 166026240,
+        "bytes": 327680
+      },
+      {
+        "name": "L13.mlp.down.kquant",
+        "offset": 166353920,
+        "bytes": 1310720
+      },
+      {
+        "name": "L13.mlp.down.kscales",
+        "offset": 167664640,
+        "bytes": 327680
+      },
+      {
+        "name": "rope.cos_ext",
+        "offset": 167992320,
+        "bytes": 327680
+      },
+      {
+        "name": "rope.sin_ext",
+        "offset": 168320000,
+        "bytes": 327680
+      }
+    ],
+    "maxQueries": 1,
+    "maxPositions": 2560,
+    "samplePartials": 256,
+    "planPosition": 1024,
+    "maxTotalPositions": 2112,
+    "knee": [
+      {
+        "shape": "attn_o_proj",
+        "geometry": {
+          "workgroupSize": 128,
+          "subgroupSize": 32,
+          "rowsPerSubgroup": 1,
+          "subgroupsPerRow": 1
+        }
+      },
+      {
+        "shape": "mlp_down",
+        "geometry": {
+          "workgroupSize": 128,
+          "subgroupSize": 32,
+          "rowsPerSubgroup": 1,
+          "subgroupsPerRow": 1
+        }
+      },
+      {
+        "shape": "attn_qkv",
+        "geometry": {
+          "workgroupSize": 128,
+          "subgroupSize": 32,
+          "rowsPerSubgroup": 1,
+          "subgroupsPerRow": 1
+        }
+      },
+      {
+        "shape": "conv_in_proj",
+        "geometry": {
+          "workgroupSize": 128,
+          "subgroupSize": 32,
+          "rowsPerSubgroup": 4,
+          "subgroupsPerRow": 1
+        }
+      },
+      {
+        "shape": "mlp_gate_up",
+        "geometry": {
+          "workgroupSize": 128,
+          "subgroupSize": 32,
+          "rowsPerSubgroup": 1,
+          "subgroupsPerRow": 1
+        }
+      },
+      {
+        "shape": "head",
+        "geometry": {
+          "workgroupSize": 128,
+          "subgroupSize": 32,
+          "rowsPerSubgroup": 4,
+          "subgroupsPerRow": 1
+        }
+      }
+    ],
+    "dequantVariant": "carried",
+    "flashOptima": [
+      {
+        "positions": 192,
+        "blocks": 16
+      },
+      {
+        "positions": 1024,
+        "blocks": 16
+      },
+      {
+        "positions": 2048,
+        "blocks": 16
+      }
+    ],
+    "extraFeatures": [
+      "timestamp-query",
+      "shader-f16",
+      "subgroups"
+    ],
+    "powerPreference": "high-performance",
+    "expectedSubgroupSize": 32
+  },
+  "candidate": {
+    "key": "MIX_M40",
+    "flash": true,
+    "unfused": false,
+    "padding": 0,
+    "flashMode": "subgroup",
+    "matvec": {
+      "attn_o_proj": {
+        "geometry": {
+          "workgroupSize": 512,
+          "subgroupSize": 32,
+          "rowsPerSubgroup": 1,
+          "subgroupsPerRow": 1
+        },
+        "variant": "v3_both"
+      },
+      "conv_out_proj": {
+        "geometry": {
+          "workgroupSize": 256,
+          "subgroupSize": 32,
+          "rowsPerSubgroup": 1,
+          "subgroupsPerRow": 1
+        },
+        "variant": "v3_both"
+      },
+      "attn_qkv": {
+        "geometry": {
+          "workgroupSize": 512,
+          "subgroupSize": 32,
+          "rowsPerSubgroup": 4,
+          "subgroupsPerRow": 1
+        },
+        "variant": "carried"
+      },
+      "conv_in_proj": {
+        "geometry": {
+          "workgroupSize": 512,
+          "subgroupSize": 32,
+          "rowsPerSubgroup": 6,
+          "subgroupsPerRow": 1
+        },
+        "variant": "carried"
+      },
+      "head": {
+        "geometry": {
+          "workgroupSize": 256,
+          "subgroupSize": 32,
+          "rowsPerSubgroup": 8,
+          "subgroupsPerRow": 1
+        },
+        "variant": "v3_both"
+      }
+    },
+    "mlpMode": "subgroup",
+    "mlpSlices": 40,
+    "mlpWorkgroup": 1024,
+    "normSubgroup": true,
+    "convFuse": true,
+    "flashOnline": true,
+    "flashBlocks": 32,
+    "mlpPair": true,
+    "foldLanes": 16,
+    "foldSubgroup": true,
+    "mlpHalfDot": "gate",
+    "mlpHalfProduct": "down"
+  }
+}
