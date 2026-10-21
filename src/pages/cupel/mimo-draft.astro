@@ -5,7 +5,7 @@ import SiteFooter from '../../components/SiteFooter.astro';
 import PageHead from '../../components/PageHead.astro';
 import '../../styles/v9.css';
 
-// Every figure on this page is copied from the Phase 1 report and §1–8 of the mtime report.
+// Every figure on this page is copied from the Phase 1 report and §1–10 of the mtime report.
 const arms = [
 	{
 		arm: 'Uninformed',
@@ -95,7 +95,7 @@ const rankers = [
 						<div class="callout" role="note">
 							<span class="lbl">// draft</span>
 							<p>
-								<strong>DRAFT, not for publication.</strong> Sections pending the sham-list control.
+								<strong>DRAFT, not for publication.</strong> Final numbers, including the sham-list control in § 07.
 							</p>
 						</div>
 					</div>
@@ -367,9 +367,11 @@ const rankers = [
 							> or <code class="code-inline">find -newer</code>. Together these rate <strong>Low</strong>.
 						</p>
 						<p>
-							We would move it to Medium if the leak materially raised solve rate. None of the three arms
-							reached that bar. The forced-compliance arm came closest, at +12.3 pp on all 73 pairs against
-							a +15 pp threshold, and its interval allows up to about +26 pp. So Medium is not ruled out.
+							We would move it to Medium if the leak materially raised solve rate. None of the arms reached
+							that bar. The forced-compliance arm came closest, at +12.3 pp on all 73 pairs against a +15 pp
+							threshold, but its control saw an empty list. Against a same-length list of random files (§
+							07) the gap is 0.0 pp, with an upper bound of +12.3 pp. The final call is Low, and the finding
+							is an efficiency gain: the first edit comes about 3 steps sooner.
 						</p>
 						<p>
 							"Low" describes present-day use by agents that have not learned the trick. It does not
@@ -405,30 +407,126 @@ const rankers = [
 					</section>
 
 					<div class="secbar">
-						<span class="num">§ 07</span><span class="ttl">// section: sham-list control (pending)</span><span
-							class="meta">[TODO]</span
+						<span class="num">§ 07</span><span class="ttl">// sham-list control</span><span
+							class="meta">73 paired tasks</span
 						>
 					</div>
-					<section class="paper" aria-label="section: sham-list control (pending)">
-						<div class="callout" role="note">
-							<span class="lbl">// pending</span>
-							<p>
-								<strong>Section: sham-list control (pending).</strong> A run is in progress. This section
-								will hold the efficiency findings and the per-task gradient.
-							</p>
+					<section class="paper" aria-label="sham-list control">
+						<h2>Against a matched control, no solve-rate gain</h2>
+						<p>
+							The scaffold arm's NORM control saw the ranking header followed by an empty list. To test
+							whether the empty list, rather than the ranking, caused the gap, we ran the NORM condition
+							again with a sham list in place of the empty one: the same header, the same number of lines
+							and the same timestamps as the real list, but naming randomly chosen repository files. None
+							of the 73 sham lists contained a late-cluster file. Everything else matched the scaffold arm,
+							and the scaffold ORIG runs were reused as the comparison. The lists, the design and the
+							decision rule were fixed before any run: a gap of +15 pp or more on all 73 pairs would move
+							the rating to Medium.
+						</p>
+						<p>
+							Scaffold ORIG and the sham control each passed 51 of 73 (11 : 11 discordant, p = 1.0). The
+							difference is 0.0 pp, with a 95% interval of −12.3 to +12.3 pp, below the threshold. On the
+							pre-registered 30 it was 22 against 20 (+6.7 pp, −13.3 to +26.7). The sham control passed 51
+							against 42 for the empty-list control (+12.3 pp, 0.0 to +24.7). So the scaffold-arm gap came
+							from the empty list, not from the ranking.
+						</p>
+						<div class="table-wrap">
+							<table class="v9-table">
+								<caption>
+									Scaffold ORIG vs sham-list control, all 73 pairs · means or counts · paired bootstrap
+									95% CI for the difference
+								</caption>
+								<thead>
+									<tr class="head">
+										<th>Measure</th>
+										<th>ORIG list</th>
+										<th>Sham list</th>
+										<th>ORIG − sham</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="label">First-edit step (no edit counted as 41)</td>
+										<td>14.66</td>
+										<td>17.74</td>
+										<td>−3.08 (−5.01 to −1.23)</td>
+									</tr>
+									<tr>
+										<td class="label">Steps per run (failures counted at 40)</td>
+										<td>27.21</td>
+										<td>30.18</td>
+										<td>−2.97 (−5.73 to −0.11)</td>
+									</tr>
+									<tr>
+										<td class="label">Steps, both passed (40 pairs)</td>
+										<td>20.45</td>
+										<td>25.63</td>
+										<td>−5.18 (−8.23 to −2.33)</td>
+									</tr>
+									<tr>
+										<td class="label">Files opened before first edit</td>
+										<td>6.38</td>
+										<td>7.26</td>
+										<td>−0.88 (−1.59 to −0.23)</td>
+									</tr>
+									<tr>
+										<td class="label">Runs stopped at the step cap</td>
+										<td>11</td>
+										<td>20</td>
+										<td>−12.3 pp (−21.9 to −2.7)</td>
+									</tr>
+									<tr>
+										<td class="label">Runs that searched git history</td>
+										<td>13</td>
+										<td>30</td>
+										<td>−23.3 pp (−35.6 to −11.0)</td>
+									</tr>
+									<tr>
+										<td class="label">Cost per run</td>
+										<td>$0.0184</td>
+										<td>$0.0283</td>
+										<td>−$0.0098 (−$0.0173 to −$0.0028)</td>
+									</tr>
+									<tr>
+										<td class="label">Cost per solved task</td>
+										<td>$0.0264</td>
+										<td>$0.0405</td>
+										<td>–</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 						<p>
-							[TODO] Sham-list control: method and results. The scaffold arm's NORM control showed an empty
-							list; the stricter design the report recommends shows a
-							non-empty but uninformative list instead.
+							The ranking does buy speed. With the real list the agent made its first edit about 3 steps
+							sooner, opened fewer files first, searched git history less often, and hit the 40-step cap 11
+							times against 20. Where it edited did not change: the first edit was in a file on the real
+							list in 61 against 63 runs, and no sham-control run edited a file from the sham list. The sham
+							list did not mislead the agent, and the real list only got it to the right files sooner.
 						</p>
-						<p>[TODO] Efficiency findings.</p>
-						<p>[TODO] Per-task gradient.</p>
-						<p>[TODO] Public summary.</p>
 						<p>
-							[TODO] Disclosure record: date the findings were sent to Xiaomi, and the end of the 14-day
-							window.
+							The speed-up is clearest on the 37 tasks whose late cluster is short (1 to 10 files), includes
+							source and overlaps the tests or the upstream fix: the first edit came 3.19 steps sooner (1.22
+							to 5.30) and runs took 4.70 fewer steps (0.19 to 9.27), with 26 against 24 solved. On the other
+							36 tasks the first edit came 2.97 steps sooner, but the interval reaches zero (−0.06 to 6.25),
+							and they solved 25 against 27. By size of the late cluster, the first-edit gain was 3.33 steps
+							for 1–2 files (24 tasks), 3.63 for 3–4 files (30 tasks) and 1.56 for 5–10 files (16 tasks,
+							interval crossing zero). No subgroup shows a solve-rate gain. These splits are exploratory and
+							small.
 						</p>
+						<div class="callout" role="note">
+							<span class="lbl">// summary</span>
+							<p>
+								Xiaomi's fix for the git-history leak holds. A second leak, through file modification
+								times, is present in 85% of tasks (256 of 300), and ranking files by modification time put a
+								late-cluster file first in 72 of 73 tested tasks. An agent shown that ranking reaches the
+								right files about 3.1 steps sooner (95% CI 1.2 to 5.0), stops at the step cap less often (11
+								against 20 of 73) and costs less per solved task ($0.0264 against $0.0405), but it solves
+								no more tasks: 51 against 51 of 73, with an upper bound of +12.3 pp. Severity: Low (I2,
+								R4), with the efficiency gain as the finding. Normalising timestamps when building the
+								images removes the signal: afterwards no file was newer than the epoch in 292 of 292 runs
+								checked.
+							</p>
+						</div>
 					</section>
 
 					<footer class="foot">
