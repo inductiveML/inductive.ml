@@ -30,4 +30,4 @@ On 15 September 2026, headless Chromium in its normal configuration on the avail
 
 ## Page controls and rendering
 
-The page reuses `v9.css` and the existing experiment masthead; the lava shader renders a static frame so it does not run beside inference. Nine prompt presets live in `prompts.ts`. `MonarchMarkdown.tsx` renders streamed CommonMark and GFM output with react-markdown and remark-gfm. Raw HTML is disabled and model-supplied images render their alt text without remote requests. Run `bun run test:monarch` for formatting and untrusted-output regression checks.
+The page reuses `v9.css` and the shared page head; its halftone band and footer wordmark stay still so no animation runs beside inference. Nine prompt presets live in `prompts.ts`. `MonarchMarkdown.tsx` renders streamed CommonMark and GFM output with react-markdown and remark-gfm. Raw HTML is disabled and model-supplied images render their alt text without remote requests. Run `bun run test:monarch` for formatting and untrusted-output regression checks.

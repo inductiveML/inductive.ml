@@ -1,0 +1,107 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import PageHead from '../../components/PageHead.astro';
+import AuditRows from '../../components/AuditRows.astro';
+import { auditChecks } from '../../lib/site';
+
+const steps = [
+	{
+		k: 'Scope',
+		v: 'We agree with the vendor which environments, task suites and harness versions are in scope, and pin them so the results refer to something fixed.',
+	},
+	{
+		k: 'Audit',
+		v: 'We test every failure class above against the pinned environments. A candidate finding counts only once we have confirmed it.',
+	},
+	{
+		k: 'Private report',
+		v: 'The vendor receives the findings privately, with evidence, reproduction steps and proposed patches.',
+	},
+	{
+		k: 'Fix window',
+		v: 'The vendor has 14 days to fix. We re-check the fixes they ship.',
+	},
+	{
+		k: 'Public report',
+		v: 'We publish on day 15: the findings, what was fixed, and what was not.',
+	},
+];
+---
+
+<Layout
+	title="Cupel — Independent audits of RL environments · Inductive ML"
+	description="Cupel is the RL-environment auditing arm of Inductive ML. Environment vendors commission an independent audit before selling environments to frontier labs."
+>
+	<SiteHeader current="cupel" />
+	<main>
+		<PageHead back={{ href: '/', label: 'Inductive ML' }} kicker="Inductive ML · RL environment audits" animate={true}>
+			Cupel
+		</PageHead>
+
+		<div class="shell page-body">
+			<div class="reader article-body">
+				<p class="article-lede">
+					Cupel audits reinforcement-learning environments independently, before they are sold to frontier labs.
+					The report states whether the tasks can be solved honestly and whether they can be gamed in the ways
+					we know about.
+				</p>
+				<p>
+					The model is the smart-contract audit. An environment vendor commissions the audit, we test the
+					environment, the vendor fixes what we find, and the report is published. Labs buying the environment
+					can read the same report the vendor did. A cupel is the small dish an assayer uses to test the purity
+					of gold.
+				</p>
+
+				<h2><span class="sec-num">01</span>What an audit checks</h2>
+				<p>
+					An environment that can be gamed teaches a model to game it. Each audit tests for the known failure
+					classes below, and checks that the suite is worth training on at all.
+				</p>
+			</div>
+
+			<div class="checks">
+				{
+					auditChecks.map((c) => (
+						<div class="check">
+							<h3>{c.k}</h3>
+							<p>{c.v}</p>
+						</div>
+					))
+				}
+			</div>
+
+			<div class="reader article-body">
+				<h2><span class="sec-num">02</span>How it works</h2>
+				<ol class="steps">
+					{
+						steps.map((s, i) => (
+							<li>
+								<span class="sec-num">{String(i + 1).padStart(2, '0')}</span>
+								<p>
+									<strong>{s.k}.</strong> {s.v}
+								</p>
+							</li>
+						))
+					}
+				</ol>
+				<p>
+					The same disclosure policy applies to public environments we audit on our own initiative: the vendor
+					hears from us first, privately and with patches, and the report follows on day 15.
+				</p>
+
+				<h2><span class="sec-num">03</span>Audits and research</h2>
+				<AuditRows href={null} />
+
+				<h2><span class="sec-num">04</span>Contact</h2>
+				<p>
+					To commission an audit, or to report a problem with one of ours, write to
+					<a href="mailto:aditya@inductive.ml">aditya@inductive.ml</a>.
+				</p>
+				<p>Aditya Veer Parmar, Cupel / Inductive ML</p>
+			</div>
+		</div>
+	</main>
+	<SiteFooter animate={true} />
+</Layout>

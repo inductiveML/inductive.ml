@@ -1,0 +1,40 @@
+---
+import { audits, splitHighlight } from '../lib/site';
+
+interface Props {
+	/** Where each row links, or null to render the rows as plain text. */
+	href: string | null;
+}
+
+const { href } = Astro.props;
+
+const rows = audits.map((a) => ({
+	...a,
+	parts: a.highlight === null ? null : splitHighlight(a.note, a.highlight),
+}));
+const Tag = href === null ? 'div' : 'a';
+---
+
+<div class="list">
+	{
+		rows.map((a) => (
+			<Tag class="list-row audit-row" href={href ?? undefined}>
+				<span class="audit-label">{a.label.toUpperCase()}</span>
+				<span class="audit-body">
+					<span class="audit-title">{a.title}</span>
+					<span class="audit-note">
+						{a.parts === null ? (
+							a.note
+						) : (
+							<>
+								{a.parts.before}
+								<span class="mark">{a.parts.mark}</span>
+								{a.parts.after}
+							</>
+						)}
+					</span>
+				</span>
+			</Tag>
+		))
+	}
+</div>

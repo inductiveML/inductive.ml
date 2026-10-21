@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 
 // Crimson-dark reading surface palette (shared with v9.css / site.css tokens).
-const INK = '#fbf6ef'; // cream — primary draw colour on the dark canvas
-const INK_2 = '#e7d9cc';
-const MUTE = 'rgba(251,246,239,0.6)';
-const LINE = 'rgba(251,246,239,0.18)'; // grid / axis lines on dark
-const ACCENT = '#ff6a1a'; // ember
-const BG = '#140503'; // dark canvas ground
-const PAPER_BG_INV = '#140503'; // dark text drawn on filled (cream / ember) shapes
+const INK = '#1c1915'; // ink — primary draw colour on the paper ground
+const INK_2 = '#3f3933';
+const MUTE = '#5e574d';
+const LINE = 'rgba(28,25,21,0.18)'; // grid / axis lines on paper
+const ACCENT = '#b8381f'; // crimson
+const BG = '#f3eee4'; // paper canvas ground
+const PAPER_BG_INV = '#f3eee4'; // paper-coloured text drawn on filled (ink / crimson) shapes
 
 function Secbar({ num, ttl, meta, id }: { num: string; ttl: string; meta?: string; id?: string }) {
   return (
@@ -96,7 +96,7 @@ function StaircaseViz() {
             x="80"
             y="100"
             fontSize="11"
-            fontFamily="JetBrains Mono, monospace"
+            fontFamily="IBM Plex Mono, monospace"
             fill={INK}
             letterSpacing="2"
             style={{ opacity: isTransformed ? 0 : 0.6, transition: 'opacity 0.5s' }}
@@ -107,7 +107,7 @@ function StaircaseViz() {
             x="180"
             y="230"
             fontSize="11"
-            fontFamily="JetBrains Mono, monospace"
+            fontFamily="IBM Plex Mono, monospace"
             fill={ACCENT}
             letterSpacing="2"
             style={{ opacity: isTransformed ? 0 : 0.6, transition: 'opacity 0.5s' }}
@@ -119,7 +119,7 @@ function StaircaseViz() {
         <div style={{ maxWidth: '240px' }}>
           <div
             style={{
-              fontFamily: '"Space Grotesk", "Inter Tight", sans-serif',
+              fontFamily: '"Archivo", system-ui, sans-serif',
               fontSize: '60px',
               fontWeight: 500,
               letterSpacing: '-0.01em',
@@ -132,7 +132,7 @@ function StaircaseViz() {
           </div>
           <div
             style={{
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'IBM Plex Mono, monospace',
               fontSize: '10px',
               color: MUTE,
               textTransform: 'uppercase',
@@ -145,7 +145,7 @@ function StaircaseViz() {
           </div>
           <p
             style={{
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'IBM Plex Mono, monospace',
               fontSize: '12px',
               color: INK_2,
               lineHeight: 1.7,
@@ -225,7 +225,7 @@ function RingViz() {
       ctx.clearRect(0, 0, width, height);
 
       ctx.save();
-      ctx.font = '10px JetBrains Mono, monospace';
+      ctx.font = '10px IBM Plex Mono, monospace';
       ctx.fillStyle = MUTE;
       if (progress < 0.5) {
         ctx.fillText('x₁', width / 2 + width * 0.38, height / 2 + 14);
@@ -248,7 +248,7 @@ function RingViz() {
       if (progress > 0.1) {
         ctx.save();
         ctx.globalAlpha = progress;
-        ctx.fillStyle = `rgba(255, 106, 26, 0.1)`;
+        ctx.fillStyle = `rgba(184, 56, 31, 0.1)`;
         const separatorX = width / 2 + 0.5 * width * 0.36;
         ctx.fillRect(separatorX, 0, width - separatorX, height);
         ctx.strokeStyle = ACCENT;
@@ -283,9 +283,9 @@ function RingViz() {
         ctx.beginPath();
         ctx.arc(px, py, 2.8, 0, Math.PI * 2);
         if (point.ring) {
-          ctx.fillStyle = `rgba(251, 246, 239, ${0.55 + progress * 0.25})`;
+          ctx.fillStyle = `rgba(28, 25, 21, ${0.55 + progress * 0.25})`;
         } else {
-          ctx.fillStyle = `rgba(255, 106, 26, ${0.55 + progress * 0.25})`;
+          ctx.fillStyle = `rgba(184, 56, 31, ${0.55 + progress * 0.25})`;
         }
         ctx.fill();
       });
@@ -415,7 +415,7 @@ function PrefixCurveViz() {
     ctx.stroke();
     ctx.setLineDash([]);
     ctx.globalAlpha = 1;
-    ctx.font = '10px JetBrains Mono, monospace';
+    ctx.font = '10px IBM Plex Mono, monospace';
     ctx.fillStyle = MUTE;
     ctx.fillText('95% of raw AUC', pad.left + plotW - 105, targetY - 6);
 
@@ -446,11 +446,11 @@ function PrefixCurveViz() {
     ctx.beginPath();
     ctx.arc(learnedTargetX, targetY, 5, 0, Math.PI * 2);
     ctx.fill();
-    ctx.font = '11px JetBrains Mono, monospace';
+    ctx.font = '11px IBM Plex Mono, monospace';
     ctx.fillStyle = ACCENT;
     ctx.fillText('15.8 leaves', learnedTargetX + 8, targetY - 8);
 
-    ctx.font = '11px JetBrains Mono, monospace';
+    ctx.font = '11px IBM Plex Mono, monospace';
     ctx.fillStyle = MUTE;
     ctx.fillText('never reaches target', pad.left + plotW - 150, pad.top + plotH * (1 - (0.923 - 0.5) / 0.5) - 10);
 
@@ -462,7 +462,7 @@ function PrefixCurveViz() {
     ctx.lineTo(pad.left + plotW, pad.top + plotH);
     ctx.stroke();
 
-    ctx.font = '10px JetBrains Mono, monospace';
+    ctx.font = '10px IBM Plex Mono, monospace';
     ctx.fillStyle = MUTE;
     ctx.textAlign = 'center';
     ctx.fillText('CUMULATIVE LEAVES', pad.left + plotW / 2, height - 8);
@@ -473,7 +473,7 @@ function PrefixCurveViz() {
     ctx.restore();
     ctx.textAlign = 'left';
 
-    ctx.font = '10px JetBrains Mono, monospace';
+    ctx.font = '10px IBM Plex Mono, monospace';
     ctx.fillStyle = MUTE;
     ctx.textAlign = 'right';
     for (let v = 0.5; v <= 1.0; v += 0.1) {
@@ -492,7 +492,7 @@ function PrefixCurveViz() {
     const legendY = pad.top + 16;
     ctx.fillStyle = MUTE;
     ctx.fillRect(legendX, legendY - 4, 14, 3);
-    ctx.font = '10px JetBrains Mono, monospace';
+    ctx.font = '10px IBM Plex Mono, monospace';
     ctx.fillStyle = INK_2;
     ctx.fillText('STANDARD XGBOOST (BUDGETED)', legendX + 20, legendY);
     ctx.fillStyle = ACCENT;
@@ -573,10 +573,10 @@ function PipelineDiagram() {
           }}
         >
           <rect x="10" y="20" width="100" height="50" fill="transparent" stroke={LINE} strokeWidth="1.5" />
-          <text x="60" y="42" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill={INK_2}>
+          <text x="60" y="42" textAnchor="middle" fontSize="11" fontFamily="IBM Plex Mono, monospace" fill={INK_2}>
             RAW DATA
           </text>
-          <text x="60" y="56" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill={MUTE}>
+          <text x="60" y="56" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill={MUTE}>
             (x₁, x₂, ...)
           </text>
 
@@ -596,7 +596,7 @@ function PipelineDiagram() {
             y="42"
             textAnchor="middle"
             fontSize="10"
-            fontFamily="JetBrains Mono, monospace"
+            fontFamily="IBM Plex Mono, monospace"
             fill={activePhase === 1 ? PAPER_BG_INV : INK}
           >
             PROB. TRANSFORM
@@ -606,8 +606,8 @@ function PipelineDiagram() {
             y="56"
             textAnchor="middle"
             fontSize="9"
-            fontFamily="JetBrains Mono, monospace"
-            fill={activePhase === 1 ? '#999' : MUTE}
+            fontFamily="IBM Plex Mono, monospace"
+            fill={activePhase === 1 ? '#b8b0a3' : MUTE}
           >
             remap + 8 lifts
           </text>
@@ -623,10 +623,10 @@ function PipelineDiagram() {
             stroke={INK}
             strokeWidth="1.5"
           />
-          <text x="365" y="42" textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill={INK}>
+          <text x="365" y="42" textAnchor="middle" fontSize="10" fontFamily="IBM Plex Mono, monospace" fill={INK}>
             BOOSTER A
           </text>
-          <text x="365" y="56" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill={MUTE}>
+          <text x="365" y="56" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill={MUTE}>
             8 rounds
           </text>
         </g>
@@ -634,7 +634,7 @@ function PipelineDiagram() {
         {/* Connection */}
         <g style={{ opacity: activePhase === 0 ? 1 : 0.3, transition: 'opacity 0.3s' }}>
           <path d="M 365 70 L 365 100 L 520 100 L 520 130" fill="none" stroke={MUTE} strokeWidth="1" strokeDasharray="4 4" />
-          <text x="443" y="95" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill={MUTE}>
+          <text x="443" y="95" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill={MUTE}>
             base margins
           </text>
         </g>
@@ -647,10 +647,10 @@ function PipelineDiagram() {
           }}
         >
           <rect x="10" y="130" width="100" height="50" fill="transparent" stroke={LINE} strokeWidth="1.5" />
-          <text x="60" y="152" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill={INK_2}>
+          <text x="60" y="152" textAnchor="middle" fontSize="11" fontFamily="IBM Plex Mono, monospace" fill={INK_2}>
             RAW DATA
           </text>
-          <text x="60" y="166" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill={MUTE}>
+          <text x="60" y="166" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill={MUTE}>
             (x₁, x₂, ...)
           </text>
 
@@ -670,7 +670,7 @@ function PipelineDiagram() {
             y="152"
             textAnchor="middle"
             fontSize="10"
-            fontFamily="JetBrains Mono, monospace"
+            fontFamily="IBM Plex Mono, monospace"
             fill={activePhase === 2 ? PAPER_BG_INV : ACCENT}
           >
             TEACHER TRANSFORM
@@ -680,8 +680,8 @@ function PipelineDiagram() {
             y="166"
             textAnchor="middle"
             fontSize="9"
-            fontFamily="JetBrains Mono, monospace"
-            fill={activePhase === 2 ? '#f5f3ec' : MUTE}
+            fontFamily="IBM Plex Mono, monospace"
+            fill={activePhase === 2 ? PAPER_BG_INV : MUTE}
           >
             remap only
           </text>
@@ -697,10 +697,10 @@ function PipelineDiagram() {
             stroke={ACCENT}
             strokeWidth="1.5"
           />
-          <text x="365" y="152" textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill={ACCENT}>
+          <text x="365" y="152" textAnchor="middle" fontSize="10" fontFamily="IBM Plex Mono, monospace" fill={ACCENT}>
             BOOSTER B
           </text>
-          <text x="365" y="166" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill={MUTE}>
+          <text x="365" y="166" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill={MUTE}>
             42 rounds
           </text>
         </g>
@@ -712,20 +712,20 @@ function PipelineDiagram() {
           <path d="M 460 45 L 460 155" fill="none" stroke={MUTE} strokeWidth="1" />
           <line x1="460" y1="100" x2="500" y2="100" stroke={INK} strokeWidth="1.5" markerEnd="url(#pl-arrow)" />
 
-          <text x="475" y="80" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill={MUTE}>
+          <text x="475" y="80" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill={MUTE}>
             sum
           </text>
 
           <rect x="500" y="75" width="100" height="50" fill={INK} stroke={INK} strokeWidth="1.5" />
-          <text x="550" y="97" textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill={PAPER_BG_INV}>
+          <text x="550" y="97" textAnchor="middle" fontSize="10" fontFamily="IBM Plex Mono, monospace" fill={PAPER_BG_INV}>
             σ(MARGINS)
           </text>
-          <text x="550" y="111" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill="#999">
+          <text x="550" y="111" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill="#b8b0a3">
             prediction
           </text>
 
           <line x1="600" y1="100" x2="640" y2="100" stroke={INK} strokeWidth="1.5" markerEnd="url(#pl-arrow-dark)" />
-          <text x="665" y="104" textAnchor="middle" fontSize="14" fontFamily="JetBrains Mono, monospace" fill={INK}>
+          <text x="665" y="104" textAnchor="middle" fontSize="14" fontFamily="IBM Plex Mono, monospace" fill={INK}>
             ŷ
           </text>
         </g>
@@ -915,7 +915,7 @@ function GainShareViz() {
                 className="seg"
                 style={{
                   width: `${d.probRemap * 100}%`,
-                  background: 'rgba(251, 246, 239, 0.22)',
+                  background: 'rgba(28, 25, 21, 0.22)',
                   color: INK,
                 }}
               >
@@ -936,7 +936,7 @@ function GainShareViz() {
         ))}
         <div className="legend">
           <span>
-            <span className="swatch" style={{ background: 'rgba(251, 246, 239, 0.22)' }} />
+            <span className="swatch" style={{ background: 'rgba(28, 25, 21, 0.22)' }} />
             remap
           </span>
           <span>
@@ -966,7 +966,7 @@ function GainShareViz() {
                 className="seg"
                 style={{
                   width: `${d.teacherLift * 100}%`,
-                  background: 'rgba(255, 106, 26, 0.24)',
+                  background: 'rgba(184, 56, 31, 0.24)',
                   color: ACCENT,
                 }}
               >
@@ -981,7 +981,7 @@ function GainShareViz() {
             remap
           </span>
           <span>
-            <span className="swatch" style={{ background: 'rgba(255, 106, 26, 0.24)' }} />
+            <span className="swatch" style={{ background: 'rgba(184, 56, 31, 0.24)' }} />
             lift
           </span>
         </div>
@@ -1054,7 +1054,7 @@ function AlternatingLoopViz() {
                 textAnchor="middle"
                 dominantBaseline="middle"
                 fontSize="18"
-                fontFamily="Helvetica Neue, Inter Tight, Arial, sans-serif"
+                fontFamily="Archivo, system-ui, sans-serif"
                 fontWeight="700"
                 fill={isActive ? PAPER_BG_INV : INK}
                 style={{ transition: 'fill 0.3s' }}
@@ -1077,7 +1077,7 @@ function AlternatingLoopViz() {
       <div style={{ textAlign: 'center', marginTop: '20px', minHeight: '60px' }}>
         <div
           style={{
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'IBM Plex Mono, monospace',
             fontSize: '11px',
             fontWeight: 500,
             color: ACCENT,
@@ -1090,7 +1090,7 @@ function AlternatingLoopViz() {
         </div>
         <p
           style={{
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'IBM Plex Mono, monospace',
             fontSize: '13px',
             color: INK_2,
             maxWidth: '420px',
@@ -1509,10 +1509,10 @@ export default function SLCPaper() {
             <div style={{ alignSelf: 'start' }}>
               <p
                 style={{
-                  fontFamily: 'JetBrains Mono, monospace',
+                  fontFamily: 'IBM Plex Mono, monospace',
                   fontSize: '13px',
                   lineHeight: 1.85,
-                  color: PAPER_BG_INV,
+                  color: INK,
                   margin: 0,
                   fontWeight: 400,
                   letterSpacing: 0,

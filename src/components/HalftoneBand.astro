@@ -1,0 +1,33 @@
+---
+interface Props {
+	/** Whether the dot columns drift. Pages that run GPU work beside it pass false. */
+	animate: boolean;
+}
+
+const { animate } = Astro.props;
+
+// Dot radius per column, from the solid edge outwards; each column drifts at its own pace.
+const columns = [
+	{ r: 4.8, s: 2.1 },
+	{ r: 3.9, s: 2.6 },
+	{ r: 3.2, s: 3.1 },
+	{ r: 2.6, s: 3.7 },
+	{ r: 2.1, s: 4.4 },
+	{ r: 1.6, s: 5.2 },
+	{ r: 1.1, s: 6.1 },
+	{ r: 0.6, s: 7.3 },
+];
+---
+
+<div class:list={['band', { 'band-still': !animate }]} aria-hidden="true">
+	<div class="band-solid"></div>
+	{
+		columns.map((c, i) => (
+			<div
+				class:list={['band-dots', { 'band-rev': i % 2 === 1 }]}
+				style={`--r:${c.r}px;--r2:${c.r + 0.5}px;--s:${c.s}s`}
+			/>
+		))
+	}
+	<div></div>
+</div>

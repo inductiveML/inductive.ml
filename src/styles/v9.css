@@ -1,21 +1,23 @@
-/* Research article — crimson-dark reading surface (Inductive ML branding).
+/* Research article — paper reading surface on the editorial halftone system.
    Scoped to `.v9`; the homepage and inner pages use site.css only. */
 
 .v9 {
-  --bg: #140503;
-  --panel: #1c0805;
-  --ink: #fbf6ef;
-  --ink-2: #e7d9cc;
-  --mute: rgba(251, 246, 239, 0.62);
-  --faint: rgba(251, 246, 239, 0.4);
-  --line: rgba(251, 246, 239, 0.14);
-  --line-2: rgba(251, 246, 239, 0.07);
-  --accent: #ff6a1a;
-  --amber: #ffb066;
+  --bg: #f3eee4;
+  --panel: #ece5d8;
+  --ink: #1c1915;
+  --ink-2: #3f3933;
+  --mute: #5e574d;
+  --faint: #6e665b;
+  --line: rgba(28, 25, 21, 0.24);
+  --line-2: rgba(28, 25, 21, 0.1);
+  --accent: #b8381f;
+  --amber: #9a2f1a;
+  --accent-soft: rgba(184, 56, 31, 0.08);
+  --accent-tint: rgba(184, 56, 31, 0.14);
 
-  --display: "Space Grotesk", "Inter Tight", system-ui, sans-serif;
-  --reading: "Spectral", Georgia, serif;
-  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --display: "Archivo", system-ui, sans-serif;
+  --reading: "Archivo", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
 
   position: relative;
   z-index: 2;
@@ -40,8 +42,8 @@
   box-sizing: border-box;
 }
 .v9 ::selection {
-  background: rgba(255, 106, 26, 0.32);
-  color: #fff;
+  background: rgba(209, 71, 46, 0.24);
+  color: var(--ink);
 }
 
 /* Grid */
@@ -79,8 +81,8 @@
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 60px 1fr auto;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line-2);
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px dotted var(--ink);
   padding: 12px 0;
   margin: 64px 0 24px;
   font-family: var(--mono);
@@ -112,10 +114,10 @@
 }
 .v9 .paper-hero .sub {
   font-family: var(--display);
-  font-weight: 400;
+  font-weight: 500;
   font-size: clamp(22px, 2.4vw, 30px);
-  line-height: 1.32;
-  letter-spacing: -0.005em;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
   color: var(--ink-2);
   margin: 0 0 26px;
   max-width: 720px;
@@ -155,16 +157,18 @@
 
 /* Buttons */
 .v9 .btn {
-  display: inline-block;
-  padding: 9px 16px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
   background: transparent;
   color: var(--ink);
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
   cursor: pointer;
   transition:
     background 0.18s ease,
@@ -179,8 +183,9 @@
   color: var(--bg);
 }
 .v9 .btn.accent {
-  border-color: rgba(255, 106, 26, 0.6);
-  color: var(--amber);
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
 }
 .v9 .btn.accent:hover,
 .v9 .btn.accent.active {
@@ -201,27 +206,28 @@
 }
 .v9 .paper h2 {
   font-family: var(--display);
-  font-size: clamp(28px, 3.4vw, 38px);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1.1;
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 700;
+  font-stretch: 90%;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
   color: var(--ink);
   margin: 56px 0 18px;
 }
 .v9 .paper p {
   font-family: var(--reading);
   font-size: 17px;
-  line-height: 1.72;
+  line-height: 1.65;
   color: var(--ink-2);
   margin: 0 0 20px;
 }
 .v9 .paper p strong {
   color: var(--ink);
-  font-weight: 500;
+  font-weight: 600;
 }
 .v9 .paper p em {
-  font-style: italic;
-  color: var(--amber);
+  font-style: normal;
+  color: var(--accent);
 }
 .v9 .paper ul,
 .v9 .paper ol {
@@ -247,18 +253,17 @@
 .v9 .code-inline {
   font-family: var(--mono);
   font-size: 0.82em;
-  background: rgba(255, 106, 26, 0.12);
+  background: var(--accent-soft);
   color: var(--amber);
   padding: 1px 6px;
-  border-radius: 4px;
+  border-radius: 0;
 }
 
-/* Callout — raised ember-tinted panel */
+/* Callout — dotted panel on the paper ground */
 .v9 .callout {
-  background: rgba(255, 106, 26, 0.05);
-  border: 1px solid var(--line);
-  border-left: 2px solid var(--accent);
-  border-radius: 12px;
+  background: transparent;
+  border: 1px dotted var(--ink);
+  border-radius: 0;
   padding: 28px 32px;
   margin: 32px 0;
   display: grid;
@@ -276,26 +281,26 @@
 }
 .v9 .callout p {
   font-family: var(--display);
-  font-weight: 400;
+  font-weight: 500;
   font-size: clamp(19px, 1.7vw, 24px);
   line-height: 1.4;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
   color: var(--ink);
   margin: 0;
 }
 .v9 .callout p strong {
-  color: var(--amber);
-  font-weight: 500;
+  color: var(--accent);
+  font-weight: 600;
 }
 
 /* Visualization wrapper */
 .v9 .viz {
   grid-column: 1 / -1;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 0;
   padding: 32px;
   margin: 32px 0;
-  background: rgba(255, 255, 255, 0.015);
+  background: var(--bg);
 }
 .v9 .viz .viz-cap {
   font-family: var(--mono);
@@ -338,7 +343,8 @@
 .v9 .stat-strip .stat .val {
   font-family: var(--display);
   font-size: 40px;
-  font-weight: 400;
+  font-weight: 700;
+  font-stretch: 88%;
   line-height: 1;
   letter-spacing: -0.01em;
   color: var(--ink);
@@ -422,7 +428,7 @@
 .v9 .v9-table .ratio {
   font-family: var(--display);
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 /* Held-out grid */
@@ -455,7 +461,8 @@
 .v9 .holdout .cell .num {
   font-family: var(--display);
   font-size: 34px;
-  font-weight: 400;
+  font-weight: 700;
+  font-stretch: 88%;
   line-height: 1;
   letter-spacing: -0.01em;
 }
@@ -639,7 +646,7 @@
   margin: 32px 0;
   padding: 24px;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 0;
 }
 .v9 .gain .col h5 {
   font-family: var(--mono);
@@ -706,7 +713,7 @@
   grid-column: 1 / -1;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 0;
   padding: 32px 40px;
   margin: 32px 0 0;
 }

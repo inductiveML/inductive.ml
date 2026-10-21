@@ -5,12 +5,14 @@ interface Props {
 	title?: string;
 	description?: string;
 	analytics?: boolean;
+	noindex?: boolean;
 }
 
 const {
 	title = 'Inductive ML — Independent AI Research Lab',
 	description = 'An independent lab studying how machines learn to learn — research on representation, adaptation, and intelligence. Bangalore, India.',
 	analytics = true,
+	noindex,
 } = Astro.props;
 ---
 
@@ -21,17 +23,18 @@ const {
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content={description} />
 		<meta name="generator" content={Astro.generator} />
+		{noindex === true && <meta name="robots" content="noindex, nofollow" />}
 		<title>{title}</title>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=Doto:wght@400..900&display=swap"
 			rel="stylesheet"
 		/>
 		{analytics && <script is:inline defer src="https://assets.onedollarstats.com/stonks.js"></script>}
 	</head>
-	<body style="background:#140503;">
+	<body>
 		<slot />
 	</body>
 </html>

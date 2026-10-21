@@ -1,0 +1,33 @@
+---
+export type NavKey = 'experiments' | 'cupel' | 'about';
+
+interface Props {
+	/** The section this page belongs to, or null when it belongs to none. */
+	current: NavKey | null;
+}
+
+const { current } = Astro.props;
+
+const items: { key: NavKey; label: string; href: string }[] = [
+	{ key: 'experiments', label: 'Experiments', href: '/experiments' },
+	{ key: 'cupel', label: 'RL Env Audits', href: '/cupel' },
+	{ key: 'about', label: 'About', href: '/about' },
+];
+---
+
+<div class="shell">
+	<header class="site-head">
+		<a class="wordmark" href="/">Inductive ML</a>
+		<nav class="site-nav" aria-label="Primary">
+			{
+				items.map((item) => (
+					<a href={item.href} aria-current={item.key === current ? 'page' : undefined}>
+						{item.label}
+					</a>
+				))
+			}
+			<a href="https://evals.report" target="_blank" rel="noreferrer">Evals</a>
+		</nav>
+		<a class="head-contact" href="mailto:aditya@inductive.ml">Contact</a>
+	</header>
+</div>

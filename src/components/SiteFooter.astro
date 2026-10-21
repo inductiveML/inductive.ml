@@ -1,0 +1,18 @@
+---
+interface Props {
+	/** Whether the dotted wordmark drifts. Pages that run GPU work beside it pass false. */
+	animate: boolean;
+}
+
+const { animate } = Astro.props;
+---
+
+<div class="shell">
+	<footer class="site-foot">
+		<p class:list={['foot-mark', { 'foot-still': !animate }]}>inductive.ml</p>
+		<div class="foot-meta">
+			<p>Inductive ML · Bangalore · India</p>
+			<p>Est. 2026 · inductive.ml</p>
+		</div>
+	</footer>
+</div>

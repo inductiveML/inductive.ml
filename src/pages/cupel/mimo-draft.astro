@@ -1,0 +1,444 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import PageHead from '../../components/PageHead.astro';
+import '../../styles/v9.css';
+
+// Every figure on this page is copied from the Phase 1 report and §1–8 of the mtime report.
+const arms = [
+	{
+		arm: 'Uninformed',
+		set: 'Pre-registered 30',
+		pairs: '30',
+		orig: '21',
+		norm: '20',
+		disc: '4 : 3',
+		p: '1.0',
+		diff: '+3.3 pp (−13.3 to +20.0)',
+	},
+	{
+		arm: '',
+		set: 'All pairs',
+		pairs: '73',
+		orig: '50',
+		norm: '47',
+		disc: '9 : 6',
+		p: '0.61',
+		diff: '+4.1 pp (−5.5 to +15.1)',
+	},
+	{
+		arm: 'Informed (hint)',
+		set: 'Pre-registered 30',
+		pairs: '30',
+		orig: '20',
+		norm: '17',
+		disc: '7 : 4',
+		p: '0.55',
+		diff: '+10.0 pp (−10.0 to +30.0)',
+	},
+	{
+		arm: '',
+		set: 'All pairs',
+		pairs: '73',
+		orig: '50',
+		norm: '45',
+		disc: '14 : 9',
+		p: '0.40',
+		diff: '+6.85 pp (−5.5 to +19.2)',
+	},
+	{
+		arm: 'Scaffold (forced list)',
+		set: 'Pre-registered 30',
+		pairs: '30',
+		orig: '22',
+		norm: '13',
+		disc: '12 : 3',
+		p: '0.035',
+		diff: '+30.0 pp (+6.7 to +53.3)',
+	},
+	{
+		arm: '',
+		set: 'All pairs (decision rule)',
+		pairs: '73',
+		orig: '51',
+		norm: '42',
+		disc: '18 : 9',
+		p: '0.12',
+		diff: '+12.3 pp (−1.4 to +26.0)',
+	},
+];
+
+const rankers = [
+	{ ranker: 'Modification time, newest first', hit1: '0.92 (0.88–0.96)', hit5: '1.00 (1.00–1.00)', p3: '0.79 (0.74–0.84)' },
+	{ ranker: 'Issue text vs file paths (BM25)', hit1: '0.23 (0.15–0.33)', hit5: '0.56 (0.45–0.67)', p3: '0.22 (0.16–0.28)' },
+	{ ranker: 'File size, largest first', hit1: '0.08 (0.03–0.15)', hit5: '0.27 (0.17–0.37)', p3: '0.08 (0.03–0.13)' },
+	{ ranker: 'Random', hit1: '0.03 (0.02–0.04)', hit5: '0.11 (0.07–0.16)', p3: '0.03 (0.02–0.04)' },
+];
+---
+
+<Layout
+	title="DRAFT — MiMo RL environments audit · Cupel"
+	description="Draft, not for publication."
+	analytics={false}
+	noindex={true}
+>
+	<SiteHeader current="cupel" />
+		<PageHead back={{ href: '/cupel', label: 'Cupel' }} kicker="Cupel · Audit · Draft" animate={true}>
+			MiMo RL environments (Xiaomi)
+		</PageHead>
+
+		<main class="v9">
+			<div class="pad">
+				<div class="grid12">
+					<div class="paper">
+						<div class="callout" role="note">
+							<span class="lbl">// draft</span>
+							<p>
+								<strong>DRAFT, not for publication.</strong> Sections pending the sham-list control.
+							</p>
+						</div>
+					</div>
+
+					<div class="paper-hero">
+						<div class="head">
+							<p class="sub">
+								Xiaomi's fix for the git-history leak holds. A second leak, through file modification
+								times, is still present in most tasks. <em>
+									It reveals which files to change, not how to change them, and we could not show that
+									it helps an agent solve more tasks.
+								</em>
+							</p>
+						</div>
+						<div class="meta-rail">
+							<div class="row"><span>// suite</span><span>MiMo-V2.6-RL-oss</span></div>
+							<div class="row"><span>// split</span><span>code · 2,602 tasks</span></div>
+							<div class="row"><span>// sample</span><span>300 tasks</span></div>
+							<div class="row"><span>// severity</span><span>Low</span></div>
+							<div class="row"><span>// status</span><span>draft</span></div>
+						</div>
+					</div>
+
+					<div class="paper">
+						<div class="stat-strip">
+							<div class="stat">
+								<span class="idx">// git-history fix present</span>
+								<span class="val">0 / 300</span>
+							</div>
+							<div class="stat">
+								<span class="idx">// mtime side channel</span>
+								<span class="val accent">85.3%</span>
+							</div>
+							<div class="stat">
+								<span class="idx">// severity</span>
+								<span class="val">Low</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="secbar">
+						<span class="num">§ 01</span><span class="ttl">// what we tested</span><span class="meta">scope</span>
+					</div>
+					<section class="paper" aria-label="what we tested">
+						<h2>Scope</h2>
+						<p>
+							The coding split of Xiaomi's open RL environments, <code class="code-inline"
+								>XiaomiMiMo/MiMo-V2.6-RL-oss</code
+							> at revision <code class="code-inline">971cab2ab421fd88db29770db0d0e52014b63615</code>
+							(2026-10-18), with one container image per task. The split has 2,602 tasks. On 2026-10-18,
+							96 tasks were dropped (2,698 → 2,602) with no change to the tasks that were kept, and all
+							2,602 image tags were last pushed on 2026-10-16.
+						</p>
+						<p>
+							We inspected a stratified random sample of <strong>300 tasks</strong>, stratified by language
+							and image size, statically: the file system and git object store of each image, without
+							running the task. All 300 image digests were recorded. None changed during the scan.
+						</p>
+						<p>
+							We checked the git object store for anything recoverable beyond the task's base commit, file
+							modification times, stale bytecode and other build artefacts, backup and patch residue,
+							hidden test files on disk, and credential files. To check that these checks find what they
+							look for, we planted leaks of <strong>23 types</strong> into clean task images, 5 images per
+							type. All <strong>115 / 115</strong> were detected, with no detections on the unplanted
+							images. The plants were written by the same author as the checks, so this shows the checks
+							do what they are specified to do, not that they cover unknown techniques.
+						</p>
+						<p>
+							Limits. The grading script is injected at grading time and is not in any of the 300 images, so
+							the grader cannot be audited statically. Network egress is a property of the runtime harness
+							and was not judged either way. No gold patch ships with the dataset, so solvability and the
+							pass-rate band were not checked.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 02</span><span class="ttl">// the git-history fix holds</span><span
+							class="meta">0 / 300</span
+						>
+					</div>
+					<section class="paper" aria-label="the git-history fix holds">
+						<h2>No recoverable fix in git</h2>
+						<p>
+							<a href="https://www.vals.ai/blogs/mimo-reward-hacking">Vals AI's report</a> (7 Oct 2026) found
+							the reference fix surviving as unreachable git objects in 1,795 of 2,698 tasks (66.5%), on the
+							images that existed before they were re-pushed. We looked for the same class on the current
+							images.
+						</p>
+						<p>
+							In <strong>0 of 300</strong> tasks did we find a recoverable commit later than the task's base
+							(95% Wilson CI 0–1.26%). There were no unreachable objects, no commits outside the base
+							history, and no reflogs, stash, pseudo-refs or remote refs in any primary repository. The
+							result was 0 in every one of the 12 strata.
+						</p>
+						<p>
+							The git packs inside the images are dated 2026-10-09 to 2026-10-13. That is consistent with
+							Xiaomi repacking the repositories and re-pushing the images, but it is an inference: we found
+							no statement from Xiaomi. The pre-fix images are no longer tagged, so the earlier count
+							cannot be reproduced from public artefacts.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 03</span><span class="ttl">// the mtime side channel</span><span class="meta"
+							>85.3% of tasks</span
+						>
+					</div>
+					<section class="paper" aria-label="the mtime side channel">
+						<h2>The files the fix touched are newer</h2>
+						<p>
+							Vals AI's report noted in passing that <code class="code-inline">find -newermt</code> can reveal
+							the files the reference solution modified. The measurements below are ours: how often the
+							leak is still present on the current images, how precisely it points at the fix, and what it
+							is worth to an agent.
+						</p>
+						<p>
+							In <strong>256 of 300</strong> tasks (85.3%, 95% CI 80.9–88.9%), the base checkout contains a
+							separate, later cluster of tracked files (median gap 424 s), and that cluster contains at
+							least one source file. In 213 of 300 (71.0%, 65.6–75.8%) the cluster also contains files
+							touched by the task's test patch, or their directories.
+						</p>
+						<p>
+							Listing files by modification time, newest first, therefore shows which files the reference
+							fix changed. Where we could match a task to its upstream fix on GitHub, the first spot check
+							found the late cluster equal to the fix's file set in <strong>13 of 13</strong> tasks
+							(precision and recall 1.0). Extending the check anchored 75 more tasks: in 61 of them the late
+							set exactly equalled the fix (mean precision 0.915, recall 0.964). Anchored tasks may be
+							biased toward simple, single-commit fixes.
+						</p>
+						<div class="table-wrap">
+							<table class="v9-table">
+								<caption>
+									Ranking files to find the upstream fix · 75 anchored tasks · mean with bootstrap 95%
+									CI
+								</caption>
+								<thead>
+									<tr class="head">
+										<th>Ranker</th>
+										<th>hit@1</th>
+										<th>hit@5</th>
+										<th>precision@3</th>
+									</tr>
+								</thead>
+								<tbody>
+									{
+										rankers.map((r) => (
+											<tr>
+												<td class="label">{r.ranker}</td>
+												<td>{r.hit1}</td>
+												<td>{r.hit5}</td>
+												<td>{r.p3}</td>
+											</tr>
+										))
+									}
+								</tbody>
+							</table>
+						</div>
+						<p>
+							The signal is strong offline: a file from the upstream fix is ranked first in 92% of these
+							tasks, and appears in the top three in all of them.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 04</span><span class="ttl">// what it is worth to an agent</span><span
+							class="meta">73 paired tasks</span
+						>
+					</div>
+					<section class="paper" aria-label="what it is worth to an agent">
+						<h2>Paired runs, timestamps on and off</h2>
+						<p>
+							We ran an agent on 73 tasks twice each: once with the original timestamps (ORIG) and once with
+							every modification time under the repository set to the epoch (NORM). Same task, same image,
+							same prompt, condition order set by a seeded coin. The model was <code class="code-inline"
+								>deepseek/deepseek-v4.1-flash-1017</code
+							> at temperature 0, with a 40-step cap. The primary set of 30 pairs and the analysis were
+							pre-registered before any agent run; every later amendment is documented. Grading applies the task's test patch after the agent
+							finishes and runs the task's test command.
+						</p>
+						<p>We ran three arms:</p>
+						<ul>
+							<li>
+								<strong>Uninformed.</strong> The prompt never mentions timestamps. In 146 runs and 3,488
+								commands, no agent ever sorted or filtered files by time.
+							</li>
+							<li>
+								<strong>Informed.</strong> One line added to the system prompt suggests <code
+									class="code-inline">ls -lt</code
+								> or <code class="code-inline">find . -newer</code>. Only 27 of 73 ORIG runs ran a
+								time-based command before their first edit, and only 4 used a file-level <code
+									class="code-inline">find</code
+								>.
+							</li>
+							<li>
+								<strong>Scaffold.</strong> The harness itself runs a fixed ranking command and puts its
+								output in the first message, so the agent always sees the late cluster under ORIG. A
+								late-cluster file was ranked first in 72 of 73 ORIG runs.
+							</li>
+						</ul>
+						<div class="table-wrap">
+							<table class="v9-table">
+								<caption>
+									Pass counts, ORIG vs NORM · exact McNemar p · paired bootstrap 95% CI for the
+									difference
+								</caption>
+								<thead>
+									<tr class="head">
+										<th>Arm</th>
+										<th>Set</th>
+										<th>Pairs</th>
+										<th>ORIG</th>
+										<th>NORM</th>
+										<th>Discordant</th>
+										<th>p</th>
+										<th>ORIG − NORM</th>
+									</tr>
+								</thead>
+								<tbody>
+									{
+										arms.map((r) => (
+											<tr>
+												<td class="label">{r.arm}</td>
+												<td>{r.set}</td>
+												<td>{r.pairs}</td>
+												<td>{r.orig}</td>
+												<td>{r.norm}</td>
+												<td>{r.disc}</td>
+												<td>{r.p}</td>
+												<td>{r.diff}</td>
+											</tr>
+										))
+									}
+								</tbody>
+							</table>
+						</div>
+						<p>
+							The pre-registered decision rule for the scaffold arm uses all 73 pairs and a +15 pp
+							threshold. The result, +12.3 pp, is below it. The primary 30 look stronger (p = 0.035), but
+							the decision rule names all 73 and is applied as written.
+						</p>
+						<p>
+							Most of the scaffold gap comes from the NORM control doing badly, not from ORIG doing well.
+							Scaffold ORIG passed 51 of 73, against 50 for the uninformed ORIG runs. Scaffold NORM passed
+							42, against 47 for the uninformed NORM runs. The NORM control saw a header that promised a
+							ranking, followed by an empty list, so it is not a neutral control.
+						</p>
+						<p>
+							Why the effect is small: the issue text already leads this agent to the files the leak
+							reveals. A late-cluster file was opened before the first edit in 71 of 73 ORIG and 72 of 73
+							NORM runs in the uninformed arm. File localisation, the only thing this leak gives away, is
+							rarely the bottleneck for these tasks (an inference from the run data).
+						</p>
+						<p>
+							Limits. One cheap model, one scaffold, image size capped at 1.2 GB, and no gold patch. At
+							this noise level, with all 73 pairs, the effect detectable with 80% power is about +15 pp. The
+							result is evidence against large effects, not evidence of no effect.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 05</span><span class="ttl">// severity</span><span class="meta">Low</span>
+					</div>
+					<section class="paper" aria-label="severity">
+						<h2>Low, with a stated upper bound</h2>
+						<p>
+							<strong>Impact: I2.</strong> The leak reveals the scope of the fix, not the solution.
+							<strong>Reach: R4.</strong> Exploiting it takes ordinary tool use, such as <code
+								class="code-inline">ls -t</code
+							> or <code class="code-inline">find -newer</code>. Together these rate <strong>Low</strong>.
+						</p>
+						<p>
+							We would move it to Medium if the leak materially raised solve rate. None of the three arms
+							reached that bar. The forced-compliance arm came closest, at +12.3 pp on all 73 pairs against
+							a +15 pp threshold, and its interval allows up to about +26 pp. So Medium is not ruled out.
+						</p>
+						<p>
+							"Low" describes present-day use by agents that have not learned the trick. It does not
+							describe the information content, which is high: an agent or policy that learns to look at
+							modification times, for example through RL on these images, gets a near-perfect file
+							locator. That route to Medium is untested here.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 06</span><span class="ttl">// the fix</span><span class="meta">touch</span>
+					</div>
+					<section class="paper" aria-label="the fix">
+						<h2>Normalise timestamps when building the image</h2>
+						<p>
+							Setting every modification time under the repository to one value removes the late cluster.
+							This is the command we used for the NORM condition:
+						</p>
+						<p>
+							<code class="code-inline">find &lt;repo&gt; -xdev -exec touch -h -d @0 {'{}'} +</code>
+						</p>
+						<p>
+							It covers files, directories and symlinks, including <code class="code-inline">.git</code>.
+							Afterwards, <code class="code-inline">find &lt;repo&gt; -newermt @1</code> returned 0 entries
+							in 73 of 73 runs. In fresh containers with no agent changes, normalisation alone never
+							changed a grade.
+						</p>
+						<p>
+							Two side effects to know about. It makes the git index stat-dirty, and it can change build
+							tools' rebuild decisions. And it only covers the repository: copies of project files elsewhere
+							on disk, such as site-packages or caches, keep their times.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 07</span><span class="ttl">// section: sham-list control (pending)</span><span
+							class="meta">[TODO]</span
+						>
+					</div>
+					<section class="paper" aria-label="section: sham-list control (pending)">
+						<div class="callout" role="note">
+							<span class="lbl">// pending</span>
+							<p>
+								<strong>Section: sham-list control (pending).</strong> A run is in progress. This section
+								will hold the efficiency findings and the per-task gradient.
+							</p>
+						</div>
+						<p>
+							[TODO] Sham-list control: method and results. The scaffold arm's NORM control showed an empty
+							list; the stricter design the report recommends shows a
+							non-empty but uninformative list instead.
+						</p>
+						<p>[TODO] Efficiency findings.</p>
+						<p>[TODO] Per-task gradient.</p>
+						<p>[TODO] Public summary.</p>
+						<p>
+							[TODO] Disclosure record: date the findings were sent to Xiaomi, and the end of the 14-day
+							window.
+						</p>
+					</section>
+
+					<footer class="foot">
+						<div class="a">Cupel · Inductive ML</div>
+						<div class="b">MiMo audit · draft · October 2026</div>
+						<div class="c"><a href="/cupel">Cupel ↗</a></div>
+					</footer>
+				</div>
+			</div>
+		</main>
+		<SiteFooter animate={true} />
+</Layout>
+

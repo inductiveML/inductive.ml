@@ -1,5 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import PageHead from '../../components/PageHead.astro';
 import MonarchDemo from '../../components/MonarchDemo';
 import '../../styles/v9.css';
 import '../../styles/monarch.css';
@@ -11,18 +14,9 @@ const measurements=[
 ];
 ---
 <Layout title="MONARCH — 1,574 tokens/s in a browser · Inductive ML" description="How we optimized LFM2.5-230M WebGPU kernels, measured 1,574 tokens/s on an M4 Max, and tested the limits of a persistent decoder. Try the real model locally." analytics={false}>
- <div class="page monarch-page">
-  <header class="masthead">
-   <canvas id="lava" aria-hidden="true"></canvas>
-   <div class="grain"></div>
-   <div class="masthead-inner">
-    <div class="mh-top">
-     <a class="mh-back" href="/experiments">← Experiments</a>
-     <nav class="top-nav" aria-label="Main navigation"><a href="/">Inductive ML</a><a href="/about">About</a><a href="mailto:aditya@inductive.ml">Contact</a></nav>
-    </div>
-    <div><div class="page-kicker">Research · MONARCH · 2026</div><h1 class="page-title">Faster Tokens.<br/>Same Small Model.</h1></div>
-   </div>
-  </header>
+ <div class="monarch-page">
+  <SiteHeader current="experiments" />
+  <PageHead back={{href:'/experiments',label:'Experiments'}} kicker="Research · MONARCH · 2026" animate={false}>Faster Tokens.<br/>Same Small Model.</PageHead>
   <main class="v9 monarch-research">
    <div class="pad"><div class="grid12">
     <div class="secbar"><span class="num">§ 00</span><span class="ttl">// research-explainer</span><span class="meta">September 2026 · WebGPU</span></div>
@@ -62,14 +56,6 @@ const measurements=[
     <footer class="foot"><div class="a">Inductive ML</div><div class="b">MONARCH · September 2026</div><div class="c"><a href="/experiments">All experiments ↗</a></div></footer>
    </div></div>
   </main>
+  <SiteFooter animate={false} />
  </div>
 </Layout>
-<script>
- import {initLava} from '../../lib/lava';
- const canvas=document.getElementById('lava');
- if(canvas instanceof HTMLCanvasElement){
-  // Match the shared masthead without an animation competing with inference.
-  const lava=initLava(canvas,{scale:2.6,speed:0.7,dim:0.9,animate:false});
-  window.addEventListener('pagehide',()=>lava?.destroy(),{once:true});
- }
-</script>

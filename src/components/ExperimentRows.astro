@@ -1,0 +1,25 @@
+---
+import { experiments, splitHighlight } from '../lib/site';
+
+const rows = experiments.map((x) => ({ ...x, parts: splitHighlight(x.excerpt, x.highlight) }));
+---
+
+<div class="list">
+	{
+		rows.map((x) => (
+			<a class="list-row exp-row" href={x.href}>
+				<span class="exp-date">
+					<span class="dot-month">{x.month.toUpperCase()}</span>
+					<span class="exp-year">{x.year}</span>
+				</span>
+				<span class="exp-title">{x.title}</span>
+				<span class="exp-excerpt">
+					{x.parts.before}
+					<span class="mark">{x.parts.mark}</span>
+					{x.parts.after}
+				</span>
+				<span class="exp-read">Read ↗</span>
+			</a>
+		))
+	}
+</div>

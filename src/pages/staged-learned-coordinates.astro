@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import PageHead from '../components/PageHead.astro';
 import '../styles/v9.css';
 import SLCPaper from '../components/SLCPaper';
 ---
@@ -8,35 +11,11 @@ import SLCPaper from '../components/SLCPaper';
 	title="Staged Learned Coordinates · Inductive ML"
 	description="Teaching trees to understand geometry — a plain-English breakdown of staged learned coordinates for gradient boosted trees on continuous tabular data."
 >
-	<div class="page">
-		<div class="masthead">
-			<canvas id="lava"></canvas>
-			<div class="grain"></div>
-			<div class="masthead-inner">
-				<div class="mh-top">
-					<a class="mh-back" href="/experiments">← Experiments</a>
-					<nav class="top-nav">
-						<a href="/experiments">Experiments</a>
-						<a href="/about">About</a>
-						<a href="mailto:aditya@inductive.ml">Contact</a>
-					</nav>
-				</div>
-				<div>
-					<div class="page-kicker">Research · Preprint · 2026</div>
-					<h1 class="page-title">Teaching Trees to Understand Geometry</h1>
-				</div>
-			</div>
-		</div>
-
-		<SLCPaper client:load />
-	</div>
+	<SiteHeader current="experiments" />
+	<PageHead back={{ href: '/experiments', label: 'Experiments' }} kicker="Research · Preprint · 2026" animate={true}>
+		Teaching Trees to Understand Geometry
+	</PageHead>
+	<SLCPaper client:load />
+	<SiteFooter animate={true} />
 </Layout>
 
-<script>
-	import { initLava } from '../lib/lava';
-
-	const lava = document.getElementById('lava');
-	if (lava instanceof HTMLCanvasElement) {
-		initLava(lava, { scale: 2.6, speed: 0.7, dim: 0.9 });
-	}
-</script>

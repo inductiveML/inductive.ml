@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import PageHead from '../../components/PageHead.astro';
+---
+
+<Layout
+	title="SWE Atlas — Cupel · Inductive ML"
+	description="Coordinated disclosure with Scale AI is in progress. The full report will be published here on 4 November 2026."
+	analytics={false}
+	noindex={true}
+>
+	<SiteHeader current="cupel" />
+	<main>
+		<PageHead back={{ href: '/cupel', label: 'Cupel' }} kicker="Cupel · Coordinated disclosure" animate={true}>
+			SWE Atlas
+		</PageHead>
+		<div class="shell page-body">
+			<div class="reader article-body">
+				<p class="article-lede">
+					Coordinated disclosure with Scale AI is in progress. The full report will be published here on <span
+						class="mark">4 November 2026</span
+					>.
+				</p>
+			</div>
+		</div>
+	</main>
+	<SiteFooter animate={true} />
+</Layout>

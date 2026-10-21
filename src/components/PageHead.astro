@@ -1,0 +1,21 @@
+---
+import HalftoneBand from './HalftoneBand.astro';
+
+interface Props {
+	back: { href: string; label: string };
+	kicker: string;
+	/** Whether the halftone band drifts. Pages that run GPU work beside it pass false. */
+	animate: boolean;
+}
+
+const { back, kicker, animate } = Astro.props;
+---
+
+<div class="shell">
+	<section class="page-head">
+		<a class="back" href={back.href}>← {back.label}</a>
+		<p class="kicker">{kicker}</p>
+		<h1 class="page-title"><slot /></h1>
+	</section>
+</div>
+<HalftoneBand animate={animate} />
