@@ -30,6 +30,8 @@ body {
 }
 html {
   scroll-behavior: smooth;
+  /* Reserve the scrollbar's space so short and long pages centre the same way. */
+  scrollbar-gutter: stable;
 }
 body {
   font-family: var(--sans);
