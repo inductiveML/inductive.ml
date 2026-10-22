@@ -10,6 +10,9 @@ export interface Experiment {
 	href: string;
 }
 
+/** The write-up of the GRPO personalisation run, the first public use of MLXRL. */
+const namesExperimentHref = 'https://x.com/inductive_ml/status/2075995191824331044';
+
 export const experiments: Experiment[] = [
 	{
 		month: 'Sep',
@@ -27,7 +30,7 @@ export const experiments: Experiment[] = [
 		excerpt:
 			'Personalizing Qwen3.5-4B with 100 GRPO steps on a MacBook using MLXRL, a learned preference scorer, and guardrails against reward hacking.',
 		highlight: '100 GRPO steps',
-		href: 'https://x.com/inductive_ml/status/2075995191824331044',
+		href: namesExperimentHref,
 	},
 	{
 		month: 'Apr',
@@ -46,17 +49,118 @@ export interface ProfileLink {
 	href: string;
 }
 
+/** The lab's code and weights live under these two organisations. */
+export const github: ProfileLink = {
+	k: 'GitHub',
+	v: 'github.com/inductiveML',
+	href: 'https://github.com/inductiveML',
+};
+export const huggingFace: ProfileLink = {
+	k: 'Hugging Face',
+	v: 'hf.co/inductiveML',
+	href: 'https://huggingface.co/inductiveML',
+};
+
 export const profile: ProfileLink[] = [
 	{ k: 'Email', v: 'aditya@inductive.ml', href: 'mailto:aditya@inductive.ml' },
 	{ k: 'X', v: 'x.com/inductive_ml', href: 'https://x.com/inductive_ml' },
-	{ k: 'GitHub', v: 'github.com/inductiveML', href: 'https://github.com/inductiveML' },
-	{ k: 'Hugging Face', v: 'hf.co/inductiveML', href: 'https://hf.co/inductiveML' },
+	github,
+	huggingFace,
 	{
 		k: 'OpenReview',
 		v: '~Aditya_Veer_Parmar1',
 		href: 'https://openreview.net/profile?id=~Aditya_Veer_Parmar1',
 	},
 	{ k: 'ORCID', v: '0009-0000-3060-4372', href: 'https://orcid.org/0009-0000-3060-4372' },
+];
+
+export type ReleaseKind = 'Library' | 'Model' | 'Code';
+
+export interface Release {
+	kind: ReleaseKind;
+	name: string;
+	note: string;
+	/** A phrase inside `note` that is set in the accent colour, or null for none. */
+	highlight: string | null;
+	host: ProfileLink;
+	href: string;
+}
+
+export interface FeaturedRelease extends Release {
+	highlight: string;
+	/** An experiment that used the release. */
+	usedIn: string;
+}
+
+/** MLXRL, the lab's flagship library; the home page features it above the other releases. */
+export const mlxrl: FeaturedRelease = {
+	kind: 'Library',
+	name: 'MLXRL',
+	note: 'Fast on-policy RL post-training for LLMs on Apple Silicon. GRPO, Dr. GRPO, DAPO, GSPO, RLOO and multi-turn GiGPO with QLoRA on local 4-bit MLX models, in one process with one model object.',
+	highlight: 'multi-turn GiGPO',
+	host: github,
+	href: 'https://github.com/inductiveML/mlxrl',
+	usedIn: namesExperimentHref,
+};
+
+export const releases: Release[] = [
+	mlxrl,
+	{
+		kind: 'Library',
+		name: 'Ternel',
+		note: 'Lossless execution formats for ternary models: 128 weights packed into 28 bytes and run directly by custom Metal kernels.',
+		highlight: '28 bytes',
+		host: github,
+		href: 'https://github.com/inductiveML/ternel',
+	},
+	{
+		kind: 'Model',
+		name: 'Ternary Bonsai 2 27B · MLX 1.75 bpw',
+		note: 'Lossless repack of Bonsai 2 27B with vision; 1.68 GB less active memory than the official 2-bit checkpoint.',
+		highlight: '1.68 GB less',
+		host: huggingFace,
+		href: 'https://huggingface.co/inductiveML/Ternary-Bonsai-2-27B-mlx-lossless-1.75bpw',
+	},
+	{
+		kind: 'Model',
+		name: 'Ternary Bonsai 27B · MLX 1.75 bpw',
+		note: 'Bit-exact over all 26.9B ternary weights, with 22.19% less live memory than the official distribution.',
+		highlight: '22.19% less',
+		host: huggingFace,
+		href: 'https://huggingface.co/inductiveML/Ternary-Bonsai-27B-mlx-lossless-1.75bpw',
+	},
+	{
+		kind: 'Model',
+		name: 'Qwen3.6-35B-A3B · evolved mixed-bit',
+		note: '12.63 GB MLX quant, 16.8% smaller than the TurboQuant 3-bit quant at tied WikiText-2 perplexity.',
+		highlight: '16.8% smaller',
+		host: huggingFace,
+		href: 'https://huggingface.co/inductiveML/Qwen3.6-35B-A3B-evolved-mxbit',
+	},
+	{
+		kind: 'Model',
+		name: 'LFM2.5-230M · MONARCH',
+		note: 'Packed int4 WebGPU buffer behind the MONARCH browser decoder.',
+		highlight: null,
+		host: huggingFace,
+		href: 'https://huggingface.co/inductiveML/LFM2.5-230M-MONARCH',
+	},
+	{
+		kind: 'Code',
+		name: 'Staged Learned Coordinates',
+		note: 'Code and paper draft for learned coordinates in front of gradient-boosted trees.',
+		highlight: null,
+		host: github,
+		href: 'https://github.com/inductiveML/staged-learned-coordinates',
+	},
+	{
+		kind: 'Code',
+		name: 'Cupel MiMo audit',
+		note: 'Reports, pre-registrations, analysis scripts and result tables for the MiMo audit.',
+		highlight: null,
+		host: github,
+		href: 'https://github.com/inductiveML/cupel-mimo-audit',
+	},
 ];
 
 export interface AuditCheck {

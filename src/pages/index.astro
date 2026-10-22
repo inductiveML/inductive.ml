@@ -5,7 +5,12 @@ import SiteFooter from '../components/SiteFooter.astro';
 import HalftoneBand from '../components/HalftoneBand.astro';
 import ExperimentRows from '../components/ExperimentRows.astro';
 import AuditRows from '../components/AuditRows.astro';
-import { auditChecks, isExternal, profile } from '../lib/site';
+import ReleaseRows from '../components/ReleaseRows.astro';
+import OrgLinks from '../components/OrgLinks.astro';
+import { auditChecks, github, huggingFace, isExternal, mlxrl, profile, releases, splitHighlight } from '../lib/site';
+
+const mlxrlParts = splitHighlight(mlxrl.note, mlxrl.highlight);
+const otherReleases = releases.filter((r) => r !== mlxrl);
 ---
 
 <Layout>
@@ -20,7 +25,9 @@ import { auditChecks, isExternal, profile } from '../lib/site';
 				<div class="ctas">
 					<a class="cta cta-fill" href="/experiments">Experiments →</a>
 					<a class="cta" href="/cupel">RL Env Audits →</a>
-					<a class="cta" href="/about">About →</a>
+					<a class="cta" href={mlxrl.href} target="_blank" rel="noreferrer">MLXRL ↗</a>
+					<a class="cta" href={github.href} target="_blank" rel="noreferrer">GitHub ↗</a>
+					<a class="cta" href={huggingFace.href} target="_blank" rel="noreferrer">Hugging Face ↗</a>
 				</div>
 			</section>
 		</div>
@@ -30,8 +37,9 @@ import { auditChecks, isExternal, profile } from '../lib/site';
 		<div class="shell">
 			<nav class="section-index" aria-label="Sections">
 				<a href="#experiments"><span>01</span>Experiments</a>
-				<a href="#cupel"><span>02</span>Cupel</a>
-				<a href="#about"><span>03</span>About the lab</a>
+				<a href="#open-source"><span>02</span>Open source</a>
+				<a href="#cupel"><span>03</span>Cupel</a>
+				<a href="#about"><span>04</span>About the lab</a>
 			</nav>
 
 			<section id="experiments" class="sec" aria-labelledby="experiments-h">
@@ -42,10 +50,36 @@ import { auditChecks, isExternal, profile } from '../lib/site';
 				<ExperimentRows />
 			</section>
 
+			<section id="open-source" class="sec sec-ruled" aria-labelledby="open-source-h">
+				<div class="stack col-main">
+					<p class="kicker">Open source · Code and weights</p>
+					<h2 id="open-source-h" class="sec-title"><span class="sec-num">02</span>Open source</h2>
+					<div class="feature">
+						<p class="eyebrow">Library · Apple Silicon</p>
+						<p class="feature-name">{mlxrl.name}</p>
+						<p class="lead">
+							{mlxrlParts.before}
+							<span class="mark">{mlxrlParts.mark}</span>
+							{mlxrlParts.after}
+						</p>
+						<pre class="feature-code"><code>git clone {mlxrl.href}.git</code></pre>
+						<div class="ctas">
+							<a class="cta cta-fill" href={mlxrl.href} target="_blank" rel="noreferrer">MLXRL on GitHub ↗</a>
+							<a class="cta" href={mlxrl.usedIn} target="_blank" rel="noreferrer">See it in use ↗</a>
+						</div>
+					</div>
+					<OrgLinks />
+				</div>
+				<div class="col-side">
+					<p class="eyebrow">Libraries, models and code</p>
+					<ReleaseRows items={otherReleases} />
+				</div>
+			</section>
+
 			<section id="cupel" class="sec sec-ruled" aria-labelledby="cupel-h">
 				<div class="stack col-main">
 					<p class="kicker">Inductive ML · RL environment audits</p>
-					<h2 id="cupel-h" class="sec-title cupel-title"><span class="sec-num">02</span>Cupel</h2>
+					<h2 id="cupel-h" class="sec-title cupel-title"><span class="sec-num">03</span>Cupel</h2>
 					<p class="lead">
 						Cupel audits reinforcement-learning environments independently, before they are sold to frontier
 						labs. The report states whether the tasks can be solved honestly and whether they can be gamed in
@@ -71,7 +105,7 @@ import { auditChecks, isExternal, profile } from '../lib/site';
 			<section id="about" class="sec sec-ruled" aria-labelledby="about-h">
 				<div class="stack col-label">
 					<p class="kicker">Independent AI research lab · Bangalore</p>
-					<h2 id="about-h" class="sec-title"><span class="sec-num">03</span>About the lab</h2>
+					<h2 id="about-h" class="sec-title"><span class="sec-num">04</span>About the lab</h2>
 				</div>
 				<div class="stack col-wide">
 					<p class="lead">

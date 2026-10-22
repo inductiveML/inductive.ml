@@ -1,4 +1,6 @@
 ---
+import { github, huggingFace } from '../lib/site';
+
 export type NavKey = 'experiments' | 'cupel' | 'about';
 
 interface Props {
@@ -28,6 +30,10 @@ const items: { key: NavKey; label: string; href: string }[] = [
 			}
 			<a href="https://evals.report" target="_blank" rel="noreferrer">Evals</a>
 		</nav>
-		<a class="head-contact" href="mailto:aditya@inductive.ml">Contact</a>
+		<div class="head-links">
+			<a class="head-org" href={github.href} target="_blank" rel="noreferrer">{github.k} ↗</a>
+			<a class="head-org" href={huggingFace.href} target="_blank" rel="noreferrer">{huggingFace.k} ↗</a>
+			<a class="head-contact" href="mailto:aditya@inductive.ml">Contact</a>
+		</div>
 	</header>
 </div>

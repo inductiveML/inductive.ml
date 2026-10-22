@@ -1,0 +1,39 @@
+---
+import { splitHighlight, type Release } from '../lib/site';
+
+interface Props {
+	items: Release[];
+}
+
+const { items } = Astro.props;
+
+const rows = items.map((r) => ({
+	...r,
+	parts: r.highlight === null ? null : splitHighlight(r.note, r.highlight),
+}));
+---
+
+<div class="list">
+	{
+		rows.map((r) => (
+			<a class="list-row release-row" href={r.href} target="_blank" rel="noreferrer">
+				<span class="release-kind">{r.kind.toUpperCase()}</span>
+				<span class="release-body">
+					<span class="release-name">{r.name}</span>
+					<span class="release-note">
+						{r.parts === null ? (
+							r.note
+						) : (
+							<>
+								{r.parts.before}
+								<span class="mark">{r.parts.mark}</span>
+								{r.parts.after}
+							</>
+						)}
+					</span>
+				</span>
+				<span class="release-host">{r.host.k} ↗</span>
+			</a>
+		))
+	}
+</div>

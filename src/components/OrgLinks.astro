@@ -1,0 +1,16 @@
+---
+import { github, huggingFace } from '../lib/site';
+
+const orgs = [github, huggingFace];
+---
+
+<div class="org-links">
+	{
+		orgs.map((o) => (
+			<a class="org-link" href={o.href} target="_blank" rel="noreferrer">
+				<span class="org-k">{o.k}</span>
+				<span class="org-v">{o.v} ↗</span>
+			</a>
+		))
+	}
+</div>
