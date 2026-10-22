@@ -5,6 +5,9 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
+  redirects: {
+    '/cupel/mimo-draft': { status: 301, destination: '/cupel/mimo' },
+  },
   adapter: alchemy(),
   integrations: [react()],
   vite: {

@@ -97,14 +97,17 @@ export interface Audit {
 	note: string;
 	/** A phrase inside `note` that is set in the accent colour, or null for none. */
 	highlight: string | null;
+	/** The write-up, when one is published; rows without one use the list's link. */
+	href?: string;
 }
 
 export const audits: Audit[] = [
 	{
 		label: 'Audit',
 		title: 'MiMo RL environments (Xiaomi)',
-		note: 'Write-up coming soon.',
-		highlight: null,
+		note: 'Published 22 Oct 2026. The git-history fix holds; a file-timestamp leak remains, severity Low.',
+		highlight: 'severity Low',
+		href: '/cupel/mimo',
 	},
 	{
 		label: 'Disclosure',

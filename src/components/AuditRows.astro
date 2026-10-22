@@ -11,14 +11,16 @@ const { href } = Astro.props;
 const rows = audits.map((a) => ({
 	...a,
 	parts: a.highlight === null ? null : splitHighlight(a.note, a.highlight),
+	link: a.href ?? href,
 }));
-const Tag = href === null ? 'div' : 'a';
 ---
 
 <div class="list">
 	{
-		rows.map((a) => (
-			<Tag class="list-row audit-row" href={href ?? undefined}>
+		rows.map((a) => {
+			const Tag = a.link === null ? 'div' : 'a';
+			return (
+			<Tag class="list-row audit-row" href={a.link ?? undefined}>
 				<span class="audit-label">{a.label.toUpperCase()}</span>
 				<span class="audit-body">
 					<span class="audit-title">{a.title}</span>
@@ -35,6 +37,7 @@ const Tag = href === null ? 'div' : 'a';
 					</span>
 				</span>
 			</Tag>
-		))
+			);
+		})
 	}
 </div>

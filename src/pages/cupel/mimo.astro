@@ -5,7 +5,6 @@ import SiteFooter from '../../components/SiteFooter.astro';
 import PageHead from '../../components/PageHead.astro';
 import '../../styles/v9.css';
 
-// Every figure on this page is copied from the Phase 1 report and §1–10 of the mtime report.
 const arms = [
 	{
 		arm: 'Uninformed',
@@ -78,28 +77,17 @@ const rankers = [
 ---
 
 <Layout
-	title="DRAFT — MiMo RL environments audit · Cupel"
-	description="Draft, not for publication."
-	analytics={false}
-	noindex={true}
+	title="MiMo RL environment audit — Cupel · Inductive ML"
+	description="Cupel's independent audit of Xiaomi's MiMo-V2.6 RL coding environments: the git-history fix holds, a file-timestamp leak remains in 85.3% of tasks, and against a matched control it makes agents faster but solves no more tasks. Severity Low."
 >
 	<SiteHeader current="cupel" />
-		<PageHead back={{ href: '/cupel', label: 'Cupel' }} kicker="Cupel · Audit · Draft" animate={true}>
+		<PageHead back={{ href: '/cupel', label: 'RL Env Audits' }} kicker="Cupel · RL environment audit" animate={true}>
 			MiMo RL environments (Xiaomi)
 		</PageHead>
 
 		<main class="v9">
 			<div class="pad">
 				<div class="grid12">
-					<div class="paper">
-						<div class="callout" role="note">
-							<span class="lbl">// draft</span>
-							<p>
-								<strong>DRAFT, not for publication.</strong> Final numbers, including the sham-list control in § 07.
-							</p>
-						</div>
-					</div>
-
 					<div class="paper-hero">
 						<div class="head">
 							<p class="sub">
@@ -115,7 +103,7 @@ const rankers = [
 							<div class="row"><span>// split</span><span>code · 2,602 tasks</span></div>
 							<div class="row"><span>// sample</span><span>300 tasks</span></div>
 							<div class="row"><span>// severity</span><span>Low</span></div>
-							<div class="row"><span>// status</span><span>draft</span></div>
+							<div class="row"><span>// status</span><span>published · 22 Oct 2026</span></div>
 						</div>
 					</div>
 
@@ -531,8 +519,8 @@ const rankers = [
 
 					<footer class="foot">
 						<div class="a">Cupel · Inductive ML</div>
-						<div class="b">MiMo audit · draft · October 2026</div>
-						<div class="c"><a href="/cupel">Cupel ↗</a></div>
+						<div class="b">MiMo audit · published 22 Oct 2026</div>
+						<div class="c"><a href="/cupel">RL Env Audits ↗</a></div>
 					</footer>
 				</div>
 			</div>
