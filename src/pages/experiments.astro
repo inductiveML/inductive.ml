@@ -17,7 +17,23 @@ import ExperimentRows from '../components/ExperimentRows.astro';
 		</PageHead>
 		<div class="shell page-body">
 			<ExperimentRows />
+			<p class="exp-pointer">
+				Oct 2026: MiMo RL environment audit. Xiaomi's git-history fix holds, and a file-timestamp leak makes agents faster without raising their solve rate.
+				<a href="/cupel/mimo">Read the audit →</a>
+			</p>
 		</div>
 	</main>
 	<SiteFooter animate={true} />
 </Layout>
+
+<style>
+	.exp-pointer {
+		margin-top: 32px;
+		font-size: 14px;
+		color: var(--mute);
+	}
+	.exp-pointer a {
+		color: inherit;
+		text-decoration: underline;
+	}
+</style>
