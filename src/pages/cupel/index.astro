@@ -5,6 +5,7 @@ import SiteFooter from '../../components/SiteFooter.astro';
 import PageHead from '../../components/PageHead.astro';
 import AuditRows from '../../components/AuditRows.astro';
 import { auditChecks } from '../../lib/site';
+import '../../styles/v9.css';
 
 const steps = [
 	{
@@ -54,26 +55,53 @@ const reach = [
 	{ k: 'R1', name: 'Needs egress', v: 'Needs network access or an escape from the host.' },
 ];
 
-const levels = [
+const grid = [
+	{ i: 'I3', name: 'Full', cells: ['Critical', 'High', 'Medium', 'Medium'] },
+	{ i: 'I2', name: 'Partial', cells: ['Medium or Low (rule 2)', 'Medium or Low (rule 2)', 'Low', 'Low'] },
+	{ i: 'I1', name: 'Signal corruption', cells: ['Low', 'Low', 'Low', 'Low'] },
+];
+
+const rules = [
 	{
-		k: 'Critical',
-		v: 'I3 with R4, confirmed. Also an impossible task, or one whose reference solution fails, alongside a confirmed exploit, because it trains hacking. An undeclared sandbox escape that gives full reward (I3 with R1) is Critical.',
+		k: 'Confirmed only.',
+		v: 'The grid applies only to confirmed findings. For full impact, confirmed means the reward actually fires on an exploit run; for partial impact and signal corruption, that the leak or grader defect is shown to be present. A candidate we have not confirmed is Info. So are answers reachable online only if the sandbox allows network access, when that access was not confirmed.',
 	},
 	{
-		k: 'High',
-		v: 'I3 with R3, confirmed; or the reference solution fails, so the grader also rejects right answers.',
+		k: 'Partial impact, ordinary or unusual reach.',
+		v: 'I2 with R4 or R3 is Medium if, against a matched control, it raises the solve rate by at least a threshold set before any run (+15 percentage points in our MiMo study). Otherwise it is Low, and it is Low if it was not measured.',
 	},
 	{
-		k: 'Medium',
-		v: 'Wrong solutions pass more often than a threshold set in advance; an expert-only side channel (I3 with R2), confirmed; or I2 with R3 or R4.',
+		k: 'Sandbox escape.',
+		v: 'An undeclared sandbox escape that gives full reward (I3 with R1) is Critical.',
 	},
 	{
-		k: 'Low',
-		v: 'Flaky graders; timestamp hints that reveal the scope of the fix but not the solution (a weak I2 with R4).',
+		k: 'Impossible task with an exploit.',
+		v: 'An impossible task, or one whose reference solution fails, alongside a confirmed exploit on the same task is Critical, because it trains hacking.',
 	},
 	{
-		k: 'Info',
-		v: 'The difficulty spread of the suite; answers that are reachable online only if the sandbox allows network access, when that access was not confirmed.',
+		k: 'Failing reference solution.',
+		v: 'If the reference solution fails, so the grader also rejects right answers, the finding is at least High.',
+	},
+	{
+		k: 'Wrong solutions pass.',
+		v: 'If wrong solutions pass more often than a threshold set in advance, the finding is at least Medium.',
+	},
+	{
+		k: 'Result.',
+		v: 'A finding takes the highest level given by its grid cell and rules 3 to 6. Those rules only raise a level.',
+	},
+];
+
+const stamp = [
+	{
+		k: 'Pass.',
+		v: "Zero open Critical or High findings, re-verified after the vendor's fixes, as of a stated date, under a named scanner version and a named attacker model, with the full findings list public and the residual hack rate printed.",
+	},
+	{ k: 'Fail.', v: 'Any open Critical or High finding at that date.' },
+	{ k: 'Medium and Low.', v: 'Disclosed in the report, but they do not block a pass.' },
+	{
+		k: 'Dated and versioned.',
+		v: 'If a new class of hole is found later, we publish an addendum and revise the stamp with a new date.',
 	},
 ];
 ---
@@ -140,7 +168,6 @@ const levels = [
 				</p>
 
 				<h2><span class="sec-num">03</span>What we don't do</h2>
-				<p>We don't issue a pass/fail stamp.</p>
 				<p>We don't reduce an environment to a single score.</p>
 				<p>We don't report a finding without a reproduction.</p>
 
@@ -176,24 +203,87 @@ const levels = [
 					}
 				</ul>
 				<p><strong>Severity levels</strong></p>
-			</div>
+				<p>
+					There are five levels: Critical, High, Medium, Low and Info. For a confirmed finding, the impact and
+					reach pick one cell of the grid below, and the rules after it adjust the result. Lower reach never
+					raises severity: each cell is at most the level of the cell to its left.
+				</p>
+				<div class="v9">
+					<div class="table-wrap">
+						<table class="v9-table">
+							<thead>
+								<tr class="head">
+									<th>Impact \ Reach</th>
+									<th>R4 Ordinary</th>
+									<th>R3 Unusual, unguarded</th>
+									<th>R2 Expert</th>
+									<th>R1 Needs egress</th>
+								</tr>
+							</thead>
+							<tbody>
+								{
+									grid.map((r) => (
+										<tr>
+											<td class="ink">
+												{r.i} {r.name}
+											</td>
+											{r.cells.map((c) => (
+												<td>{c}</td>
+											))}
+										</tr>
+									))
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<p><strong>Rules, in order</strong></p>
+				<ol class="steps">
+					{
+						rules.map((r, i) => (
+							<li>
+								<span class="sec-num">{String(i + 1).padStart(2, '0')}</span>
+								<p>
+									<strong>{r.k}</strong> {r.v}
+								</p>
+							</li>
+						))
+					}
+				</ol>
+				<p>
+					Flaky graders are Low. A timestamp hint that reveals the scope of the fix but not the solution is
+					I2 with R4, so Low unless it clears the threshold. The difficulty spread of a suite is reported as
+					Info; it is not a finding.
+				</p>
 
-			<div class="checks">
-				{
-					levels.map((l) => (
-						<div class="check">
-							<h3>{l.k}</h3>
-							<p>{l.v}</p>
-						</div>
-					))
-				}
+				<h2 id="stamp"><span class="sec-num">05</span>The stamp</h2>
+				<p>The stamp states whether an audited environment passes or fails, as of a date.</p>
+				<ul class="steps">
+					{
+						stamp.map((r) => (
+							<li>
+								<span class="sec-num">·</span>
+								<p>
+									<strong>{r.k}</strong> {r.v}
+								</p>
+							</li>
+						))
+					}
+				</ul>
+				<p>A passing stamp reads:</p>
+				<p>
+					<span class="v9"><code class="code-inline"
+						>Cupel · PASS · [env] @ [commit] · [date] · 0 open Critical/High · scanner v[x] · attacker [model] ·
+						report →</code
+					></span>
+				</p>
 			</div>
 
 			<div class="reader article-body">
-				<h2><span class="sec-num">05</span>Audits and research</h2>
+				<h2><span class="sec-num">06</span>Audits and research</h2>
 				<AuditRows href={null} />
 
-				<h2><span class="sec-num">06</span>Contact</h2>
+				<h2><span class="sec-num">07</span>Contact</h2>
 				<p>
 					To commission an audit, or to report a problem with one of ours, write to
 					<a href="mailto:aditya@inductive.ml">aditya@inductive.ml</a>.
