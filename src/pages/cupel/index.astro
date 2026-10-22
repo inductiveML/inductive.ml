@@ -28,6 +28,54 @@ const steps = [
 		v: 'We publish on day 15: the findings, what was fixed, and what was not.',
 	},
 ];
+
+const impact = [
+	{ k: 'I3', name: 'Full', v: 'Full reward without doing the intended task.' },
+	{
+		k: 'I2',
+		name: 'Partial',
+		v: 'Partial credit, a shortened path, or a reveal of the scope of the fix that materially reduces the task.',
+	},
+	{
+		k: 'I1',
+		name: 'Signal corruption',
+		v: 'A grader that is flaky, noisy or in the wrong pass-rate band, without a reliable free reward.',
+	},
+];
+
+const reach = [
+	{ k: 'R4', name: 'Ordinary', v: 'Ordinary tool use, such as git log or reading a visible file.' },
+	{ k: 'R3', name: 'Unusual, unguarded', v: 'Unusual but unguarded, such as editing the tests or a writable conftest.' },
+	{
+		k: 'R2',
+		name: 'Expert',
+		v: 'An expert technique, such as parsing git packfiles by hand or digging through image layers.',
+	},
+	{ k: 'R1', name: 'Needs egress', v: 'Needs network access or an escape from the host.' },
+];
+
+const levels = [
+	{
+		k: 'Critical',
+		v: 'I3 with R4, confirmed. Also an impossible task, or one whose reference solution fails, alongside a confirmed exploit, because it trains hacking. An undeclared sandbox escape that gives full reward (I3 with R1) is Critical.',
+	},
+	{
+		k: 'High',
+		v: 'I3 with R3, confirmed; or the reference solution fails, so the grader also rejects right answers.',
+	},
+	{
+		k: 'Medium',
+		v: 'Wrong solutions pass more often than a threshold set in advance; an expert-only side channel (I3 with R2), confirmed; or I2 with R3 or R4.',
+	},
+	{
+		k: 'Low',
+		v: 'Flaky graders; timestamp hints that reveal the scope of the fix but not the solution (a weak I2 with R4).',
+	},
+	{
+		k: 'Info',
+		v: 'The difficulty spread of the suite; answers that are reachable online only if the sandbox allows network access, when that access was not confirmed.',
+	},
+];
 ---
 
 <Layout
@@ -91,10 +139,61 @@ const steps = [
 					hears from us first, privately and with patches, and the report follows on day 15.
 				</p>
 
-				<h2><span class="sec-num">03</span>Audits and research</h2>
+				<h2><span class="sec-num">03</span>What we don't do</h2>
+				<p>We don't issue a pass/fail stamp.</p>
+				<p>We don't reduce an environment to a single score.</p>
+				<p>We don't report a finding without a reproduction.</p>
+
+				<h2 id="severity"><span class="sec-num">04</span>Severity</h2>
+				<p>
+					We rate each finding on two axes: impact, what an agent gets without doing the task, and reach, how
+					easy the shortcut is to use. Together they set one of five severity levels.
+				</p>
+				<p><strong>Impact</strong></p>
+				<ul class="steps">
+					{
+						impact.map((l) => (
+							<li>
+								<span class="sec-num">{l.k}</span>
+								<p>
+									<strong>{l.name}.</strong> {l.v}
+								</p>
+							</li>
+						))
+					}
+				</ul>
+				<p><strong>Reach</strong></p>
+				<ul class="steps">
+					{
+						reach.map((l) => (
+							<li>
+								<span class="sec-num">{l.k}</span>
+								<p>
+									<strong>{l.name}.</strong> {l.v}
+								</p>
+							</li>
+						))
+					}
+				</ul>
+				<p><strong>Severity levels</strong></p>
+			</div>
+
+			<div class="checks">
+				{
+					levels.map((l) => (
+						<div class="check">
+							<h3>{l.k}</h3>
+							<p>{l.v}</p>
+						</div>
+					))
+				}
+			</div>
+
+			<div class="reader article-body">
+				<h2><span class="sec-num">05</span>Audits and research</h2>
 				<AuditRows href={null} />
 
-				<h2><span class="sec-num">04</span>Contact</h2>
+				<h2><span class="sec-num">06</span>Contact</h2>
 				<p>
 					To commission an audit, or to report a problem with one of ours, write to
 					<a href="mailto:aditya@inductive.ml">aditya@inductive.ml</a>.

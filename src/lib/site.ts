@@ -105,7 +105,7 @@ export const audits: Audit[] = [
 	{
 		label: 'Audit',
 		title: 'MiMo RL environments (Xiaomi)',
-		note: 'Published 22 Oct 2026. The git-history fix holds; a file-timestamp leak remains, severity Low.',
+		note: 'Fix held 0/300 · timestamp side channel 85.3% · severity Low, efficiency gain only',
 		highlight: 'severity Low',
 		href: '/cupel/mimo',
 	},
