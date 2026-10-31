@@ -4,8 +4,6 @@ description: "For the first 8 training updates, we nudged each line of a model's
 date: 2026-11-01
 ---
 
-# Trust Yourself, Briefly: Self-Confidence as a Warm Start for GRPO
-
 ## The idea in one paragraph
 
 Most reinforcement learning (RL) for reasoning works like a teacher who only looks at the final answer. The model writes out its working line by line, reaches an answer, and the whole thing gets one grade. If the answer is right, every line gets the credit, sloppy ones included. If it's wrong, every line gets the blame, good ones included. Figuring out which lines actually earned the grade is called credit assignment, and GRPO (Group Relative Policy Optimization), a popular method, mostly skips it: the model answers the same question several times, and each attempt is graded against the others. We tried a small addition. For the first 8 training updates, each line of working also got a little nudge up or down, depending on how sure the model itself was about that line. After that we switched the nudge off and let plain GRPO take over. We call this a warm start. On a toy task, it made the model learn noticeably faster. It also failed in a few ways that taught us as much as the wins did.
@@ -14,12 +12,13 @@ Most reinforcement learning (RL) for reasoning works like a teacher who only loo
 
 We wanted a task where every step can be checked, so we made one up. We call it variable chains. The prompt gives three chains of simple definitions, like `b = a + 3`. Each step adds or subtracts a small number, and every value stays between 0 and 19. The model works through each chain one line at a time, then writes three answers.
 
-Here's a made-up example to show the shape. Each chain here is three steps long.
+Here's a made-up example to show the shape. Each column is one chain, three steps long.
 
 ```text
-a = 4    b = a + 3     c = b - 5     d = c + 9
-p = 12   q = p - 7     r = q + 2     s = r + 6
-m = 9    n = m + 8     o = n - 10    t = o - 4
+a = 4        p = 12       m = 9
+b = a + 3    q = p - 7    n = m + 8
+c = b - 5    r = q + 2    o = n - 10
+d = c + 9    s = r + 6    t = o - 4
 Find d, s and t.
 ```
 
@@ -53,62 +52,63 @@ Then, within a single response, we compare each line's confidence with the avera
 Because each line is measured against the average, the nudges in a response cancel out. They don't make an answer look better or worse overall. They only shift credit from some lines to others. The normal GRPO grade for the whole answer still applies on top.
 
 <figure>
-<svg viewBox="0 0 640 290" width="100%" role="img" aria-label="Left: GRPO gives four step lines one shared score. Right: the warm start adds an up or down marker per line, sized by the model's confidence." style="max-width:640px;height:auto;color:inherit" xmlns="http://www.w3.org/2000/svg">
-<g fill="currentColor" font-family="Archivo, system-ui, sans-serif" font-size="15">
-<text x="20" y="28" font-weight="600">GRPO</text>
-<text x="20" y="48" font-size="13" opacity="0.75">one grade for the whole answer</text>
-<text x="340" y="28" font-weight="600">Warm start</text>
-<text x="340" y="48" font-size="13" opacity="0.75">plus a nudge per line, for 8 updates</text>
+<svg viewBox="0 0 400 392" width="100%" style="max-width:480px;height:auto;color:inherit" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Top: GRPO gives four step lines one shared score. Bottom: the warm start adds an up or down marker per line, sized by the model's confidence.">
+<g fill="currentColor" font-family="Archivo, system-ui, sans-serif">
+<text x="20" y="26" font-size="17" font-weight="600">GRPO</text>
+<text x="20" y="48" font-size="14" opacity="0.75">one grade for the whole answer</text>
+<text x="20" y="226" font-size="17" font-weight="600">Warm start</text>
+<text x="20" y="248" font-size="14" opacity="0.75">plus a nudge per line, for the first 8 updates</text>
 </g>
-<g fill="currentColor" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="15">
-<text x="30" y="90">b = 4 + 3 = 7</text>
-<text x="30" y="122">c = 7 - 5 = 2</text>
-<text x="30" y="154">d = 2 + 9 = 11</text>
-<text x="30" y="186">q = 12 - 7 = 5</text>
-<text x="350" y="90">b = 4 + 3 = 7</text>
-<text x="350" y="122">c = 7 - 5 = 2</text>
-<text x="350" y="154">d = 2 + 9 = 11</text>
-<text x="350" y="186">q = 12 - 7 = 5</text>
+<g fill="currentColor" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="16">
+<text x="20" y="84">b = 4 + 3 = 7</text>
+<text x="20" y="112">c = 7 - 5 = 2</text>
+<text x="20" y="140">d = 2 + 9 = 11</text>
+<text x="20" y="168">q = 12 - 7 = 5</text>
+<text x="20" y="284">b = 4 + 3 = 7</text>
+<text x="20" y="312">c = 7 - 5 = 2</text>
+<text x="20" y="340">d = 2 + 9 = 11</text>
+<text x="20" y="368">q = 12 - 7 = 5</text>
 </g>
 <g fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.6">
-<path d="M200 76 H210 V196 H200"/>
-<path d="M210 136 H230 V222"/>
-<path d="M225 216 L230 224 L235 216"/>
+<path d="M168 70 H178 V174 H168"/>
+<path d="M178 122 H212"/>
+<path d="M206 116 L213 122 L206 128"/>
 </g>
-<rect x="150" y="228" width="140" height="36" rx="4" fill="none" stroke="#b8381f" stroke-width="2"/>
-<text x="220" y="251" text-anchor="middle" fill="currentColor" font-family="Archivo, system-ui, sans-serif" font-size="14">one score</text>
+<rect x="218" y="104" width="150" height="36" rx="4" fill="none" stroke="#b8381f" stroke-width="2"/>
+<text x="293" y="127" text-anchor="middle" fill="currentColor" font-family="Archivo, system-ui, sans-serif" font-size="15">one score</text>
+<path d="M20 198 H380" stroke="currentColor" stroke-opacity="0.15"/>
 <g fill="#b8381f">
-<polygon points="560,74 551,92 569,92"/>
-<polygon points="560,112 555,122 565,122"/>
-<polygon points="560,154 555,144 565,144"/>
-<polygon points="560,192 551,174 569,174"/>
+<polygon points="180,268 170,286 190,286"/>
+<polygon points="180,301 174,311 186,311"/>
+<polygon points="180,339 174,329 186,329"/>
+<polygon points="180,374 170,356 190,356"/>
 </g>
-<rect x="470" y="228" width="140" height="36" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
-<text x="540" y="251" text-anchor="middle" fill="currentColor" font-family="Archivo, system-ui, sans-serif" font-size="14">same score</text>
-<g fill="currentColor" font-family="Archivo, system-ui, sans-serif" font-size="12" opacity="0.75">
-<text x="580" y="90">surer</text>
-<text x="580" y="190">less sure</text>
+<g fill="currentColor" font-family="Archivo, system-ui, sans-serif" font-size="14" opacity="0.75">
+<text x="198" y="284">surer</text>
+<text x="198" y="368">less sure</text>
 </g>
+<rect x="268" y="304" width="114" height="36" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+<text x="325" y="327" text-anchor="middle" fill="currentColor" font-family="Archivo, system-ui, sans-serif" font-size="15">same score</text>
 </svg>
-<figcaption>Left, GRPO: one score for every line. Right, the warm start: each line also gets ▲ or ▼, sized by the model's confidence.</figcaption>
+<figcaption>Top, GRPO: one score for every line. Bottom, the warm start: each line also gets ▲ or ▼, sized by the model's confidence.</figcaption>
 </figure>
 
 We only do this for training updates 1 to 8. From update 9 onward it's plain GRPO. The reason is simple: keep rewarding a model for being confident, and it learns to look confident. We'll get to what that looked like.
 
 <figure>
-<svg viewBox="0 0 640 150" width="100%" role="img" aria-label="A bar of 200 training updates. Updates 1 to 8 are shaded: confidence credit on. Updates 9 to 200 are plain GRPO." style="max-width:640px;height:auto;color:inherit" xmlns="http://www.w3.org/2000/svg">
-<rect x="20" y="60" width="600" height="30" rx="4" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.5"/>
-<rect x="20" y="60" width="24" height="30" fill="#b8381f"/>
-<path d="M32 58 V40" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+<svg viewBox="0 0 400 134" width="100%" style="max-width:480px;height:auto;color:inherit" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A bar of 200 training updates. Updates 1 to 8 are shaded: confidence credit on. Updates 9 to 200 are plain GRPO.">
+<rect x="10" y="54" width="380" height="34" rx="4" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.5"/>
+<rect x="10" y="54" width="15.2" height="34" fill="#b8381f"/>
+<path d="M17.6 52 V34" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
 <g fill="currentColor" font-family="Archivo, system-ui, sans-serif">
-<text x="20" y="32" font-size="14">confidence credit on · updates 1–8</text>
-<text x="335" y="80" font-size="14" text-anchor="middle">plain GRPO · updates 9–200</text>
-<g font-size="12" opacity="0.75">
-<text x="20" y="110">1</text>
-<text x="44" y="110">8</text>
-<text x="320" y="110" text-anchor="middle">100</text>
-<text x="620" y="110" text-anchor="end">200</text>
-<text x="320" y="136" text-anchor="middle">training updates →</text>
+<text x="10" y="26" font-size="15">confidence credit on · updates 1–8</text>
+<text x="210" y="76" font-size="15" text-anchor="middle">plain GRPO · updates 9–200</text>
+<g font-size="13" opacity="0.75">
+<text x="10" y="106">1</text>
+<text x="25" y="106">8</text>
+<text x="200" y="106" text-anchor="middle">100</text>
+<text x="390" y="106" text-anchor="end">200</text>
+<text x="200" y="128" text-anchor="middle">training updates →</text>
 </g>
 </g>
 </svg>
@@ -124,31 +124,31 @@ Our main comparison is plain GRPO, with the same reward we used everywhere. That
 We ran each method with 5 random seeds for 100 updates. A seed sets a run's starting randomness, so different seeds are like independent reruns of the same experiment. Averaged over the whole run, the warm start's accuracy at depth 5 was 0.24 higher than GRPO's. By the end, it was at 0.95 against GRPO's 0.81 at depth 5, and 0.91 against 0.71 at depth 6. Neither depth was in the training data. To reach the accuracy GRPO finished with, the warm start needed about 2× less compute, or about 1.5× less if you leave out two weak GRPO seeds. None of the warm-start runs collapsed.
 
 <figure>
-<svg viewBox="0 0 640 300" width="100%" role="img" aria-label="Bar chart. Depth 5 final accuracy: GRPO 0.81, warm start 0.95. Depth 6 accuracy: GRPO 0.71, warm start 0.91." style="max-width:640px;height:auto;color:inherit" xmlns="http://www.w3.org/2000/svg">
-<g font-family="Archivo, system-ui, sans-serif" font-size="13" fill="currentColor">
-<rect x="380" y="12" width="12" height="12" rx="2" fill="currentColor" fill-opacity="0.45"/>
-<text x="398" y="22">GRPO</text>
-<rect x="460" y="12" width="12" height="12" rx="2" fill="#b8381f"/>
-<text x="478" y="22">warm start</text>
+<svg viewBox="0 0 400 290" width="100%" style="max-width:480px;height:auto;color:inherit" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar chart. Depth 5 final accuracy: GRPO 0.81, warm start 0.95. Depth 6 accuracy: GRPO 0.71, warm start 0.91.">
+<g font-family="Archivo, system-ui, sans-serif" font-size="15" fill="currentColor">
+<rect x="150" y="9" width="13" height="13" rx="2" fill="currentColor" fill-opacity="0.45"/>
+<text x="169" y="21">GRPO</text>
+<rect x="238" y="9" width="13" height="13" rx="2" fill="#b8381f"/>
+<text x="257" y="21">warm start</text>
 </g>
-<path d="M90 150 H560" stroke="currentColor" stroke-opacity="0.15" stroke-dasharray="3 4"/>
-<path d="M90 250 H560" stroke="currentColor" stroke-opacity="0.5"/>
-<g font-family="Archivo, system-ui, sans-serif" font-size="12" fill="currentColor" opacity="0.75" text-anchor="end">
-<text x="82" y="154">0.5</text>
-<text x="82" y="254">0</text>
-<text x="82" y="54">accuracy</text>
+<path d="M50 155 H370" stroke="currentColor" stroke-opacity="0.15" stroke-dasharray="3 4"/>
+<path d="M50 250 H370" stroke="currentColor" stroke-opacity="0.5"/>
+<g font-family="Archivo, system-ui, sans-serif" font-size="13" fill="currentColor" opacity="0.75">
+<text x="42" y="159" text-anchor="end">0.5</text>
+<text x="42" y="254" text-anchor="end">0</text>
+<text x="10" y="50">accuracy</text>
 </g>
-<path d="M150 250 V92 Q150 88 154 88 H216 Q220 88 220 92 V250 Z" fill="currentColor" fill-opacity="0.45"><title>GRPO, depth 5 final: 0.81</title></path>
-<path d="M224 250 V64 Q224 60 228 60 H290 Q294 60 294 64 V250 Z" fill="#b8381f"><title>Warm start, depth 5 final: 0.95</title></path>
-<path d="M390 250 V112 Q390 108 394 108 H456 Q460 108 460 112 V250 Z" fill="currentColor" fill-opacity="0.45"><title>GRPO, depth 6: 0.71</title></path>
-<path d="M464 250 V72 Q464 68 468 68 H530 Q534 68 534 72 V250 Z" fill="#b8381f"><title>Warm start, depth 6: 0.91</title></path>
-<g font-family="Archivo, system-ui, sans-serif" fill="currentColor" text-anchor="middle">
-<text x="185" y="80" font-size="14">0.81</text>
-<text x="259" y="52" font-size="14">0.95</text>
-<text x="425" y="100" font-size="14">0.71</text>
-<text x="499" y="60" font-size="14">0.91</text>
-<text x="222" y="274" font-size="14">depth 5, final</text>
-<text x="462" y="274" font-size="14">depth 6</text>
+<path d="M70 250 V100.1 Q70 96.1 74 96.1 H126 Q130 96.1 130 100.1 V250 Z" fill="currentColor" fill-opacity="0.45"><title>GRPO, depth 5 final: 0.81</title></path>
+<path d="M134 250 V73.5 Q134 69.5 138 69.5 H190 Q194 69.5 194 73.5 V250 Z" fill="#b8381f"><title>Warm start, depth 5 final: 0.95</title></path>
+<path d="M230 250 V119.1 Q230 115.1 234 115.1 H286 Q290 115.1 290 119.1 V250 Z" fill="currentColor" fill-opacity="0.45"><title>GRPO, depth 6: 0.71</title></path>
+<path d="M294 250 V81.1 Q294 77.1 298 77.1 H350 Q354 77.1 354 81.1 V250 Z" fill="#b8381f"><title>Warm start, depth 6: 0.91</title></path>
+<g font-family="Archivo, system-ui, sans-serif" fill="currentColor" text-anchor="middle" font-size="15">
+<text x="100" y="88">0.81</text>
+<text x="164" y="61">0.95</text>
+<text x="260" y="107">0.71</text>
+<text x="324" y="69">0.91</text>
+<text x="132" y="274">depth 5, final</text>
+<text x="292" y="274">depth 6</text>
 </g>
 </svg>
 <figcaption>5 random seeds, 100 updates, model trained on depths 3–4.</figcaption>
@@ -173,22 +173,22 @@ There's a simpler version of this idea: measure the model's confidence once, ove
 When we kept the confidence nudge on for longer, runs shot up early and then collapsed. The model had found ways of writing that score well on confidence without actually solving the problem. Some runs started writing just the formula. Others substituted numbers in strange ways. It's like grading students on how confident they sound: sooner or later, they work on sounding confident. Turning the nudge off after 8 updates avoided this.
 
 <figure>
-<svg viewBox="0 0 640 280" width="100%" role="img" aria-label="A sketch, not data: accuracy rises fast, the model learns to game the confidence signal, then accuracy collapses." style="max-width:640px;height:auto;color:inherit" xmlns="http://www.w3.org/2000/svg">
-<path d="M60 40 V230 H610" fill="none" stroke="currentColor" stroke-opacity="0.5"/>
-<path d="M60 222 C 110 215, 140 90, 210 76 C 270 66, 320 70, 360 88 C 400 106, 420 196, 470 214 L 600 220" fill="none" stroke="#b8381f" stroke-width="2.5"/>
-<g font-family="Archivo, system-ui, sans-serif" fill="currentColor" font-size="14">
-<text x="178" y="176">fast at first</text>
-<text x="290" y="48" text-anchor="middle">learns to game the confidence signal</text>
-<text x="455" y="160">collapse</text>
-<g font-size="12" opacity="0.75">
-<text x="610" y="252" text-anchor="end">training updates →</text>
-<text x="44" y="135" text-anchor="middle" transform="rotate(-90 44 135)">accuracy →</text>
+<svg viewBox="0 0 400 252" width="100%" style="max-width:480px;height:auto;color:inherit" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A sketch, not data: accuracy rises fast, the model learns to game the confidence signal, then accuracy collapses.">
+<path d="M40 30 V220 H390" fill="none" stroke="currentColor" stroke-opacity="0.5"/>
+<path d="M40 212 C 75 205, 95 85, 140 72 C 180 62, 215 66, 240 82 C 268 100, 282 188, 315 205 L 385 210" fill="none" stroke="#b8381f" stroke-width="2.5"/>
+<g font-family="Archivo, system-ui, sans-serif" fill="currentColor" font-size="15">
+<text x="104" y="180">fast at first</text>
+<text x="190" y="32" text-anchor="middle">learns to game the confidence signal</text>
+<text x="294" y="140">collapse</text>
+<g font-size="13" opacity="0.75">
+<text x="390" y="244" text-anchor="end">training updates →</text>
+<text x="26" y="125" text-anchor="middle" transform="rotate(-90 26 125)">accuracy →</text>
 </g>
 </g>
 <g fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.6">
-<path d="M175 164 L 152 134"/>
-<path d="M290 54 V 64"/>
-<path d="M452 164 L 438 176"/>
+<path d="M102 168 L 90 151"/>
+<path d="M190 40 V 58"/>
+<path d="M291 136 L 281 145"/>
 </g>
 </svg>
 <figcaption>A sketch, not data: with the confidence signal left on, runs rose fast, then the model gamed it and collapsed.</figcaption>
@@ -209,23 +209,21 @@ Then we ran a second seed. Only 2 of those 7 gains showed up again, and both wer
 Plain GRPO tended to write fewer step lines. Since our reward has a small penalty for length, we wondered if that penalty was pushing GRPO to skip its working. It wasn't. Only about 7% of outputs ever got long enough for the penalty to kick in, so something else is behind it.
 
 <figure>
-<svg viewBox="0 0 640 260" width="100%" role="img" aria-label="Two columns. Held: faster learning over 5 seeds; a lead at untrained depth 7 after 200 updates over 3 seeds. Didn't hold: better transfer on a second seed, only 2 of 7 test sets; helping from a cold start on hard problems." style="max-width:640px;height:auto;color:inherit" xmlns="http://www.w3.org/2000/svg">
-<rect x="10" y="10" width="300" height="240" rx="6" fill="#b8381f" fill-opacity="0.08" stroke="#b8381f" stroke-width="2"/>
-<rect x="330" y="10" width="300" height="240" rx="6" fill="none" stroke="currentColor" stroke-opacity="0.5" stroke-width="1.5" stroke-dasharray="6 5"/>
+<svg viewBox="0 0 400 364" width="100%" style="max-width:480px;height:auto;color:inherit" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Held: faster learning over 5 seeds; a lead at untrained depth 7 after 200 updates over 3 seeds. Didn't hold: better transfer on a second seed, only 2 of 7 test sets; helping from a cold start on hard problems.">
+<rect x="4" y="4" width="392" height="170" rx="6" fill="#b8381f" fill-opacity="0.08" stroke="#b8381f" stroke-width="2"/>
+<rect x="4" y="190" width="392" height="170" rx="6" fill="none" stroke="currentColor" stroke-opacity="0.5" stroke-width="1.5" stroke-dasharray="6 5"/>
 <g font-family="Archivo, system-ui, sans-serif" fill="currentColor">
-<text x="30" y="44" font-size="17" font-weight="600">Held</text>
-<text x="350" y="44" font-size="17" font-weight="600">Didn't hold</text>
-<g font-size="14">
-<text x="30" y="84">Faster learning</text>
-<text x="30" y="104" opacity="0.75">5 seeds, 100 updates</text>
-<text x="30" y="150">A lead at untrained depth 7</text>
-<text x="30" y="170" opacity="0.75">after 200 updates, 3 seeds;</text>
-<text x="30" y="190" opacity="0.75">shrinking: +0.20 → +0.12</text>
-<text x="350" y="84">Better transfer on a second seed</text>
-<text x="350" y="104" opacity="0.75">only 2 of 7 test sets held</text>
-<text x="350" y="150">Helping from a cold start</text>
-<text x="350" y="170" opacity="0.75">on hard problems (depths 6–7);</text>
-<text x="350" y="190" opacity="0.75">no method learned there</text>
+<text x="22" y="36" font-size="18" font-weight="600">Held</text>
+<text x="22" y="222" font-size="18" font-weight="600">Didn't hold</text>
+<g font-size="15">
+<text x="22" y="70">Faster learning</text>
+<text x="22" y="92" opacity="0.75">5 seeds, 100 updates</text>
+<text x="22" y="128">A lead at untrained depth 7</text>
+<text x="22" y="150" opacity="0.75">200 updates, 3 seeds · shrinking, +0.20 → +0.12</text>
+<text x="22" y="256">Better transfer on a second seed</text>
+<text x="22" y="278" opacity="0.75">only 2 of 7 test sets held</text>
+<text x="22" y="314">Helping from a cold start on hard problems</text>
+<text x="22" y="336" opacity="0.75">depths 6–7 · no method learned there</text>
 </g>
 </g>
 </svg>

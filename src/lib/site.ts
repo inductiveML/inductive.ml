@@ -15,6 +15,15 @@ const namesExperimentHref = 'https://x.com/inductive_ml/status/20759951918243310
 
 export const experiments: Experiment[] = [
 	{
+		month: 'Nov',
+		year: '2026',
+		title: 'Trust Yourself, Briefly',
+		excerpt:
+			"For the first 8 GRPO updates, we nudged each line of a model's working by how sure it was of that line. It reached GRPO's final accuracy with about 2× less compute. Left on longer, the model gamed the signal.",
+		highlight: 'about 2× less compute',
+		href: '/experiments/trust-yourself-briefly',
+	},
+	{
 		month: 'Sep',
 		year: '2026',
 		title: 'Faster Tokens. Same Small Model.',

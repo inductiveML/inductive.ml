@@ -10,6 +10,10 @@ export default defineConfig({
   },
   adapter: alchemy(),
   integrations: [react()],
+  // Posts are plain text and SVG; code blocks take the paper styling, not a highlighter theme.
+  markdown: {
+    syntaxHighlight: false,
+  },
   vite: {
     server: {
       headers: {
