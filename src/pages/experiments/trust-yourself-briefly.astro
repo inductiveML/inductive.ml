@@ -7,10 +7,12 @@ import PageHead from '../../components/PageHead.astro';
 import { Content, frontmatter } from '../../../posts/trust-yourself-briefly.md';
 import '../../styles/v9.css';
 
+// Lengths follow what search results and social cards show before truncating.
 const post = z
 	.object({
-		title: z.string(),
-		description: z.string(),
+		pageTitle: z.string().max(60),
+		shareTitle: z.string().max(60),
+		description: z.string().min(120).max(160),
 		date: z.iso.datetime(),
 	})
 	.parse(frontmatter);
@@ -24,10 +26,10 @@ const published = new Date(post.date).toLocaleDateString('en-GB', {
 ---
 
 <Layout
-	title={`${post.title} · Inductive ML`}
+	title={post.pageTitle}
 	description={post.description}
 	og={{
-		title: post.title,
+		title: post.shareTitle,
 		type: 'article',
 		image: '/og/trust-yourself-briefly.png',
 		imageAlt:

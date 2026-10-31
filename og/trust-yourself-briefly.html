@@ -68,8 +68,6 @@
   }
   .sub em { font-style: italic; color: var(--crimson); }
   .card {
-    flex: none;
-    width: 372px;
     border: 1px solid var(--hair);
     background: var(--panel);
     padding: 22px 26px 24px;
@@ -92,6 +90,18 @@
     color: var(--ink);
   }
   .line svg { display: block; }
+  .side { flex: none; width: 384px; display: flex; flex-direction: column; align-items: stretch; gap: 18px; }
+  .cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 17px 26px;
+    font-size: 21px;
+    font-weight: 600;
+  }
+  .cta .url { font-family: "IBM Plex Mono", monospace; font-size: 15px; font-weight: 400; letter-spacing: 0.06em; color: #d9d1c3; }
   .band { display: flex; height: 92px; }
   .band > div { flex: 1; }
   .band .solid { background: var(--dot); }
@@ -112,12 +122,15 @@
       <h1>Trust Yourself,<br />Briefly</h1>
       <p class="sub">Self-confidence as a warm start<br />for GRPO. <em>8 updates, then off.</em></p>
     </div>
+    <div class="side">
     <div class="card">
       <div class="lbl">// a nudge per line</div>
       <div class="line"><span>b = 4 + 3 = 7</span><svg width="26" height="22" viewBox="0 0 26 22"><polygon points="13,1 1,21 25,21" fill="#b8381f" /></svg></div>
       <div class="line"><span>c = 7 - 5 = 2</span><svg width="26" height="22" viewBox="0 0 26 22"><polygon points="13,7 6,19 20,19" fill="#b8381f" /></svg></div>
       <div class="line"><span>d = 2 + 9 = 11</span><svg width="26" height="22" viewBox="0 0 26 22"><polygon points="13,15 6,3 20,3" fill="#b8381f" /></svg></div>
       <div class="line"><span>q = 12 - 7 = 5</span><svg width="26" height="22" viewBox="0 0 26 22"><polygon points="13,21 1,1 25,1" fill="#b8381f" /></svg></div>
+    </div>
+    <div class="cta"><span>Read the write-up</span><span class="url">inductive.ml →</span></div>
     </div>
   </div>
   <div class="band" aria-hidden="true">

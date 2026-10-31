@@ -1,6 +1,7 @@
 ---
-title: "Trust Yourself, Briefly: Self-Confidence as a Warm Start for GRPO"
-description: "For the first 8 training updates, we nudged each line of a model's working by how sure it was of that line, then switched to plain GRPO. It learned faster on a toy task. Left on longer, the model gamed it, and a promising transfer result didn't survive a second seed."
+pageTitle: "Trust Yourself, Briefly: A GRPO Warm Start · Inductive ML"
+shareTitle: "Trust Yourself, Briefly: Confidence as a GRPO Warm Start"
+description: "For 8 updates we nudged each step by the model's own confidence. It reached GRPO's final accuracy on about half the compute."
 date: 2026-11-01
 ---
 
