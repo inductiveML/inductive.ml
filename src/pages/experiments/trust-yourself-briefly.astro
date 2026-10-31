@@ -23,7 +23,17 @@ const published = new Date(post.date).toLocaleDateString('en-GB', {
 });
 ---
 
-<Layout title={`${post.title} · Inductive ML`} description={post.description}>
+<Layout
+	title={`${post.title} · Inductive ML`}
+	description={post.description}
+	og={{
+		title: post.title,
+		type: 'article',
+		image: '/og/trust-yourself-briefly.png',
+		imageAlt:
+			'Trust Yourself, Briefly: self-confidence as a warm start for GRPO. Four lines of working, each marked up or down by how sure the model was.',
+	}}
+>
 	<SiteHeader current="experiments" />
 	<PageHead back={{ href: '/experiments', label: 'Experiments' }} kicker="Research · GRPO · 2026" animate={true}>
 		Trust Yourself, Briefly

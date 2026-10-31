@@ -6,6 +6,16 @@ interface Props {
 	description?: string;
 	analytics?: boolean;
 	noindex?: boolean;
+	/** Social preview card. Pages that pass it get Open Graph and Twitter card tags. */
+	og?: OpenGraph;
+}
+
+interface OpenGraph {
+	title: string;
+	type: 'article' | 'website';
+	/** Site-relative path under public/, rendered at 2400×1260 (1.91:1). */
+	image: string;
+	imageAlt: string;
 }
 
 const {
@@ -13,7 +23,18 @@ const {
 	description = 'An independent lab studying how machines learn to learn — research on representation, adaptation, and intelligence. Bangalore, India.',
 	analytics = true,
 	noindex,
+	og,
 } = Astro.props;
+
+const social = (() => {
+	if (og === undefined) return undefined;
+	if (Astro.site === undefined) throw new Error('Set `site` in astro.config.mjs to build absolute Open Graph URLs.');
+	return {
+		...og,
+		url: new URL(Astro.url.pathname, Astro.site).href,
+		image: new URL(og.image, Astro.site).href,
+	};
+})();
 ---
 
 <!doctype html>
@@ -25,6 +46,29 @@ const {
 		<meta name="generator" content={Astro.generator} />
 		{noindex === true && <meta name="robots" content="noindex, nofollow" />}
 		<title>{title}</title>
+		{
+			social && (
+				<>
+					<link rel="canonical" href={social.url} />
+					<meta property="og:site_name" content="Inductive ML" />
+					<meta property="og:type" content={social.type} />
+					<meta property="og:title" content={social.title} />
+					<meta property="og:description" content={description} />
+					<meta property="og:url" content={social.url} />
+					<meta property="og:image" content={social.image} />
+					<meta property="og:image:type" content="image/png" />
+					<meta property="og:image:width" content="2400" />
+					<meta property="og:image:height" content="1260" />
+					<meta property="og:image:alt" content={social.imageAlt} />
+					<meta name="twitter:card" content="summary_large_image" />
+					<meta name="twitter:site" content="@inductive_ml" />
+					<meta name="twitter:title" content={social.title} />
+					<meta name="twitter:description" content={description} />
+					<meta name="twitter:image" content={social.image} />
+					<meta name="twitter:image:alt" content={social.imageAlt} />
+				</>
+			)
+		}
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

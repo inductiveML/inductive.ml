@@ -1,0 +1,136 @@
+<!doctype html>
+<!-- Source for public/og/trust-yourself-briefly.png. Render at 1200×630 with headless Chrome (see og/README.md). -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #f3eee4;
+    --panel: #ece5d8;
+    --ink: #1c1915;
+    --ink-2: #3f3933;
+    --mute: #5e574d;
+    --hair: #d9d1c3;
+    --dot: #d1472e;
+    --crimson: #b8381f;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Archivo", system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 44px 72px 0;
+  }
+  .brand { font-weight: 700; font-size: 26px; letter-spacing: -0.02em; }
+  .kicker {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 17px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  .rule { margin: 22px 72px 0; border-top: 2px solid var(--ink); }
+  .main {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 72px;
+    gap: 48px;
+  }
+  h1 {
+    margin: 0;
+    font-size: 108px;
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+    font-stretch: 86%;
+  }
+  .sub {
+    margin: 22px 0 0;
+    font-size: 31px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--ink-2);
+  }
+  .sub em { font-style: italic; color: var(--crimson); }
+  .card {
+    flex: none;
+    width: 372px;
+    border: 1px solid var(--hair);
+    background: var(--panel);
+    padding: 22px 26px 24px;
+  }
+  .card .lbl {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-bottom: 14px;
+  }
+  .line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 24px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .line svg { display: block; }
+  .band { display: flex; height: 92px; }
+  .band > div { flex: 1; }
+  .band .solid { background: var(--dot); }
+  .band .dots {
+    background-image: radial-gradient(circle, var(--dot) var(--r), transparent var(--r2));
+    background-size: 10px 10px;
+  }
+</style>
+</head>
+<body>
+  <div class="top">
+    <span class="brand">Inductive ML</span>
+    <span class="kicker">Experiments · Nov 2026</span>
+  </div>
+  <div class="rule"></div>
+  <div class="main">
+    <div>
+      <h1>Trust Yourself,<br />Briefly</h1>
+      <p class="sub">Self-confidence as a warm start<br />for GRPO. <em>8 updates, then off.</em></p>
+    </div>
+    <div class="card">
+      <div class="lbl">// a nudge per line</div>
+      <div class="line"><span>b = 4 + 3 = 7</span><svg width="26" height="22" viewBox="0 0 26 22"><polygon points="13,1 1,21 25,21" fill="#b8381f" /></svg></div>
+      <div class="line"><span>c = 7 - 5 = 2</span><svg width="26" height="22" viewBox="0 0 26 22"><polygon points="13,7 6,19 20,19" fill="#b8381f" /></svg></div>
+      <div class="line"><span>d = 2 + 9 = 11</span><svg width="26" height="22" viewBox="0 0 26 22"><polygon points="13,15 6,3 20,3" fill="#b8381f" /></svg></div>
+      <div class="line"><span>q = 12 - 7 = 5</span><svg width="26" height="22" viewBox="0 0 26 22"><polygon points="13,21 1,1 25,1" fill="#b8381f" /></svg></div>
+    </div>
+  </div>
+  <div class="band" aria-hidden="true">
+    <div class="solid"></div>
+    <div class="dots" style="--r:4.8px;--r2:5.3px"></div>
+    <div class="dots" style="--r:3.9px;--r2:4.4px"></div>
+    <div class="dots" style="--r:3.2px;--r2:3.7px"></div>
+    <div class="dots" style="--r:2.6px;--r2:3.1px"></div>
+    <div class="dots" style="--r:2.1px;--r2:2.6px"></div>
+    <div class="dots" style="--r:1.6px;--r2:2.1px"></div>
+    <div class="dots" style="--r:1.1px;--r2:1.6px"></div>
+    <div class="dots" style="--r:0.6px;--r2:1.1px"></div>
+    <div></div>
+  </div>
+</body>
+</html>
