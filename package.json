@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260317.1",
-    "sharp": "^0.34.5"
+    "sharp": "^0.34.5",
+    "zod": "4.3.6"
   }
 }
