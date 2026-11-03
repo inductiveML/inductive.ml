@@ -13,7 +13,6 @@ Source prefixes:
 - `old:` is the private working repo `avp1598/sokoban` at `e189e5b91b25f9544f32dd557f8d977106a5b0cd`.
 - `site:` is this repo.
 - `web:` is an outside page. The checker confirms only the post side, and the source side was checked by hand on 2026-11-04.
-- `none` means no source was found. The post marks these `[unverified]`.
 
 Kinds:
 - `exact`: the post's number appears verbatim in the source text.
@@ -25,7 +24,7 @@ The figure's values are generated from `site:posts/sokoban-without-hints/data/` 
 | # | In post | Source | Source text | Kind |
 |---|---|---|---|---|
 | 1 | 0.7M-parameter Boxoban policy | no-hints:docs/protocol.md | 733,120 parameters in total | rounded (733,120 → 0.7M) |
-| 2 | it solves 80.7% of levels | no-hints:results/unit18/table_u18.md | 80.7 [78.1, 83.0] | exact |
+| 2 | It solves 80.7% of the official unfiltered test split | no-hints:results/unit18/table_u18.md | 80.7 [78.1, 83.0] | exact |
 | 3 | On Oct 17, 2026, kache | web:https://x.com/yacineMTB/status/2111504874844127300 | created_at "Sat Oct 17 17:09:26 +0000 2026" (read via api.fxtwitter.com) | exact |
 | 4 | +0.25 each time a box lands on a target, and −1 when time runs out | no-hints:docs/protocol.md | +0.25 per box pushed onto a target and −0.25 per box pushed off; −1 on a timeout | exact |
 | 5 | Our agent gets +1 for solving a level and 0 for everything else | no-hints:docs/protocol.md | win-only, +1 on a solve and 0 otherwise | exact |
@@ -41,7 +40,9 @@ The figure's values are generated from `site:posts/sokoban-without-hints/data/` 
 | 15 | to 3.67 | no-hints:docs/vtrace_bug.md | `c_clip 1` \| **3.67** | exact |
 | 16 | went from 9.7% to 35.6% | no-hints:docs/vtrace_bug.md | held-out solve rate at 2B was 35.55% with the fix, against 9.66% for the control | rounded (9.66 → 9.7; 35.55 → 35.6) |
 | 17 | Mainline PufferLib's default for this setting is already 1 | no-hints:docs/vtrace_bug.md | Mainline's default `vtrace_c_clip` is already 1. | exact |
-| 18 | In a Sep 18, 2026 post, Suarez | none | Not found in either repo or on puffer.ai/blog; given in the task brief. Marked [unverified] in the post. | unverified |
+| 18 | (Sep 17, 2026), Suarez independently removed V-trace and prioritized replay | web:https://x.com/jsuarez/status/2100698384768307385 | X article "PufferLib 5.0's Streamlined RL Algorithm", created_at "Thu Sep 17 21:28:18 +0000 2026" (Sep 18 in UTC+5:30): "So in total, we removed prio replay, advantage normalization, and VTrace" (read via api.fxtwitter.com) | exact |
+| 18a | "a bad interaction between our prioritized sampling and higher sample reuse." | web:https://x.com/jsuarez/status/2100698384768307385 | "We also noticed a bad interaction between our prioritized sampling and higher sample reuse." | exact |
+| 18b | no form of off-policy correction improved results in his experiments | web:https://x.com/jsuarez/status/2100698384768307385 | "No form of off-pol correction improved results in any scenario, even in ones specifically constructed for them to shine, compared to our strong baseline." | exact |
 | 19 | the same 20,000 held-out levels | old:results/unit14/REPORT_unit14.md | ### Held-out 20,000, sampled (greedy) | exact |
 | 20 | At 2B steps its held-out solve rate was 69.9%, against 64.3% for our full curriculum | old:results/unit14/REPORT_unit14.md | The no-curriculum control S-plain beats WD3 at 2B** (69.87% vs 64.34% held-out | rounded (69.87 → 69.9; 64.34 → 64.3) |
 | 21 | 60.9% for a state-reset curriculum modelled on Suarez's | old:results/unit14/REPORT_unit14.md | S-suarez: 60.86% at 2B | rounded (60.86 → 60.9) |
@@ -106,7 +107,8 @@ The figure's values are generated from `site:posts/sokoban-without-hints/data/` 
 | 74a | with policy entropy at its maximum | old:results/unit16/REPORT_unit16.md | policy entropy was 1.609 (the maximum for 5 actions) | exact |
 | 75 | 2 seeds per arm for snake and trash_pickup and 3 for maze | no-hints:results/unit17_games/table_g.md | (2 seeds; seed 3 not run) | exact (maze table has seeds 1–3) |
 | 76 | the speedrun comparison has 2 hint-free seeds | no-hints:README.md | (2 seeds) against 72.8% shaped (3 seeds) | exact |
-| 77 | It reports 72.2% at 3B steps (reported on X; protocol not stated) | no-hints:README.md | Its 72.2% reverse-curriculum figure is from an X post we could not read, so it is unverified here. | exact (number from the task brief; marked [unverified] in the post) |
+| 77 | 72.2% on unfiltered test, against 60.8% for PufferLib's shaped reward at the same budget, from one seed | web:https://x.com/dkta0/status/2113281605750186187 | "left it running overnight at puffer's full budget, 3b moves … win-only with backwards starts: 72.2% of unfiltered test puffer's shaped reward, same budget: 60.8% one seed at that length" (Oct 22, 2026; read via api.fxtwitter.com) | exact |
+| 77b | The post doesn't say whether actions were greedy or sampled | no-hints:docs/outside_results.md | **Not stated (unverified):** greedy vs sampled | exact |
 | 78 | games start one pull away from the goal | web:https://blog.dkta.dev/blog/playing-sokoban-backwards/ | "games start one pull from solved and step back whenever the agent solves half of them at the current depth" | exact |
 | 79 | non-LLM record is 74.2% on unfiltered test, greedy at 120 steps | no-hints:README.md | greedy, 120 steps, scored on unfiltered/test, with Puffer's shaped reward. Its record scores 74.2% | exact |
 | 80 | in 12 min 38 s on one H100 | no-hints:README.md | in 12:38 on one H100 | exact |

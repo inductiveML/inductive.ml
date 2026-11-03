@@ -362,20 +362,29 @@
   margin: 32px 0;
   overflow-x: auto;
 }
-.v9 .v9-table {
+.v9 .v9-table,
+.v9 .post table {
   width: 100%;
   border-collapse: collapse;
   font-family: var(--mono);
   font-size: 12px;
 }
-.v9 .v9-table thead tr.head {
+/* Markdown tables have no wrapper, so the table itself scrolls on narrow screens. */
+.v9 .post table {
+  display: block;
+  overflow-x: auto;
+  margin: 0 0 24px;
+}
+.v9 .v9-table thead tr.head,
+.v9 .post thead tr {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
 .v9 .v9-table thead tr.subhead {
   border-bottom: 1px solid var(--line-2);
 }
-.v9 .v9-table th {
+.v9 .v9-table th,
+.v9 .post th {
   text-align: left;
   padding: 12px 16px;
   font-weight: 500;
@@ -393,7 +402,8 @@
 .v9 .v9-table th.accent {
   color: var(--accent);
 }
-.v9 .v9-table tbody td {
+.v9 .v9-table tbody td,
+.v9 .post tbody td {
   padding: 12px 16px;
   border-bottom: 1px solid var(--line-2);
   color: var(--mute);
@@ -409,7 +419,9 @@
   color: var(--accent);
   font-weight: 500;
 }
-.v9 .v9-table tbody td.label {
+.v9 .v9-table tbody td.label,
+.v9 .post tbody td:first-child,
+.v9 .post tbody td strong {
   color: var(--ink);
 }
 .v9 .v9-table tbody td.never {

@@ -1,12 +1,9 @@
 ---
-title: "Sokoban Without Hints"
-description: "We trained a 0.7M-parameter Boxoban policy that is rewarded only for solving the level: no box-on-target hint, no curriculum, no search. On the official unfiltered test split it solves 80.7% of levels. Getting there meant finding a V-trace setting that made value targets explode."
+pageTitle: "Sokoban Without Hints: Win-Only Boxoban · Inductive ML"
+shareTitle: "Sokoban Without Hints: 80.7% on Boxoban, Win-Only"
+description: "A 0.7M-parameter Boxoban policy rewarded only for solving: no box hint, no curriculum, no search. It solves 80.7% of the official unfiltered test split."
 date: 2026-11-04
 ---
-
-# Sokoban Without Hints
-
-[TODO: Aditya — one line about inductive.ml]
 
 ## The challenge
 
@@ -26,7 +23,7 @@ The technical version: V-trace computes its targets backwards, v_t = V(x_t) + δ
 
 Setting `vtrace_c_clip 1` fixed it. In a controlled pair of 2B-step runs that differed only in that setting, the largest target fell from 4.35e7 to 3.67, and the held-out solve rate at 2B went from 9.7% to 35.6%. Mainline PufferLib's default for this setting is already 1.
 
-We weren't the only ones to see trouble here. In a Sep 18, 2026 post, Suarez independently dropped V-trace and prioritized replay, citing a bad interaction between prioritized sampling and higher sample reuse [unverified: we haven't located the post; link needed].
+We weren't the only ones to see trouble here. In ["PufferLib 5.0's Streamlined RL Algorithm"](https://x.com/jsuarez/status/2100698384768307385) (Sep 17, 2026), Suarez independently removed V-trace and prioritized replay from PufferLib's default algorithm. He found that no form of off-policy correction improved results in his experiments, and noted "a bad interaction between our prioritized sampling and higher sample reuse."
 
 ## Then the curriculum stopped mattering
 
@@ -193,7 +190,7 @@ This tests the encoder, not hint removal. These games' rewards weren't changed.
 
 - **Joseph Suarez and PufferLib** built the trainer, the Boxoban environment, the shaped configuration we compare against and the `simplecl` branch where this started.
 - **DeepMind** made the [Boxoban levels](https://github.com/google-deepmind/boxoban-levels) and DRC ([Guez et al. 2019](https://arxiv.org/abs/1901.03559)).
-- **@dkta0's ["Playing Sokoban backwards"](https://blog.dkta.dev/blog/playing-sokoban-backwards/)** also trains with a win-only reward, using a reverse curriculum. It plays real training levels backwards from the finished position, so games start one pull away from the goal and step further back as the agent improves. It reports 72.2% at 3B steps (reported on X; protocol not stated) [unverified: we could not open the X post].
+- **@dkta0's ["Playing Sokoban backwards"](https://blog.dkta.dev/blog/playing-sokoban-backwards/)** also trains with a win-only reward, using a reverse curriculum. It plays real training levels backwards from the finished position, so games start one pull away from the goal and step further back as the agent improves. At 3B steps it [reports](https://x.com/dkta0/status/2113281605750186187) 72.2% on unfiltered test, against 60.8% for PufferLib's shaped reward at the same budget, from one seed. The post doesn't say whether actions were greedy or sampled.
 - **The [Sokoban Speedrun](https://github.com/JeanKaddour/sokoban_speedrun)** non-LLM record is 74.2% on unfiltered test, greedy at 120 steps, in 12 min 38 s on one H100, with the shaped reward. Our 74.7% under the same protocol took 3B steps rather than 0.5B, so the two aren't a like-for-like race.
 
 ## Reproduce

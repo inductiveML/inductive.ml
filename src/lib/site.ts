@@ -17,6 +17,15 @@ export const experiments: Experiment[] = [
 	{
 		month: 'Nov',
 		year: '2026',
+		title: 'Sokoban Without Hints',
+		excerpt:
+			'A 0.7M-parameter Boxoban policy rewarded only for solving, with no box hint, curriculum or search, solves 80.7% of the official test split. Getting there meant fixing a V-trace setting that made value targets explode.',
+		highlight: '80.7% of the official test split',
+		href: '/experiments/sokoban-without-hints',
+	},
+	{
+		month: 'Nov',
+		year: '2026',
 		title: 'Trust Yourself, Briefly',
 		excerpt:
 			"For the first 8 GRPO updates, we nudged each line of a model's working by how sure it was of that line. It reached GRPO's final accuracy with about 2× less compute. Left on longer, the model gamed the signal.",

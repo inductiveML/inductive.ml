@@ -1,0 +1,29 @@
+---
+import PostPage from '../../components/PostPage.astro';
+import { parsePost } from '../../lib/post';
+import { Content, frontmatter } from '../../../posts/sokoban-without-hints.md';
+
+const post = parsePost(frontmatter);
+---
+
+<PostPage
+	post={post}
+	title="Sokoban Without Hints"
+	kicker="Research · RL · 2026"
+	meta={[
+		{ k: 'env', v: 'Boxoban · PufferLib 5.0' },
+		{ k: 'model', v: 'conv + MinGRU · 0.73M' },
+		{ k: 'reward', v: 'win only' },
+		{ k: 'baseline', v: 'PufferLib shaped' },
+	]}
+	og={{
+		image: '/og/sokoban-without-hints.png',
+		imageAlt:
+			'Sokoban Without Hints: a win-only Boxoban policy solves 80.7% of the official unfiltered test split, against 74.4% for PufferLib’s shaped reward on the same levels and budget.',
+	}}
+>
+	<Fragment slot="sub">
+		A Boxoban policy rewarded only for solving. <em>No box hint, no curriculum, no search: 80.7% on unfiltered test.</em>
+	</Fragment>
+	<Content />
+</PostPage>

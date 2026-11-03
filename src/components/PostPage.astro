@@ -1,0 +1,154 @@
+---
+// The paper layout for a write-up under /experiments: header, hero with a meta
+// rail, the post's rendered Markdown, and a footer. The page passes the parsed
+// frontmatter, its rail rows, a `sub` slot for the hero line, and the post's
+// <Content /> as the default slot.
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from './SiteHeader.astro';
+import SiteFooter from './SiteFooter.astro';
+import PageHead from './PageHead.astro';
+import type { Post } from '../lib/post';
+import '../styles/v9.css';
+
+interface MetaRow {
+	k: string;
+	v: string;
+}
+
+interface Props {
+	post: Post;
+	title: string;
+	kicker: string;
+	meta: MetaRow[];
+	og: { image: string; imageAlt: string };
+}
+
+const { post, title, kicker, meta, og } = Astro.props;
+---
+
+<Layout
+	title={post.pageTitle}
+	description={post.description}
+	og={{
+		title: post.shareTitle,
+		type: 'article',
+		image: og.image,
+		imageAlt: og.imageAlt,
+	}}
+>
+	<SiteHeader current="experiments" />
+	<PageHead back={{ href: '/experiments', label: 'Experiments' }} kicker={kicker} animate={true}>
+		{title}
+	</PageHead>
+
+	<main class="v9">
+		<div class="pad">
+			<div class="grid12">
+				<div class="paper-hero">
+					<div class="head">
+						<p class="sub">
+							<slot name="sub" />
+						</p>
+					</div>
+					<div class="meta-rail">
+						{meta.map((row) => <div class="row"><span>// {row.k}</span><span>{row.v}</span></div>)}
+						<div class="row"><span>// status</span><span>published · {post.published}</span></div>
+					</div>
+				</div>
+
+				<div class="secbar">
+					<span class="num">§ 01</span><span class="ttl">// the write-up</span><span class="meta">{post.published}</span>
+				</div>
+				<article class="paper post" aria-label="the write-up">
+					<slot />
+				</article>
+
+				<footer class="foot">
+					<div class="a">Inductive ML</div>
+					<div class="b">{title} · published {post.published}</div>
+					<div class="c"><a href="/experiments">All experiments ↗</a></div>
+				</footer>
+			</div>
+		</div>
+	</main>
+	<SiteFooter animate={true} />
+</Layout>
+
+<style>
+	.post :global(h2:first-child) {
+		margin-top: 0;
+	}
+	.post :global(h3) {
+		font-family: var(--display);
+		font-size: 21px;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+		line-height: 1.25;
+		color: var(--ink);
+		margin: 36px 0 12px;
+	}
+	.post :global(a) {
+		text-decoration: underline;
+		text-decoration-color: var(--accent);
+		text-underline-offset: 3px;
+	}
+	.post :global(a:hover) {
+		color: var(--accent);
+	}
+	.post :global(p code),
+	.post :global(li code) {
+		font-family: var(--mono);
+		font-size: 0.82em;
+		background: var(--accent-soft);
+		color: var(--amber);
+		padding: 1px 6px;
+	}
+	.post :global(pre) {
+		font-family: var(--mono);
+		font-size: 14px;
+		line-height: 1.6;
+		color: var(--ink);
+		background: var(--panel);
+		border: 1px solid var(--line);
+		padding: 16px 20px;
+		margin: 0 0 24px;
+		overflow-x: auto;
+	}
+	@media (max-width: 480px) {
+		.post :global(pre) {
+			font-size: 13px;
+			padding: 14px 16px;
+		}
+	}
+	.post :global(blockquote) {
+		margin: 0 0 24px;
+		padding: 14px 20px;
+		border-left: 3px solid var(--accent);
+		background: var(--accent-soft);
+	}
+	.post :global(blockquote p) {
+		font-family: var(--mono);
+		font-size: 14px;
+		color: var(--ink);
+		margin: 0;
+	}
+	.post :global(figure) {
+		margin: 32px 0;
+		color: var(--ink);
+	}
+	.post :global(figure svg) {
+		display: block;
+		width: 100%;
+		height: auto;
+		margin: 0 auto;
+	}
+	.post :global(figcaption) {
+		font-family: var(--mono);
+		font-size: 12px;
+		line-height: 1.5;
+		color: var(--mute);
+		margin-top: 12px;
+		border-top: 1px solid var(--line-2);
+		padding-top: 10px;
+	}
+</style>
