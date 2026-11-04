@@ -1,0 +1,29 @@
+---
+import PostPage from '../../components/PostPage.astro';
+import { parsePost } from '../../lib/post';
+import { Content, frontmatter } from '../../../posts/training-on-partial-evidence.md';
+
+const post = parsePost(frontmatter);
+---
+
+<PostPage
+	post={post}
+	title="Training on Partial Evidence"
+	kicker="Research · Program synthesis · 2026"
+	meta={[
+		{ k: 'world', v: 'Abacus · 117,649 programs' },
+		{ k: 'test', v: '24 held-out targets' },
+		{ k: 'writers', v: '32 per arm' },
+		{ k: 'raw model', v: '1.4M parameters' },
+	]}
+	og={{
+		image: '/og/training-on-partial-evidence.png',
+		imageAlt:
+			'Training on Partial Evidence: hiding examples during training lifted a small program writer from 54.0% to 72.5% on combinations it had never seen.',
+	}}
+>
+	<Fragment slot="sub">
+		Hide some of the examples, keep the full answer. <em>A real gain on a toy world, not yet separated from training on fewer rows.</em>
+	</Fragment>
+	<Content />
+</PostPage>

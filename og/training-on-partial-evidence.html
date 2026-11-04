@@ -1,0 +1,154 @@
+<!doctype html>
+<!-- Source for public/og/training-on-partial-evidence.png. Render at 1200×630 with headless Chrome (see og/README.md). -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #f3eee4;
+    --panel: #ece5d8;
+    --ink: #1c1915;
+    --ink-2: #3f3933;
+    --mute: #5e574d;
+    --hair: #d9d1c3;
+    --dot: #d1472e;
+    --crimson: #b8381f;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Archivo", system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 44px 72px 0;
+  }
+  .brand { font-weight: 700; font-size: 26px; letter-spacing: -0.02em; }
+  .kicker {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 17px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  .rule { margin: 22px 72px 0; border-top: 2px solid var(--ink); }
+  .main {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 72px;
+    gap: 48px;
+  }
+  h1 {
+    margin: 0;
+    font-size: 88px;
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+    font-stretch: 86%;
+  }
+  .sub {
+    margin: 22px 0 0;
+    font-size: 31px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--ink-2);
+  }
+  .sub em { font-style: italic; color: var(--crimson); }
+  .card {
+    border: 1px solid var(--hair);
+    background: var(--panel);
+    padding: 22px 26px 24px;
+  }
+  .card .lbl {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-bottom: 14px;
+  }
+  .line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 24px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .line svg { display: block; }
+  .side { flex: none; width: 384px; display: flex; flex-direction: column; align-items: stretch; gap: 18px; }
+  .cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 17px 26px;
+    font-size: 21px;
+    font-weight: 600;
+  }
+  .cta .url { font-family: "IBM Plex Mono", monospace; font-size: 15px; font-weight: 400; letter-spacing: 0.06em; color: #d9d1c3; }
+  .band { display: flex; height: 92px; }
+  .band > div { flex: 1; }
+  .band .solid { background: var(--dot); }
+  .band .dots {
+    background-image: radial-gradient(circle, var(--dot) var(--r), transparent var(--r2));
+    background-size: 10px 10px;
+  }
+  .bar { display: flex; align-items: center; gap: 14px; }
+  .bar .fill { height: 16px; background: var(--crimson); }
+  .bar .fill.shaped { background: var(--ink-2); }
+  .note { font-family: "IBM Plex Mono", monospace; font-size: 14px; color: var(--mute); margin-top: 10px; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <span class="brand">Inductive ML</span>
+    <span class="kicker">Experiments · Nov 2026</span>
+  </div>
+  <div class="rule"></div>
+  <div class="main">
+    <div>
+      <h1>Training on<br />Partial Evidence</h1>
+      <p class="sub">Hide examples, keep the answer.<br /><em>Tested on combinations never seen.</em></p>
+    </div>
+    <div class="side">
+    <div class="card">
+      <div class="lbl">// held-out accuracy</div>
+      <div class="line"><span>hidden</span><span>72.5%</span></div>
+      <div class="bar"><div class="fill" style="width:232px"></div></div>
+      <div class="line"><span>all shown</span><span>54.0%</span></div>
+      <div class="bar"><div class="fill shaped" style="width:173px"></div></div>
+      <div class="note">32 writers each, same budget</div>
+    </div>
+    <div class="cta"><span>Read the write-up</span><span class="url">inductive.ml →</span></div>
+    </div>
+  </div>
+  <div class="band" aria-hidden="true">
+    <div class="solid"></div>
+    <div class="dots" style="--r:4.8px;--r2:5.3px"></div>
+    <div class="dots" style="--r:3.9px;--r2:4.4px"></div>
+    <div class="dots" style="--r:3.2px;--r2:3.7px"></div>
+    <div class="dots" style="--r:2.6px;--r2:3.1px"></div>
+    <div class="dots" style="--r:2.1px;--r2:2.6px"></div>
+    <div class="dots" style="--r:1.6px;--r2:2.1px"></div>
+    <div class="dots" style="--r:1.1px;--r2:1.6px"></div>
+    <div class="dots" style="--r:0.6px;--r2:1.1px"></div>
+    <div></div>
+  </div>
+</body>
+</html>

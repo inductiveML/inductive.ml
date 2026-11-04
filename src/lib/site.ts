@@ -17,6 +17,15 @@ export const experiments: Experiment[] = [
 	{
 		month: 'Nov',
 		year: '2026',
+		title: 'Training on Partial Evidence',
+		excerpt:
+			'Hiding examples during training lifted a small program writer from 54% to 73% on combinations it had never seen. Without hand-built features the gain shrinks, and dropping training rows does at least as well.',
+		highlight: 'from 54% to 73%',
+		href: '/experiments/training-on-partial-evidence',
+	},
+	{
+		month: 'Nov',
+		year: '2026',
 		title: 'Sokoban Without Hints',
 		excerpt:
 			'A 0.7M-parameter Boxoban policy rewarded only for solving, with no box hint, curriculum or search, solves 80.7% of the official test split. Getting there meant fixing a V-trace setting that made value targets explode.',
