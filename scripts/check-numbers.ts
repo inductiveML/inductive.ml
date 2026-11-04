@@ -1,10 +1,10 @@
-// Checks every row of numbers_check.md: the post must contain the "In post" text,
-// and the named source file must contain the "Source text". `web:` and `none`
-// rows are checked on the post side only (their source side was checked by hand).
+// Checks every row of a post's numbers_check.md: the post must contain the "In post" text,
+// and the named source file must contain the "Source text". A source is `<root>:<path>`,
+// where each root is passed on the command line, or `site:<path>` for this repo. `web:`
+// and `none` rows are checked on the post side only (their source side is checked by hand).
 //
-//   bun run posts/sokoban-without-hints/check_numbers.ts \
-//     --no-hints-root <inductiveML/sokoban-no-hints checkout> \
-//     --old-root <avp1598/sokoban checkout at e189e5b>
+//   bun run scripts/check-numbers.ts --post posts/<slug>.md --check posts/<slug>/numbers_check.md \
+//     --root <name>=<checkout path> [--root <name>=<checkout path> ...]
 
 import {readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
@@ -12,28 +12,30 @@ import {parseArgs} from 'node:util';
 import {z} from 'zod';
 
 const ArgsSchema = z.object({
-	'no-hints-root': z.string().min(1),
-	'old-root': z.string().min(1),
+	post: z.string().min(1),
+	check: z.string().min(1),
+	root: z.array(z.string().regex(/^[a-z0-9-]+=.+$/)).min(1),
 });
 
 const {values} = parseArgs({
 	options: {
-		'no-hints-root': {type: 'string'},
-		'old-root': {type: 'string'},
+		post: {type: 'string'},
+		check: {type: 'string'},
+		root: {type: 'string', multiple: true},
 	},
 	strict: true,
 });
 const args = ArgsSchema.parse(values);
+const roots = new Map(args.root.map((pair) => [pair.slice(0, pair.indexOf('=')), pair.slice(pair.indexOf('=') + 1)]));
 
-const here = import.meta.dir;
-const siteRoot = resolve(here, '../..');
-const postPath = resolve(here, '../sokoban-without-hints.md');
-const checkPath = resolve(here, 'numbers_check.md');
+const siteRoot = resolve(import.meta.dir, '..');
+const postPath = resolve(siteRoot, args.post);
+const checkPath = resolve(siteRoot, args.check);
 
 const RowSchema = z.object({
 	id: z.string().regex(/^\d+[a-z]?$/),
 	inPost: z.string().min(1),
-	source: z.string().regex(/^(no-hints:|old:|site:|web:https:\/\/|none$)/),
+	source: z.string().regex(/^([a-z0-9-]+:[^ ]+|none)$/),
 	sourceText: z.string().min(1),
 	kind: z.string().regex(/^(exact|rounded|derived|unverified)\b/),
 });
@@ -73,10 +75,14 @@ function parseRows(markdown: string): Row[] {
 }
 
 function sourcePath(source: string): string | null {
-	if (source.startsWith('no-hints:')) return resolve(args['no-hints-root'], source.slice('no-hints:'.length));
-	if (source.startsWith('old:')) return resolve(args['old-root'], source.slice('old:'.length));
-	if (source.startsWith('site:')) return resolve(siteRoot, source.slice('site:'.length));
-	return null;
+	if (source === 'none' || source.startsWith('web:')) return null;
+	const colon = source.indexOf(':');
+	const name = source.slice(0, colon);
+	const path = source.slice(colon + 1);
+	if (name === 'site') return resolve(siteRoot, path);
+	const root = roots.get(name);
+	if (root === undefined) throw new Error(`no --root given for ${name}`);
+	return resolve(root, path);
 }
 
 const post = await readFile(postPath, 'utf8');

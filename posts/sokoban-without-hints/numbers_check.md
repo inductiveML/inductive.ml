@@ -1,11 +1,12 @@
 # Numbers check: "Sokoban Without Hints"
 
-Every number in [`../sokoban-without-hints.md`](../sokoban-without-hints.md), with the file it comes from and the exact text in that file. `check_numbers.ts` verifies both sides of every row: the post contains the "In post" text, and the source file contains the "Source text".
+Every number in [`../sokoban-without-hints.md`](../sokoban-without-hints.md), with the file it comes from and the exact text in that file. `scripts/check-numbers.ts` verifies both sides of every row: the post contains the "In post" text, and the source file contains the "Source text".
 
 ```bash
-bun run posts/sokoban-without-hints/check_numbers.ts \
-  --no-hints-root <path to a checkout of inductiveML/sokoban-no-hints> \
-  --old-root <path to a checkout of avp1598/sokoban at e189e5b91b25f9544f32dd557f8d977106a5b0cd>
+bun run scripts/check-numbers.ts \
+  --post posts/sokoban-without-hints.md --check posts/sokoban-without-hints/numbers_check.md \
+  --root no-hints=<path to a checkout of inductiveML/sokoban-no-hints> \
+  --root old=<path to a checkout of avp1598/sokoban at e189e5b91b25f9544f32dd557f8d977106a5b0cd>
 ```
 
 Source prefixes:
