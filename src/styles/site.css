@@ -301,11 +301,16 @@ canvas {
   flex-direction: column;
   padding-top: 28px;
 }
+/* The first section clears the section index; the rest open on their own rule. */
+.section-index + .sec {
+  margin-top: 72px;
+}
 #experiments {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding-top: 72px;
+  padding-top: 28px;
+  border-top: 2px solid var(--ink);
 }
 
 /* ---------- rows (experiments, audits, profile) ---------- */

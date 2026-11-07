@@ -23,9 +23,9 @@ const otherReleases = releases.filter((r) => r !== mlxrl);
 				<h1>Better intelligence through <span class="accent">simpler ideas.</span></h1>
 				<p class="lede">Research on representation, adaptation, and intelligence.</p>
 				<div class="ctas">
-					<a class="cta cta-fill" href="/experiments">Experiments →</a>
-					<a class="cta" href="/cupel">RL Env Audits →</a>
+					<a class="cta cta-fill" href="/cupel">RL Env Audits →</a>
 					<a class="cta" href={mlxrl.href} target="_blank" rel="noreferrer">MLXRL ↗</a>
+					<a class="cta" href="/experiments">Experiments →</a>
 					<a class="cta" href={github.href} target="_blank" rel="noreferrer">GitHub ↗</a>
 					<a class="cta" href={huggingFace.href} target="_blank" rel="noreferrer">Hugging Face ↗</a>
 				</div>
@@ -36,18 +36,36 @@ const otherReleases = releases.filter((r) => r !== mlxrl);
 
 		<div class="shell">
 			<nav class="section-index" aria-label="Sections">
-				<a href="#experiments"><span>01</span>Experiments</a>
+				<a href="#cupel"><span>01</span>Cupel</a>
 				<a href="#open-source"><span>02</span>Open source</a>
-				<a href="#cupel"><span>03</span>Cupel</a>
+				<a href="#experiments"><span>03</span>Experiments</a>
 				<a href="#about"><span>04</span>About the lab</a>
 			</nav>
 
-			<section id="experiments" class="sec" aria-labelledby="experiments-h">
-				<div class="sec-head">
-					<h2 id="experiments-h"><span class="sec-num">01</span>Experiments</h2>
-					<p class="kicker">Open research from the lab</p>
+			<section id="cupel" class="sec sec-ruled" aria-labelledby="cupel-h">
+				<div class="stack col-main">
+					<p class="kicker">Inductive ML · RL environment audits</p>
+					<h2 id="cupel-h" class="sec-title cupel-title"><span class="sec-num">01</span>Cupel</h2>
+					<p class="lead">
+						Cupel audits reinforcement-learning environments independently, before they are sold to frontier
+						labs. The report states whether the tasks can be solved honestly and whether they can be gamed in
+						the ways we know about.
+					</p>
+					<p class="copy">
+						The model is the smart-contract audit. An environment vendor commissions the audit, we test the
+						environment, the vendor fixes what we find, and the report is published. Labs buying the
+						environment can read the same report the vendor did.
+					</p>
+					<a class="mono-link" href="/cupel">RL Env Audits →</a>
 				</div>
-				<ExperimentRows />
+				<div class="col-side">
+					<p class="eyebrow">Audits and research</p>
+					<AuditRows href="/cupel" />
+					<p class="eyebrow eyebrow-gap">What an audit checks</p>
+					<div class="chips">
+						{auditChecks.map((c) => <div class="chip">{c.k}</div>)}
+					</div>
+				</div>
 			</section>
 
 			<section id="open-source" class="sec sec-ruled" aria-labelledby="open-source-h">
@@ -76,30 +94,12 @@ const otherReleases = releases.filter((r) => r !== mlxrl);
 				</div>
 			</section>
 
-			<section id="cupel" class="sec sec-ruled" aria-labelledby="cupel-h">
-				<div class="stack col-main">
-					<p class="kicker">Inductive ML · RL environment audits</p>
-					<h2 id="cupel-h" class="sec-title cupel-title"><span class="sec-num">03</span>Cupel</h2>
-					<p class="lead">
-						Cupel audits reinforcement-learning environments independently, before they are sold to frontier
-						labs. The report states whether the tasks can be solved honestly and whether they can be gamed in
-						the ways we know about.
-					</p>
-					<p class="copy">
-						The model is the smart-contract audit. An environment vendor commissions the audit, we test the
-						environment, the vendor fixes what we find, and the report is published. Labs buying the
-						environment can read the same report the vendor did.
-					</p>
-					<a class="mono-link" href="/cupel">RL Env Audits →</a>
+			<section id="experiments" class="sec" aria-labelledby="experiments-h">
+				<div class="sec-head">
+					<h2 id="experiments-h"><span class="sec-num">03</span>Experiments</h2>
+					<p class="kicker">Open research from the lab</p>
 				</div>
-				<div class="col-side">
-					<p class="eyebrow">Audits and research</p>
-					<AuditRows href="/cupel" />
-					<p class="eyebrow eyebrow-gap">What an audit checks</p>
-					<div class="chips">
-						{auditChecks.map((c) => <div class="chip">{c.k}</div>)}
-					</div>
-				</div>
+				<ExperimentRows />
 			</section>
 
 			<section id="about" class="sec sec-ruled" aria-labelledby="about-h">
