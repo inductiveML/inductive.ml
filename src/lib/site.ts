@@ -242,6 +242,12 @@ export const audits: Audit[] = [
 	},
 	{
 		label: 'Disclosure',
+		title: 'MiMo (Xiaomi)',
+		note: 'Coordinated disclosure in progress, report on 21 Nov 2026.',
+		highlight: '21 Nov 2026',
+	},
+	{
+		label: 'Disclosure',
 		title: 'SWE Atlas (Scale AI)',
 		note: 'Six grader findings, one Critical · credited by Scale in SWE Atlas v1.1',
 		highlight: 'credited by Scale in SWE Atlas v1.1',
