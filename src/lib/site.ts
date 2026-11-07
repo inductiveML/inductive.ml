@@ -243,8 +243,9 @@ export const audits: Audit[] = [
 	{
 		label: 'Disclosure',
 		title: 'SWE Atlas (Scale AI)',
-		note: 'Coordinated disclosure in progress, report on 4 Nov 2026.',
-		highlight: '4 Nov 2026',
+		note: 'Six grader findings, one Critical · credited by Scale in SWE Atlas v1.1',
+		highlight: 'credited by Scale in SWE Atlas v1.1',
+		href: '/cupel/swe-atlas',
 	},
 ];
 

@@ -645,6 +645,65 @@ a.list-row:hover {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+/* A dated credit from an audited vendor, set under the page title. */
+.credential {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0 0 40px;
+  padding: 16px 20px 16px 16px;
+  border: 1px solid var(--ink);
+  max-width: 560px;
+}
+.credential-seal {
+  flex: 0 0 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--crimson);
+  background-image: radial-gradient(circle, var(--dot) 1.3px, transparent 1.8px);
+  background-size: 5px 5px;
+}
+.credential-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.credential-body p {
+  margin: 0;
+}
+.credential-kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.credential-line {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+.credential-line a:hover {
+  color: var(--crimson);
+}
+.credential-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--mute);
+}
+.credential-links a {
+  color: var(--crimson);
+}
+.credential-links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .article-body h2 {
   font-size: clamp(28px, 3.4vw, 40px);
   font-weight: 700;

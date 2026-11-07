@@ -3,28 +3,512 @@ import Layout from '../../layouts/Layout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import PageHead from '../../components/PageHead.astro';
+import '../../styles/v9.css';
+
+const scaleLeaderboard = 'https://labs.scale.com/leaderboard/swe-atlas';
+
+const findings = [
+	{
+		id: 'E',
+		name: 'Agent-written reward file beats the TW grader',
+		lane: 'TW',
+		severity: 'Critical',
+		shown: 'Yes, with no code change and no judge, on docker and Modal',
+		scope: 'All 90 TW tasks by code; shown on 6 tasks across 6 repos',
+	},
+	{
+		id: 'F',
+		name: 'Zero tests run, test gate passes',
+		lane: 'RF',
+		severity: 'High',
+		shown: 'Yes, for a real behaviour break, under Opus 4.5',
+		scope: 'All 9 scapy RF tasks run zero tests; fail-open logic in all 70',
+	},
+	{
+		id: 'B',
+		name: 'Hidden tests that never run are not penalised',
+		lane: 'RF',
+		severity: 'High',
+		shown: 'Yes, for a real behaviour break, under Opus 4.5 (7/7 YES)',
+		scope: 'All 70 RF tasks by code; shown on 1 task',
+	},
+	{
+		id: 'A',
+		name: 'Protected-test edits flagged, not enforced',
+		lane: 'RF',
+		severity: 'Medium',
+		shown: 'Test gate yes; final reward not shown (a task rubric caught it)',
+		scope: 'All 70 RF tasks by code',
+	},
+	{
+		id: 'D',
+		name: 'Mutation gate passed by a change detector',
+		lane: 'TW',
+		severity: 'Medium-low',
+		shown: 'Mutation gate yes; final reward no (must-have rubrics 0/18 under Opus 4.5)',
+		scope: 'All 90 TW tasks by code; shown on 1 task',
+	},
+	{
+		id: 'C',
+		name: 'Unparseable or failed judge reply counts as a pass',
+		lane: 'TW + RF',
+		severity: 'Low-medium',
+		shown: 'Code path yes, with a mock judge; not shown end to end',
+		scope: 'All TW and RF tasks by code',
+	},
+];
+
+const harborRuns = [
+	{ harbor: '0.22.0', backend: 'docker', variant: 'Plain write', grader: '0', reward: '1.0' },
+	{ harbor: '0.22.0', backend: 'Modal', variant: 'Plain write', grader: '0', reward: '1.0' },
+	{ harbor: 'main (with PR #3692)', backend: 'docker', variant: 'Plain write', grader: '0', reward: '0.0' },
+	{ harbor: 'main (with PR #3692)', backend: 'Modal', variant: 'Plain write', grader: '0', reward: '0.0' },
+	{ harbor: '0.22.0', backend: 'docker', variant: 'Background writer', grader: '0', reward: '1.0' },
+	{ harbor: 'main (with PR #3692)', backend: 'docker', variant: 'Background writer', grader: '0', reward: '1.0' },
+	{ harbor: 'main (with PR #3692)', backend: 'Modal', variant: 'Background writer', grader: '0', reward: '1.0' },
+];
 ---
 
 <Layout
-	title="SWE Atlas — Cupel · Inductive ML"
-	description="Coordinated disclosure with Scale AI is in progress. The full report will be published here on 4 November 2026."
-	analytics={false}
-	noindex={true}
+	title="SWE Atlas grader audit — Cupel · Inductive ML"
+	description="Cupel's audit of Scale AI's SWE Atlas Test-Writing and Refactoring graders: six reward-hacking findings, one Critical. Scale credits Inductive ML's reward-hacking feedback with hardening the task environments in SWE Atlas v1.1."
 >
 	<SiteHeader current="cupel" />
-	<main>
-		<PageHead back={{ href: '/cupel', label: 'Cupel' }} kicker="Cupel · Coordinated disclosure" animate={true}>
-			SWE Atlas
+		<PageHead back={{ href: '/cupel', label: 'RL Env Audits' }} kicker="Cupel · Coordinated disclosure" animate={true}>
+			SWE Atlas (Scale AI)
 		</PageHead>
-		<div class="shell page-body">
-			<div class="reader article-body">
-				<p class="article-lede">
-					Coordinated disclosure with Scale AI is in progress. The full report will be published here on <span
-						class="mark">4 November 2026</span
-					>.
-				</p>
+
+		<main class="v9">
+			<div class="pad">
+				<div class="grid12">
+					<div class="paper-hero">
+						<div class="head">
+							<p class="sub">
+								We found six ways to collect reward without doing the task in the SWE Atlas Test-Writing
+								and Refactoring graders. The worst gave full marks on any Test-Writing task with no code
+								change at all. <em>
+									We reported them privately to Scale on 21 October. Scale credits our reward-hacking
+									feedback with hardening the task environments in SWE Atlas v1.1.
+								</em>
+							</p>
+						</div>
+						<div class="meta-rail">
+							<div class="row"><span>// benchmark</span><span>scaleapi/SWE-Atlas</span></div>
+							<div class="row"><span>// commit</span><span>c6673fe</span></div>
+							<div class="row"><span>// lanes</span><span>TW 90 · RF 70 tasks</span></div>
+							<div class="row"><span>// harness</span><span>Harbor v0.22.0</span></div>
+							<div class="row"><span>// severity</span><span>1 Critical · 2 High</span></div>
+							<div class="row"><span>// status</span><span>published · 7 Nov 2026</span></div>
+							<div class="row"><span>// disclosure</span><span>to Scale · 21 Oct 2026</span></div>
+						</div>
+					</div>
+
+					<div class="paper">
+						<div class="stat-strip">
+							<div class="stat">
+								<span class="idx">// findings</span>
+								<span class="val">6</span>
+							</div>
+							<div class="stat">
+								<span class="idx">// worst severity</span>
+								<span class="val accent">Critical</span>
+							</div>
+							<div class="stat">
+								<span class="idx">// scapy RF tasks running 0 tests</span>
+								<span class="val">9 / 9</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="secbar">
+						<span class="num">§ 01</span><span class="ttl">// scale's acknowledgement</span><span class="meta"
+							>v1.1</span
+						>
+					</div>
+					<section class="paper" aria-label="scale's acknowledgement">
+						<h2>Credited in SWE Atlas v1.1</h2>
+						<p>
+							Scale released SWE Atlas v1.1 in November 2026. The acknowledgements on the
+							<a href={scaleLeaderboard}>SWE Atlas leaderboard</a> read, in full:
+						</p>
+						<div class="callout" role="note">
+							<span class="lbl">// scale ai</span>
+							<p>
+								“Thanks to Artificial Analysis and Inductive ML for their contributions to the v1.1 release.
+								Artificial Analysis’s SWE-Atlas-QnA-AA dataset provided wording for several updated Codebase
+								QnA rubric criteria, and <strong
+									>Inductive ML’s reward-hacking feedback further hardened the task environments.</strong
+								>”
+							</p>
+						</div>
+						<p>
+							Two groups are credited there. Artificial Analysis contributed rubric wording for the
+							Codebase QnA lane; our part was the reward-hacking feedback, which is the report summarised
+							below.
+						</p>
+						<p>
+							According to the same page, v1.1 combines the three category leaderboards into a single
+							index over the same 284 tasks as v1.0. Every model was re-run with a new judge (GPT-6.1 Sol,
+							majority of 3 votes), refined grading criteria and restricted network access, so v1.1 scores
+							are not directly comparable to v1.0.
+						</p>
+						<p>
+							This page describes the graders as we audited them, at the commit below. We have not
+							re-audited v1.1, and we do not claim that each finding is fixed in it. What Scale states is
+							that the feedback further hardened the task environments.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 02</span><span class="ttl">// what we tested</span><span class="meta">scope</span>
+					</div>
+					<section class="paper" aria-label="what we tested">
+						<h2>Scope</h2>
+						<p>
+							The Test-Writing (TW, 90 tasks) and Refactoring (RF, 70 tasks) lanes of <code
+								class="code-inline">scaleapi/SWE-Atlas</code
+							> at commit <code class="code-inline">c6673fe259c3493a2f834266abf63247a5d1507c</code>, which
+							was still <code class="code-inline">main</code> on 21 October 2026. We used the task images
+							from <code class="code-inline">ghcr.io/scaleapi/swe-atlas-v1.1</code>, pinned by digest, and
+							the shipped grader scripts, unmodified. <strong>The Codebase QnA lane was not audited.</strong>
+						</p>
+						<p>
+							The harness was Harbor v0.22.0, the version pinned in the SWE Atlas README, on a local docker
+							backend. For finding E we also ran Harbor 0.22.0 on Modal, the backend behind the
+							leaderboard, and Harbor <code class="code-inline">main</code> at a commit that includes
+							Harbor PR #3692, on both docker and Modal.
+						</p>
+						<p>
+							Every attack was a hand-written, deterministic script replayed through Harbor's oracle agent,
+							each with a matched control: the same behaviour break without the exploit, or the reference
+							solution. No language model was asked to find these holes. Judge-dependent findings were
+							graded first with a cheap judge, then, where it mattered, re-judged with Claude Opus 4.5
+							through OpenRouter using the shipped prompts. We did not verify that the OpenRouter model id
+							serves the same weights as the Opus 4.5 judge Scale used at the time.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 03</span><span class="ttl">// findings at a glance</span><span class="meta"
+							>A–F</span
+						>
+					</div>
+					<section class="paper" aria-label="findings at a glance">
+						<h2>Six findings, one Critical</h2>
+						<p>
+							Each finding is an implementation defect: a missing check, a default that fails open, a
+							reward file read in the wrong order, or a broken image. Each has a concrete fix, and most of
+							the fixes are small. None of this says that test-writing or refactoring is hard to grade in
+							principle; it says these graders could be gamed as shipped.
+						</p>
+						<div class="table-wrap">
+							<table class="v9-table">
+								<caption>
+									Findings in the order of their severity, as rated in the report sent to Scale ·
+									"by code" means the shared grader logic applies, not that every task was run
+								</caption>
+								<thead>
+									<tr class="head">
+										<th>#</th>
+										<th>Finding</th>
+										<th>Lane</th>
+										<th>Severity</th>
+										<th>Reward 1.0 shown?</th>
+										<th>Scope</th>
+									</tr>
+								</thead>
+								<tbody>
+									{
+										findings.map((f) => (
+											<tr>
+												<td class="ink">{f.id}</td>
+												<td class="label">{f.name}</td>
+												<td>{f.lane}</td>
+												<td class={f.severity === 'Critical' ? 'accent' : undefined}>{f.severity}</td>
+												<td>{f.shown}</td>
+												<td>{f.scope}</td>
+											</tr>
+										))
+									}
+								</tbody>
+							</table>
+						</div>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 04</span><span class="ttl">// E · the reward file</span><span class="meta"
+							>Critical</span
+						>
+					</div>
+					<section class="paper" aria-label="E, the reward file">
+						<h2>Full marks without touching the code</h2>
+						<p>
+							TW tasks are graded inside the same container the agent worked in. The directory where
+							Harbor collects the final reward is writable by the agent during its turn, and nothing empties
+							it before grading. When it finds both, Harbor prefers a structured <code class="code-inline"
+								>reward.json</code
+							> over the plain-text reward the TW grader writes, and the TW grader never writes the
+							structured file itself. So an agent that leaves its own reward file there is scored by that
+							file. The grader's verdict, "no changes detected, scoring 0", is ignored.
+						</p>
+						<p>
+							This needs no code change, no tests and no judge, so it holds whatever judge is used. We
+							showed it on <strong>6 TW tasks across 6 repositories</strong> (scapy, sftpgo, maddy, k6,
+							kitty and paperless-ngx), each scoring 1.0 while the grader's own reward was 0. By code it
+							applies to all 90: 89 of the 90 copies of the TW grader are byte-identical, and none writes
+							the structured file.
+						</p>
+						<p>
+							Harbor PR #3692, merged on 16 October 2026 but in no tagged release when we reported, deletes
+							stale reward files at the start of verification. On Harbor <code class="code-inline"
+								>main</code
+							> it stopped the plain version on both backends. It did not stop a variant in which a background
+							process left running by the agent keeps re-creating the file: that still scored 1.0 on
+							docker and on Modal.
+						</p>
+						<div class="table-wrap">
+							<table class="v9-table">
+								<caption>Finding E · the TW grader's own reward vs the reward Harbor recorded</caption>
+								<thead>
+									<tr class="head">
+										<th>Harbor</th>
+										<th>Backend</th>
+										<th>Variant</th>
+										<th>Grader reward</th>
+										<th>Recorded reward</th>
+									</tr>
+								</thead>
+								<tbody>
+									{
+										harborRuns.map((r) => (
+											<tr>
+												<td class="label">{r.harbor}</td>
+												<td>{r.backend}</td>
+												<td>{r.variant}</td>
+												<td>{r.grader}</td>
+												<td class={r.reward === '1.0' ? 'accent' : undefined}>{r.reward}</td>
+											</tr>
+										))
+									}
+								</tbody>
+							</table>
+						</div>
+						<p>
+							Why it matters for the leaderboard: the leaderboard says runs used Modal sandboxes with the
+							Harbor framework, without giving a version. From the README's pin history we inferred that
+							every published entry predates PR #3692; we asked Scale to confirm that rather than rely on
+							our inference. Re-grading old runs with a patched grader will not reveal this hole, because
+							the planted file is not part of the agent's code diff. The trajectories will: a write to the
+							verifier directory, or a perfect TW score from a run that added no test file.
+						</p>
+						<p>
+							The fix has two parts. The TW grader should always write the structured reward file itself,
+							which closes the plain version. The background variant needs process isolation: stop the
+							agent's processes or restart the container before grading, or make the verifier directory
+							read-only to the agent once its turn ends.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 05</span><span class="ttl">// F · zero tests</span><span class="meta"
+							>High</span
+						>
+					</div>
+					<section class="paper" aria-label="F, zero tests">
+						<h2>Nine Refactoring tasks run no tests at all</h2>
+						<p>
+							On every scapy RF image, the default Python cannot import scapy's test runner, and the other
+							interpreters in the image crash before any test runs. No tests run, before or after the agent's
+							change. The RF test gate only checks that no relevant test ended up failing, so when
+							nothing ran it passes and the test score is 1.0. This holds on <strong
+								>all 9 scapy RF tasks</strong
+							>, and the gate's fail-open logic is shared by all 70 RF tasks.
+						</p>
+						<p>
+							On these 9 tasks the LLM judge is the only gate that does anything, for honest runs too: the
+							reference solution "passes" them without a single test running. On one of them we applied
+							the reference solution plus a real behaviour break that a hidden test checks. Zero tests ran,
+							the test score was 1.0, Opus 4.5 passed all 11 rubric items, and the reward was 1.0.
+						</p>
+						<p>
+							Fix: rebuild the 9 images so the reference solution shows relevant tests passing, and make
+							the gate fail closed when no relevant test is observed passing. The two have to ship
+							together: with only the stricter gate, all 9 tasks score 0 for everyone, honest solutions
+							included.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 06</span><span class="ttl">// B · tests that never run</span><span class="meta"
+							>High</span
+						>
+					</div>
+					<section class="paper" aria-label="B, tests that never run">
+						<h2>Stop the hidden tests running, lose no points</h2>
+						<p>
+							The RF grader compares a test run before the agent's change with one after it. The hidden
+							tests are not in the "before" run, so a hidden test that also fails to appear in the "after"
+							run lands in no category and costs nothing. The check that every relevant test must appear
+							is switched off. An agent whose change stops the hidden tests from running at all, for
+							example by breaking the build of the test package in Go, avoids the test gate.
+						</p>
+						<p>
+							On a k6 RF task, a behaviour break on its own was caught: 4 relevant tests failed and the test
+							score was 0. The same break plus a build break in the hidden test's package left every
+							relevant category empty, the test score was 1.0, Opus 4.5 answered YES on all 7 rubric items,
+							and the reward was 1.0. The grader logic is identical across all 70 RF tasks; we showed the
+							attack on 1 and did not measure how many of the others admit a practical way to stop their
+							tests running.
+						</p>
+						<p>
+							Fix: require every relevant test to be observed passing after the agent's change, restore
+							the coverage check, and match test names exactly.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 07</span><span class="ttl">// A · protected test files</span><span class="meta"
+							>Medium</span
+						>
+					</div>
+					<section class="paper" aria-label="A, protected test files">
+						<h2>Test edits are flagged, then ignored</h2>
+						<p>
+							The RF grader works out which protected test files the agent edited and records them, but
+							nothing downstream reads that record, and the agent's full patch, test edits included, is
+							what gets graded. The leaderboard text says that any modification to test files results in
+							automatic failure; as shipped, that rule was not enforced.
+						</p>
+						<p>
+							On a k6 RF task, a behaviour break on its own made 18 relevant tests fail and the test score
+							0. The same break plus one deleted assertion in a protected test file made 0 fail, and the
+							test score was 1.0. The final reward was still 0, because this task happens to have a rubric
+							item against modifying existing test files. A heuristic scan found such an item on 19 of the
+							70 RF tasks. We did not try the attack on a task without one.
+						</p>
+						<p>Fix: an edit to any protected test file sets the test score to 0.</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 08</span><span class="ttl">// D · the mutation gate</span><span class="meta"
+							>Medium-low</span
+						>
+					</div>
+					<section class="paper" aria-label="D, the mutation gate">
+						<h2>A test that only notices change</h2>
+						<p>
+							The TW grader checks that the agent's tests catch a hidden faulty version of the code by
+							swapping it in and running them. A "test" that only checks that the source file's bytes are
+							unchanged catches every faulty version without testing any behaviour. On one TW task such a
+							test passed the mutation gate, and under Opus 4.5 the gate that checks the agent's test list
+							passed too. The must-have rubrics stopped it, decisively: 0 of 18, so the reward was 0.
+						</p>
+						<p>
+							So the mutation gate adds no protection of its own against this pattern; the rubric judge
+							carries it. Our recommendation, with no patch: run the agent's tests against several faulty
+							versions and against a behaviour-preserving rewrite, which a change detector would fail.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 09</span><span class="ttl">// C · the judge's silence</span><span class="meta"
+							>Low-medium</span
+						>
+					</div>
+					<section class="paper" aria-label="C, the judge's silence">
+						<h2>No answer counts as yes</h2>
+						<p>
+							When a judge call fails repeatedly, or its reply cannot be parsed, the rubric item is marked
+							ignored and treated as passing. In TW, if every reply is unusable, the rubric gate passes and
+							the aggregate score defaults to 1.0. In RF, one parseable YES with the rest unusable is
+							enough to pass the must-have items. With a mock judge we confirmed both code paths.
+						</p>
+						<p>
+							It also happens without an attacker: our ordinary runs had 1 to 4 ignored ratings in several
+							cases, and a public SWE Atlas pull request reports 6 of 1,826 rubric calls dropped this way in
+							an Opus run. We tried to make the cheap judge fail on purpose through the agent's output and
+							did not manage it, so we have no end-to-end reward from this path.
+						</p>
+						<p>Fix: an unusable judge reply is a fail, and every must-have item has to be judged.</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 10</span><span class="ttl">// what this does not show</span><span class="meta"
+							>limits</span
+						>
+					</div>
+					<section class="paper" aria-label="what this does not show">
+						<h2>Limits</h2>
+						<ul>
+							<li>
+								<strong>No evidence of use.</strong> We have no evidence that any leaderboard submission
+								exploited these holes, and we did not look for any.
+							</li>
+							<li>
+								<strong>No learned attacker.</strong> Every attack was written by hand. Whether a model
+								finds these holes on its own, or learns them under RL, is untested.
+							</li>
+							<li>
+								<strong>Narrow demonstrations.</strong> B was shown on 1 task. A was not re-judged with Opus
+								4.5 or tried on a task without a test-edit rubric. F on Modal rests on reading the code;
+								the scapy images were not run there.
+							</li>
+							<li>
+								<strong>Patches on a sample.</strong> Our proposed patches were checked on a sample of tasks,
+								not on all 160.
+							</li>
+							<li>
+								<strong>Not v1.1.</strong> Everything here refers to the commit we audited. We have not
+								re-audited v1.1.
+							</li>
+						</ul>
+						<div class="callout" role="note">
+							<span class="lbl">// summary</span>
+							<p>
+								As shipped at <strong>c6673fe</strong>, the SWE Atlas TW and RF graders could be gamed in six
+								ways. The worst, E, gave reward 1.0 on any TW task with no code change and no judge,
+								including on Modal, the leaderboard backend. All 9 scapy RF tasks ran zero tests, so their
+								scores came from the judge alone. We reported privately on 21 October 2026, with fixes, and
+								Scale credits our reward-hacking feedback with hardening the task environments in SWE Atlas
+								v1.1. We found no evidence that any submission used these holes, and we did not look.
+							</p>
+						</div>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 11</span><span class="ttl">// disclosure</span><span class="meta">record</span>
+					</div>
+					<section class="paper" aria-label="disclosure record">
+						<h2>Disclosure record</h2>
+						<ul>
+							<li>
+								<strong>21 Oct 2026.</strong> Reported privately to Scale through the SWE Atlas
+								repository's private vulnerability reporting (GHSA-qgc6-qmgh-33jh), with a full report and
+								proposed patches for A, B, C, E and the test-gate half of F. Planned public date: 4 Nov
+								2026.
+							</li>
+							<li>
+								<strong>Nov 2026.</strong> Scale releases SWE Atlas v1.1 and credits Inductive ML's
+								reward-hacking feedback in the <a href={scaleLeaderboard}>acknowledgements</a>.
+							</li>
+							<li><strong>7 Nov 2026.</strong> This report published.</li>
+						</ul>
+						<p>
+							This public version describes each failure in plain terms and leaves out the exploit
+							scripts. The audit tooling is private. Questions about the report go to <a
+								href="mailto:aditya@inductive.ml">aditya@inductive.ml</a
+							>.
+						</p>
+						<p>Aditya Veer Parmar, Cupel / Inductive ML</p>
+					</section>
+
+					<footer class="foot">
+						<div class="a">Cupel · Inductive ML</div>
+						<div class="b">SWE Atlas disclosure · published 7 Nov 2026</div>
+						<div class="c"><a href="/cupel">RL Env Audits ↗</a></div>
+					</footer>
+				</div>
 			</div>
-		</div>
-	</main>
-	<SiteFooter animate={true} />
+		</main>
+		<SiteFooter animate={true} />
 </Layout>
