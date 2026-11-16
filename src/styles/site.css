@@ -19,6 +19,34 @@
 
   --gutter: clamp(16px, 4vw, 48px);
   --max: 1240px;
+  color-scheme: light;
+}
+
+/* Dark: follows the system unless the header toggle stored a choice (<html data-theme>, set before first paint by
+   the inline script in Layout.astro). The same palette as patchbay.inductive.ml. */
+:root[data-theme="dark"] {
+  --paper: #15130f;
+  --panel: #1e1b16;
+  --ink: #ece5d8;
+  --ink-2: #c9c0b2;
+  --mute: #9a9184;
+  --hair: #332e27;
+  --dot: #e0533a;
+  --crimson: #ef6a4f;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15130f;
+    --panel: #1e1b16;
+    --ink: #ece5d8;
+    --ink-2: #c9c0b2;
+    --mute: #9a9184;
+    --hair: #332e27;
+    --dot: #e0533a;
+    --crimson: #ef6a4f;
+    color-scheme: dark;
+  }
 }
 
 * {
@@ -140,6 +168,45 @@ canvas {
 }
 .head-contact {
   color: var(--mute);
+}
+
+/* ---------- theme toggle ---------- */
+.theme-toggle {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+.theme-toggle:hover {
+  background: var(--panel);
+  color: var(--crimson);
+}
+.theme-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+/* The glyph shows the theme a click switches to, chosen by CSS so it is right on the first paint. */
+.theme-toggle .i-sun {
+  display: none;
+}
+:root[data-theme="dark"] .theme-toggle .i-sun {
+  display: block;
+}
+:root[data-theme="dark"] .theme-toggle .i-moon {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .i-sun {
+    display: block;
+  }
+  :root:not([data-theme="light"]) .theme-toggle .i-moon {
+    display: none;
+  }
 }
 
 /* ---------- halftone band ---------- */

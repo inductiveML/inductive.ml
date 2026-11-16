@@ -42,6 +42,15 @@ const social = (() => {
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- Theme: a stored choice from the header toggle, else the system's; set before anything paints. -->
+		<script is:inline>
+			try {
+				var t = localStorage.getItem('theme');
+				if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+			} catch (e) {}
+		</script>
+		<meta name="theme-color" content="#f3eee4" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#15130f" media="(prefers-color-scheme: dark)" />
 		<meta name="description" content={description} />
 		<meta name="generator" content={Astro.generator} />
 		{noindex === true && <meta name="robots" content="noindex, nofollow" />}

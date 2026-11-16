@@ -102,7 +102,7 @@
 .demo-bottom { display: flex; justify-content: space-between; gap: 20px; padding: 14px 24px; border-top: 1px solid var(--line); font: 9px/1.6 var(--mono); color: var(--mute); }
 .demo-bottom a { color: var(--amber); white-space: nowrap; }
 .under-demo { font: 12px/1.6 var(--reading); color: var(--mute); margin: 15px 0 0; max-width: 100ch; }
-.demo-error { background: var(--accent-soft); border: 1px solid var(--accent); color: #7a2414; padding: 13px 16px; border-radius: 0; font: 13px/1.6 var(--display); margin-bottom: 16px; }
+.demo-error { background: var(--accent-soft); border: 1px solid var(--accent); color: var(--error-ink); padding: 13px 16px; border-radius: 0; font: 13px/1.6 var(--display); margin-bottom: 16px; }
 .load-progress { height: 3px; background: var(--line-2); margin: 8px 0 19px; overflow: hidden; }
 .load-progress > span { display: block; height: 100%; background: var(--accent); transition: width .18s; }
 .benchmark-controls { display: flex; align-items: center; gap: 15px; }

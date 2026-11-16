@@ -14,6 +14,7 @@
   --amber: #9a2f1a;
   --accent-soft: rgba(184, 56, 31, 0.08);
   --accent-tint: rgba(184, 56, 31, 0.14);
+  --error-ink: #7a2414;
 
   --display: "Archivo", system-ui, sans-serif;
   --reading: "Archivo", system-ui, sans-serif;
@@ -27,6 +28,52 @@
   min-height: 100%;
   font-size: 13px;
   line-height: 1.6;
+}
+
+/* Dark article tokens (see site.css for the switch). */
+:root[data-theme="dark"] .v9 {
+  --bg: #15130f;
+  --panel: #1e1b16;
+  --ink: #ece5d8;
+  --ink-2: #c9c0b2;
+  --mute: #9a9184;
+  --faint: #8a8174;
+  --line: rgba(236, 229, 216, 0.24);
+  --line-2: rgba(236, 229, 216, 0.1);
+  --accent: #ef6a4f;
+  --amber: #f08a72;
+  --accent-soft: rgba(239, 106, 79, 0.1);
+  --accent-tint: rgba(239, 106, 79, 0.18);
+  --error-ink: #f4a08c;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .v9 {
+    --bg: #15130f;
+    --panel: #1e1b16;
+    --ink: #ece5d8;
+    --ink-2: #c9c0b2;
+    --mute: #9a9184;
+    --faint: #8a8174;
+    --line: rgba(236, 229, 216, 0.24);
+    --line-2: rgba(236, 229, 216, 0.1);
+    --accent: #ef6a4f;
+    --amber: #f08a72;
+    --accent-soft: rgba(239, 106, 79, 0.1);
+    --accent-tint: rgba(239, 106, 79, 0.18);
+    --error-ink: #f4a08c;
+  }
+}
+/* Post figures are inline SVG written for paper (crimson #b8381f, paper-coloured outlines #f3eee4). In dark they take
+   the dark tokens; CSS outranks the SVG presentation attributes. */
+:root[data-theme="dark"] .post svg [fill="#b8381f"] { fill: var(--accent); }
+:root[data-theme="dark"] .post svg [stroke="#b8381f"] { stroke: var(--accent); }
+:root[data-theme="dark"] .post svg [fill="#f3eee4"] { fill: var(--bg); }
+:root[data-theme="dark"] .post svg [stroke="#f3eee4"] { stroke: var(--bg); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .post svg [fill="#b8381f"] { fill: var(--accent); }
+  :root:not([data-theme="light"]) .post svg [stroke="#b8381f"] { stroke: var(--accent); }
+  :root:not([data-theme="light"]) .post svg [fill="#f3eee4"] { fill: var(--bg); }
+  :root:not([data-theme="light"]) .post svg [stroke="#f3eee4"] { stroke: var(--bg); }
 }
 .v9 .pad {
   padding: clamp(36px, 5vw, 64px) var(--pad, clamp(26px, 5vw, 72px)) 72px;

@@ -1,13 +1,46 @@
 import { useEffect, useRef, useState } from 'react';
 
 // Crimson-dark reading surface palette (shared with v9.css / site.css tokens).
-const INK = '#1c1915'; // ink — primary draw colour on the paper ground
-const INK_2 = '#3f3933';
-const MUTE = '#5e574d';
-const LINE = 'rgba(28,25,21,0.18)'; // grid / axis lines on paper
-const ACCENT = '#b8381f'; // crimson
-const BG = '#f3eee4'; // paper canvas ground
-const PAPER_BG_INV = '#f3eee4'; // paper-coloured text drawn on filled (ink / crimson) shapes
+// Colours follow the article's theme tokens (.v9 in v9.css: light paper or dark), so the SVGs and swatches switch
+// with the page. SVG colours are set through `style` (CSS), where var() and color-mix() work in every browser.
+const INK = 'var(--ink)'; // ink — primary draw colour on the paper ground
+const INK_2 = 'var(--ink-2)';
+const MUTE = 'var(--mute)';
+const LINE = 'color-mix(in srgb, var(--ink) 18%, transparent)'; // grid / axis lines on paper
+const ACCENT = 'var(--accent)'; // crimson
+const PAPER_BG_INV = 'var(--bg)'; // paper-coloured text drawn on filled (ink / crimson) shapes
+const MUTE_ON_INK = 'color-mix(in srgb, var(--bg) 72%, var(--ink))'; // quiet text on an ink-filled box
+
+/** The same tokens resolved to concrete colours for <canvas>, which cannot read CSS variables. */
+function palette(el: Element) {
+  const cs = getComputedStyle(el);
+  const v = (name: string) => cs.getPropertyValue(name).trim();
+  const ink = v('--ink');
+  return { ink, ink2: v('--ink-2'), mute: v('--mute'), accent: v('--accent'), bg: v('--bg'), line: alpha(ink, 0.18) };
+}
+
+/** '#rrggbb' with an alpha, as rgba(). */
+function alpha(hex: string, a: number) {
+  const n = parseInt(hex.replace('#', ''), 16);
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${a})`;
+}
+
+/** Changes whenever the page theme does (the header toggle or the system setting), to redraw canvases. */
+function useThemeTick() {
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    const bump = () => setTick((t) => t + 1);
+    const mo = new MutationObserver(bump);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    const mq = matchMedia('(prefers-color-scheme: dark)');
+    mq.addEventListener('change', bump);
+    return () => {
+      mo.disconnect();
+      mq.removeEventListener('change', bump);
+    };
+  }, []);
+  return tick;
+}
 
 function Secbar({ num, ttl, meta, id }: { num: string; ttl: string; meta?: string; id?: string }) {
   return (
@@ -60,25 +93,25 @@ function StaircaseViz() {
         >
           <defs>
             <pattern id="stair-grid" width="30" height="30" patternUnits="userSpaceOnUse">
-              <path d="M 30 0 L 0 0 0 30" fill="none" stroke={LINE} strokeWidth="1" />
+              <path d="M 30 0 L 0 0 0 30" fill="none" strokeWidth="1" style={{ stroke: LINE }} />
             </pattern>
           </defs>
           <rect width="300" height="300" fill="url(#stair-grid)" />
 
           {/* Shaded regions */}
-          <polygon points="0,300 0,0 300,0" fill={INK} fillOpacity="0.05" />
-          <polygon points="0,300 300,0 300,300" fill={ACCENT} fillOpacity="0.06" />
+          <polygon points="0,300 0,0 300,0" fillOpacity="0.05" style={{ fill: INK }} />
+          <polygon points="0,300 300,0 300,300" fillOpacity="0.06" style={{ fill: ACCENT }} />
 
           {/* True diagonal boundary */}
-          <line x1="0" y1="300" x2="300" y2="0" stroke={INK} strokeWidth="2" strokeDasharray="6 4" />
+          <line x1="0" y1="300" x2="300" y2="0" strokeWidth="2" strokeDasharray="6 4" style={{ stroke: INK }} />
 
           {/* Staircase approximation */}
           <path
             d="M 0 300 L 0 270 L 30 270 L 30 240 L 60 240 L 60 210 L 90 210 L 90 180 L 120 180 L 120 150 L 150 150 L 150 120 L 180 120 L 180 90 L 210 90 L 210 60 L 240 60 L 240 30 L 270 30 L 270 0 L 300 0"
             fill="none"
-            stroke={ACCENT}
+           
             strokeWidth="3"
-            style={{ opacity: isTransformed ? 0 : 1, transition: 'opacity 0.5s ease' }}
+            style={{ stroke: ACCENT, opacity: isTransformed ? 0 : 1, transition: 'opacity 0.5s ease' }}
           />
 
           {/* Single cut */}
@@ -87,9 +120,9 @@ function StaircaseViz() {
             y1="150"
             x2="400"
             y2="150"
-            stroke={ACCENT}
+           
             strokeWidth="3"
-            style={{ opacity: isTransformed ? 1 : 0, transition: 'opacity 0.5s ease' }}
+            style={{ stroke: ACCENT, opacity: isTransformed ? 1 : 0, transition: 'opacity 0.5s ease' }}
           />
 
           <text
@@ -97,9 +130,9 @@ function StaircaseViz() {
             y="100"
             fontSize="11"
             fontFamily="IBM Plex Mono, monospace"
-            fill={INK}
+           
             letterSpacing="2"
-            style={{ opacity: isTransformed ? 0 : 0.6, transition: 'opacity 0.5s' }}
+            style={{ fill: INK, opacity: isTransformed ? 0 : 0.6, transition: 'opacity 0.5s' }}
           >
             CLASS A
           </text>
@@ -108,9 +141,9 @@ function StaircaseViz() {
             y="230"
             fontSize="11"
             fontFamily="IBM Plex Mono, monospace"
-            fill={ACCENT}
+           
             letterSpacing="2"
-            style={{ opacity: isTransformed ? 0 : 0.6, transition: 'opacity 0.5s' }}
+            style={{ fill: ACCENT, opacity: isTransformed ? 0 : 0.6, transition: 'opacity 0.5s' }}
           >
             CLASS B
           </text>
@@ -178,6 +211,7 @@ function RingViz() {
   const ref = useRef<HTMLCanvasElement | null>(null);
   const animationFrame = useRef<number | null>(null);
   const [isOn, setIsOn] = useState(false);
+  const theme = useThemeTick();
   const points = useRef<RingPoint[] | null>(null);
 
   useEffect(() => {
@@ -207,6 +241,7 @@ function RingViz() {
       return;
     }
     const ctx = canvas.getContext('2d');
+    const P = palette(canvas);
     if (!ctx) {
       return;
     }
@@ -226,7 +261,7 @@ function RingViz() {
 
       ctx.save();
       ctx.font = '10px IBM Plex Mono, monospace';
-      ctx.fillStyle = MUTE;
+      ctx.fillStyle = P.mute;
       if (progress < 0.5) {
         ctx.fillText('x₁', width / 2 + width * 0.38, height / 2 + 14);
         ctx.fillText('x₂', width / 2 + 6, height / 2 - width * 0.36);
@@ -236,7 +271,7 @@ function RingViz() {
       }
       ctx.restore();
 
-      ctx.strokeStyle = LINE;
+      ctx.strokeStyle = P.line;
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(width / 2, 10);
@@ -248,10 +283,10 @@ function RingViz() {
       if (progress > 0.1) {
         ctx.save();
         ctx.globalAlpha = progress;
-        ctx.fillStyle = `rgba(184, 56, 31, 0.1)`;
+        ctx.fillStyle = `${alpha(P.accent, 0.1)}`;
         const separatorX = width / 2 + 0.5 * width * 0.36;
         ctx.fillRect(separatorX, 0, width - separatorX, height);
-        ctx.strokeStyle = ACCENT;
+        ctx.strokeStyle = P.accent;
         ctx.lineWidth = 2;
         ctx.setLineDash([6, 6]);
         ctx.beginPath();
@@ -264,7 +299,7 @@ function RingViz() {
       if (progress < 0.7) {
         ctx.save();
         ctx.globalAlpha = (1 - progress) * 0.18;
-        ctx.strokeStyle = INK;
+        ctx.strokeStyle = P.ink;
         ctx.lineWidth = 1;
         ctx.setLineDash([3, 3]);
         ctx.beginPath();
@@ -283,9 +318,9 @@ function RingViz() {
         ctx.beginPath();
         ctx.arc(px, py, 2.8, 0, Math.PI * 2);
         if (point.ring) {
-          ctx.fillStyle = `rgba(28, 25, 21, ${0.55 + progress * 0.25})`;
+          ctx.fillStyle = alpha(P.ink, 0.55 + progress * 0.25);
         } else {
-          ctx.fillStyle = `rgba(184, 56, 31, ${0.55 + progress * 0.25})`;
+          ctx.fillStyle = alpha(P.accent, 0.55 + progress * 0.25);
         }
         ctx.fill();
       });
@@ -299,7 +334,7 @@ function RingViz() {
         cancelAnimationFrame(animationFrame.current);
       }
     };
-  }, [isOn]);
+  }, [isOn, theme]);
 
   return (
     <div className="viz">
@@ -355,6 +390,7 @@ function RingViz() {
 function PrefixCurveViz() {
   const ref = useRef<HTMLCanvasElement | null>(null);
   const [hoveredMethod, setHoveredMethod] = useState<string | null>(null);
+  const theme = useThemeTick();
 
   useEffect(() => {
     const canvas = ref.current;
@@ -362,6 +398,7 @@ function PrefixCurveViz() {
       return;
     }
     const ctx = canvas.getContext('2d');
+    const P = palette(canvas);
     if (!ctx) {
       return;
     }
@@ -390,10 +427,10 @@ function PrefixCurveViz() {
     }
 
     ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = BG;
+    ctx.fillStyle = P.bg;
     ctx.fillRect(0, 0, width, height);
 
-    ctx.strokeStyle = LINE;
+    ctx.strokeStyle = P.line;
     ctx.lineWidth = 1;
     for (let i = 0; i <= 5; i += 1) {
       const y = pad.top + (plotH / 5) * i;
@@ -405,7 +442,7 @@ function PrefixCurveViz() {
 
     const target95 = rawTarget * 0.95;
     const targetY = pad.top + plotH * (1 - (target95 - 0.5) / 0.5);
-    ctx.strokeStyle = INK;
+    ctx.strokeStyle = P.ink;
     ctx.globalAlpha = 0.5;
     ctx.lineWidth = 1;
     ctx.setLineDash([4, 4]);
@@ -416,7 +453,7 @@ function PrefixCurveViz() {
     ctx.setLineDash([]);
     ctx.globalAlpha = 1;
     ctx.font = '10px IBM Plex Mono, monospace';
-    ctx.fillStyle = MUTE;
+    ctx.fillStyle = P.mute;
     ctx.fillText('95% of raw AUC', pad.left + plotW - 105, targetY - 6);
 
     const drawCurve = (data: [number, number][], color: string, lineWidth: number, highlight: boolean) => {
@@ -437,24 +474,24 @@ function PrefixCurveViz() {
       ctx.globalAlpha = 1;
     };
 
-    drawCurve(budgetCurve, MUTE, 2, hoveredMethod === 'budget');
-    drawCurve(learnedCurve, ACCENT, 2.5, hoveredMethod === 'learned');
+    drawCurve(budgetCurve, P.mute, 2, hoveredMethod === 'budget');
+    drawCurve(learnedCurve, P.accent, 2.5, hoveredMethod === 'learned');
 
     const learnedTargetLeaves = 15.8;
     const learnedTargetX = pad.left + (learnedTargetLeaves / maxLeaves) * plotW;
-    ctx.fillStyle = ACCENT;
+    ctx.fillStyle = P.accent;
     ctx.beginPath();
     ctx.arc(learnedTargetX, targetY, 5, 0, Math.PI * 2);
     ctx.fill();
     ctx.font = '11px IBM Plex Mono, monospace';
-    ctx.fillStyle = ACCENT;
+    ctx.fillStyle = P.accent;
     ctx.fillText('15.8 leaves', learnedTargetX + 8, targetY - 8);
 
     ctx.font = '11px IBM Plex Mono, monospace';
-    ctx.fillStyle = MUTE;
+    ctx.fillStyle = P.mute;
     ctx.fillText('never reaches target', pad.left + plotW - 150, pad.top + plotH * (1 - (0.923 - 0.5) / 0.5) - 10);
 
-    ctx.strokeStyle = INK;
+    ctx.strokeStyle = P.ink;
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(pad.left, pad.top);
@@ -463,7 +500,7 @@ function PrefixCurveViz() {
     ctx.stroke();
 
     ctx.font = '10px IBM Plex Mono, monospace';
-    ctx.fillStyle = MUTE;
+    ctx.fillStyle = P.mute;
     ctx.textAlign = 'center';
     ctx.fillText('CUMULATIVE LEAVES', pad.left + plotW / 2, height - 8);
     ctx.save();
@@ -474,7 +511,7 @@ function PrefixCurveViz() {
     ctx.textAlign = 'left';
 
     ctx.font = '10px IBM Plex Mono, monospace';
-    ctx.fillStyle = MUTE;
+    ctx.fillStyle = P.mute;
     ctx.textAlign = 'right';
     for (let v = 0.5; v <= 1.0; v += 0.1) {
       const y = pad.top + plotH * (1 - (v - 0.5) / 0.5);
@@ -490,16 +527,16 @@ function PrefixCurveViz() {
     ctx.textAlign = 'left';
     const legendX = pad.left + 20;
     const legendY = pad.top + 16;
-    ctx.fillStyle = MUTE;
+    ctx.fillStyle = P.mute;
     ctx.fillRect(legendX, legendY - 4, 14, 3);
     ctx.font = '10px IBM Plex Mono, monospace';
-    ctx.fillStyle = INK_2;
+    ctx.fillStyle = P.ink2;
     ctx.fillText('STANDARD XGBOOST (BUDGETED)', legendX + 20, legendY);
-    ctx.fillStyle = ACCENT;
+    ctx.fillStyle = P.accent;
     ctx.fillRect(legendX, legendY + 16, 14, 3);
-    ctx.fillStyle = INK_2;
+    ctx.fillStyle = P.ink2;
     ctx.fillText('WITH LEARNED COORDINATES', legendX + 20, legendY + 20);
-  }, [hoveredMethod]);
+  }, [hoveredMethod, theme]);
 
   return (
     <div className="viz">
@@ -572,33 +609,30 @@ function PipelineDiagram() {
             transition: 'opacity 0.3s',
           }}
         >
-          <rect x="10" y="20" width="100" height="50" fill="transparent" stroke={LINE} strokeWidth="1.5" />
-          <text x="60" y="42" textAnchor="middle" fontSize="11" fontFamily="IBM Plex Mono, monospace" fill={INK_2}>
+          <rect x="10" y="20" width="100" height="50" fill="transparent" strokeWidth="1.5" style={{ stroke: LINE }} />
+          <text x="60" y="42" textAnchor="middle" fontSize="11" fontFamily="IBM Plex Mono, monospace" style={{ fill: INK_2 }}>
             RAW DATA
           </text>
-          <text x="60" y="56" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill={MUTE}>
+          <text x="60" y="56" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" style={{ fill: MUTE }}>
             (x₁, x₂, ...)
           </text>
 
-          <line x1="110" y1="45" x2="150" y2="45" stroke={INK} strokeWidth="1.5" markerEnd="url(#pl-arrow)" />
+          <line x1="110" y1="45" x2="150" y2="45" strokeWidth="1.5" markerEnd="url(#pl-arrow)" style={{ stroke: INK }} />
 
           <rect
             x="150"
             y="20"
             width="120"
             height="50"
-            fill={activePhase === 1 ? INK : 'transparent'}
-            stroke={INK}
-            strokeWidth="1.5"
-          />
+           
+           
+            strokeWidth="1.5" style={{ fill: activePhase === 1 ? INK : 'transparent', stroke: INK }} />
           <text
             x="210"
             y="42"
             textAnchor="middle"
             fontSize="10"
-            fontFamily="IBM Plex Mono, monospace"
-            fill={activePhase === 1 ? PAPER_BG_INV : INK}
-          >
+            fontFamily="IBM Plex Mono, monospace" style={{ fill: activePhase === 1 ? PAPER_BG_INV : INK }}>
             PROB. TRANSFORM
           </text>
           <text
@@ -606,13 +640,11 @@ function PipelineDiagram() {
             y="56"
             textAnchor="middle"
             fontSize="9"
-            fontFamily="IBM Plex Mono, monospace"
-            fill={activePhase === 1 ? '#b8b0a3' : MUTE}
-          >
+            fontFamily="IBM Plex Mono, monospace" style={{ fill: activePhase === 1 ? MUTE_ON_INK : MUTE }}>
             remap + 8 lifts
           </text>
 
-          <line x1="270" y1="45" x2="310" y2="45" stroke={INK} strokeWidth="1.5" markerEnd="url(#pl-arrow)" />
+          <line x1="270" y1="45" x2="310" y2="45" strokeWidth="1.5" markerEnd="url(#pl-arrow)" style={{ stroke: INK }} />
 
           <rect
             x="310"
@@ -620,21 +652,20 @@ function PipelineDiagram() {
             width="110"
             height="50"
             fill="transparent"
-            stroke={INK}
-            strokeWidth="1.5"
-          />
-          <text x="365" y="42" textAnchor="middle" fontSize="10" fontFamily="IBM Plex Mono, monospace" fill={INK}>
+           
+            strokeWidth="1.5" style={{ stroke: INK }} />
+          <text x="365" y="42" textAnchor="middle" fontSize="10" fontFamily="IBM Plex Mono, monospace" style={{ fill: INK }}>
             BOOSTER A
           </text>
-          <text x="365" y="56" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill={MUTE}>
+          <text x="365" y="56" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" style={{ fill: MUTE }}>
             8 rounds
           </text>
         </g>
 
         {/* Connection */}
         <g style={{ opacity: activePhase === 0 ? 1 : 0.3, transition: 'opacity 0.3s' }}>
-          <path d="M 365 70 L 365 100 L 520 100 L 520 130" fill="none" stroke={MUTE} strokeWidth="1" strokeDasharray="4 4" />
-          <text x="443" y="95" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill={MUTE}>
+          <path d="M 365 70 L 365 100 L 520 100 L 520 130" fill="none" strokeWidth="1" strokeDasharray="4 4" style={{ stroke: MUTE }} />
+          <text x="443" y="95" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" style={{ fill: MUTE }}>
             base margins
           </text>
         </g>
@@ -646,33 +677,30 @@ function PipelineDiagram() {
             transition: 'opacity 0.3s',
           }}
         >
-          <rect x="10" y="130" width="100" height="50" fill="transparent" stroke={LINE} strokeWidth="1.5" />
-          <text x="60" y="152" textAnchor="middle" fontSize="11" fontFamily="IBM Plex Mono, monospace" fill={INK_2}>
+          <rect x="10" y="130" width="100" height="50" fill="transparent" strokeWidth="1.5" style={{ stroke: LINE }} />
+          <text x="60" y="152" textAnchor="middle" fontSize="11" fontFamily="IBM Plex Mono, monospace" style={{ fill: INK_2 }}>
             RAW DATA
           </text>
-          <text x="60" y="166" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill={MUTE}>
+          <text x="60" y="166" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" style={{ fill: MUTE }}>
             (x₁, x₂, ...)
           </text>
 
-          <line x1="110" y1="155" x2="150" y2="155" stroke={INK} strokeWidth="1.5" markerEnd="url(#pl-arrow)" />
+          <line x1="110" y1="155" x2="150" y2="155" strokeWidth="1.5" markerEnd="url(#pl-arrow)" style={{ stroke: INK }} />
 
           <rect
             x="150"
             y="130"
             width="120"
             height="50"
-            fill={activePhase === 2 ? ACCENT : 'transparent'}
-            stroke={ACCENT}
-            strokeWidth="1.5"
-          />
+           
+           
+            strokeWidth="1.5" style={{ fill: activePhase === 2 ? ACCENT : 'transparent', stroke: ACCENT }} />
           <text
             x="210"
             y="152"
             textAnchor="middle"
             fontSize="10"
-            fontFamily="IBM Plex Mono, monospace"
-            fill={activePhase === 2 ? PAPER_BG_INV : ACCENT}
-          >
+            fontFamily="IBM Plex Mono, monospace" style={{ fill: activePhase === 2 ? PAPER_BG_INV : ACCENT }}>
             TEACHER TRANSFORM
           </text>
           <text
@@ -680,13 +708,11 @@ function PipelineDiagram() {
             y="166"
             textAnchor="middle"
             fontSize="9"
-            fontFamily="IBM Plex Mono, monospace"
-            fill={activePhase === 2 ? PAPER_BG_INV : MUTE}
-          >
+            fontFamily="IBM Plex Mono, monospace" style={{ fill: activePhase === 2 ? PAPER_BG_INV : MUTE }}>
             remap only
           </text>
 
-          <line x1="270" y1="155" x2="310" y2="155" stroke={INK} strokeWidth="1.5" markerEnd="url(#pl-arrow)" />
+          <line x1="270" y1="155" x2="310" y2="155" strokeWidth="1.5" markerEnd="url(#pl-arrow)" style={{ stroke: INK }} />
 
           <rect
             x="310"
@@ -694,48 +720,47 @@ function PipelineDiagram() {
             width="110"
             height="50"
             fill="transparent"
-            stroke={ACCENT}
-            strokeWidth="1.5"
-          />
-          <text x="365" y="152" textAnchor="middle" fontSize="10" fontFamily="IBM Plex Mono, monospace" fill={ACCENT}>
+           
+            strokeWidth="1.5" style={{ stroke: ACCENT }} />
+          <text x="365" y="152" textAnchor="middle" fontSize="10" fontFamily="IBM Plex Mono, monospace" style={{ fill: ACCENT }}>
             BOOSTER B
           </text>
-          <text x="365" y="166" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill={MUTE}>
+          <text x="365" y="166" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" style={{ fill: MUTE }}>
             42 rounds
           </text>
         </g>
 
         {/* Final */}
         <g style={{ opacity: activePhase === 0 ? 1 : 0.4, transition: 'opacity 0.3s' }}>
-          <line x1="420" y1="45" x2="460" y2="45" stroke={MUTE} strokeWidth="1" />
-          <line x1="420" y1="155" x2="460" y2="155" stroke={MUTE} strokeWidth="1" />
-          <path d="M 460 45 L 460 155" fill="none" stroke={MUTE} strokeWidth="1" />
-          <line x1="460" y1="100" x2="500" y2="100" stroke={INK} strokeWidth="1.5" markerEnd="url(#pl-arrow)" />
+          <line x1="420" y1="45" x2="460" y2="45" strokeWidth="1" style={{ stroke: MUTE }} />
+          <line x1="420" y1="155" x2="460" y2="155" strokeWidth="1" style={{ stroke: MUTE }} />
+          <path d="M 460 45 L 460 155" fill="none" strokeWidth="1" style={{ stroke: MUTE }} />
+          <line x1="460" y1="100" x2="500" y2="100" strokeWidth="1.5" markerEnd="url(#pl-arrow)" style={{ stroke: INK }} />
 
-          <text x="475" y="80" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill={MUTE}>
+          <text x="475" y="80" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" style={{ fill: MUTE }}>
             sum
           </text>
 
-          <rect x="500" y="75" width="100" height="50" fill={INK} stroke={INK} strokeWidth="1.5" />
-          <text x="550" y="97" textAnchor="middle" fontSize="10" fontFamily="IBM Plex Mono, monospace" fill={PAPER_BG_INV}>
+          <rect x="500" y="75" width="100" height="50" strokeWidth="1.5" style={{ fill: INK, stroke: INK }} />
+          <text x="550" y="97" textAnchor="middle" fontSize="10" fontFamily="IBM Plex Mono, monospace" style={{ fill: PAPER_BG_INV }}>
             σ(MARGINS)
           </text>
-          <text x="550" y="111" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill="#b8b0a3">
+          <text x="550" y="111" textAnchor="middle" fontSize="9" fontFamily="IBM Plex Mono, monospace" style={{ fill: MUTE_ON_INK }}>
             prediction
           </text>
 
-          <line x1="600" y1="100" x2="640" y2="100" stroke={INK} strokeWidth="1.5" markerEnd="url(#pl-arrow-dark)" />
-          <text x="665" y="104" textAnchor="middle" fontSize="14" fontFamily="IBM Plex Mono, monospace" fill={INK}>
+          <line x1="600" y1="100" x2="640" y2="100" strokeWidth="1.5" markerEnd="url(#pl-arrow-dark)" style={{ stroke: INK }} />
+          <text x="665" y="104" textAnchor="middle" fontSize="14" fontFamily="IBM Plex Mono, monospace" style={{ fill: INK }}>
             ŷ
           </text>
         </g>
 
         <defs>
           <marker id="pl-arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-            <polygon points="0 0, 8 3, 0 6" fill={INK} />
+            <polygon points="0 0, 8 3, 0 6" style={{ fill: INK }} />
           </marker>
           <marker id="pl-arrow-dark" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-            <polygon points="0 0, 8 3, 0 6" fill={INK} />
+            <polygon points="0 0, 8 3, 0 6" style={{ fill: INK }} />
           </marker>
         </defs>
       </svg>
@@ -915,7 +940,7 @@ function GainShareViz() {
                 className="seg"
                 style={{
                   width: `${d.probRemap * 100}%`,
-                  background: 'rgba(28, 25, 21, 0.22)',
+                  background: 'color-mix(in srgb, var(--ink) 22%, transparent)',
                   color: INK,
                 }}
               >
@@ -936,7 +961,7 @@ function GainShareViz() {
         ))}
         <div className="legend">
           <span>
-            <span className="swatch" style={{ background: 'rgba(28, 25, 21, 0.22)' }} />
+            <span className="swatch" style={{ background: 'color-mix(in srgb, var(--ink) 22%, transparent)' }} />
             remap
           </span>
           <span>
@@ -966,7 +991,7 @@ function GainShareViz() {
                 className="seg"
                 style={{
                   width: `${d.teacherLift * 100}%`,
-                  background: 'rgba(184, 56, 31, 0.24)',
+                  background: 'color-mix(in srgb, var(--accent) 24%, transparent)',
                   color: ACCENT,
                 }}
               >
@@ -981,7 +1006,7 @@ function GainShareViz() {
             remap
           </span>
           <span>
-            <span className="swatch" style={{ background: 'rgba(184, 56, 31, 0.24)' }} />
+            <span className="swatch" style={{ background: 'color-mix(in srgb, var(--accent) 24%, transparent)' }} />
             lift
           </span>
         </div>
@@ -1034,19 +1059,19 @@ function AlternatingLoopViz() {
                 y1={cy + (nextCy - cy) * 0.3}
                 x2={nextCx - (nextCx - cx) * 0.3}
                 y2={nextCy - (nextCy - cy) * 0.3}
-                stroke={isActive ? ACCENT : LINE}
+               
                 strokeWidth={isActive ? 2 : 1}
                 markerEnd={isActive ? 'url(#loop-arrow-active)' : 'url(#loop-arrow-gray)'}
-                style={{ transition: 'all 0.3s' }}
+                style={{ stroke: isActive ? ACCENT : LINE, transition: 'all 0.3s' }}
               />
               <circle
                 cx={cx}
                 cy={cy}
                 r={isActive ? 30 : 26}
-                fill={isActive ? ACCENT : 'transparent'}
-                stroke={isActive ? ACCENT : INK}
+               
+               
                 strokeWidth={isActive ? 2.5 : 1.5}
-                style={{ transition: 'all 0.3s' }}
+                style={{ fill: isActive ? ACCENT : 'transparent', stroke: isActive ? ACCENT : INK, transition: 'all 0.3s' }}
               />
               <text
                 x={cx}
@@ -1056,8 +1081,8 @@ function AlternatingLoopViz() {
                 fontSize="18"
                 fontFamily="Archivo, system-ui, sans-serif"
                 fontWeight="700"
-                fill={isActive ? PAPER_BG_INV : INK}
-                style={{ transition: 'fill 0.3s' }}
+               
+                style={{ fill: isActive ? PAPER_BG_INV : INK, transition: 'fill 0.3s' }}
               >
                 {i + 1}
               </text>
@@ -1066,10 +1091,10 @@ function AlternatingLoopViz() {
         })}
         <defs>
           <marker id="loop-arrow-active" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
-            <polygon points="0 0, 6 2, 0 4" fill={ACCENT} />
+            <polygon points="0 0, 6 2, 0 4" style={{ fill: ACCENT }} />
           </marker>
           <marker id="loop-arrow-gray" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
-            <polygon points="0 0, 6 2, 0 4" fill={LINE} />
+            <polygon points="0 0, 6 2, 0 4" style={{ fill: LINE }} />
           </marker>
         </defs>
       </svg>
