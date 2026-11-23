@@ -3,28 +3,476 @@ import Layout from '../../layouts/Layout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import PageHead from '../../components/PageHead.astro';
+import '../../styles/v9.css';
+
+const harnessFile =
+	'https://github.com/XiaomiMiMo/mimoagent/blob/c3df8469f250b15e7906487a6d52be4c1827a509/src/mimoagent/environments/datasets/opensource_code.py';
+
+const runners = [
+	{
+		runner: 'pytest',
+		route: 'A conftest.py at the repository root that exits 0',
+		probed: '1,001',
+		inScope: '929 (92.8%)',
+		upper: '954',
+	},
+	{
+		runner: 'jest',
+		route: 'An exit-0 shim in node_modules/.bin; in one environment, a rewritten package.json test script',
+		probed: '179',
+		inScope: '141 (78.8%)',
+		upper: '141',
+	},
+	{
+		runner: 'mocha',
+		route: 'An exit-0 shim in node_modules/.bin',
+		probed: '140',
+		inScope: '110 (78.6%)',
+		upper: '110',
+	},
+	{
+		runner: 'vitest',
+		route: 'An exit-0 shim in node_modules/.bin',
+		probed: '45',
+		inScope: '30 (66.7%)',
+		upper: '30',
+	},
+	{
+		runner: 'Go',
+		route: 'A TestMain that exits 0, in a package that holds hidden tests',
+		probed: '665',
+		inScope: '112 (16.8%)',
+		upper: '112',
+	},
+	{
+		runner: 'node-tap, phpunit, .uts',
+		route: 'None found with these probes',
+		probed: '43',
+		inScope: '0',
+		upper: '0',
+	},
+	{
+		runner: 'No standard runner',
+		route: 'Not probed: graded by a custom script',
+		probed: '528',
+		inScope: '—',
+		upper: '—',
+	},
+];
+
+const restorations = [
+	{ runner: 'pytest', fix: 'Restore conftest files and pytest config from base; apply the repository-only diff onto a fresh container.' },
+	{ runner: 'jest', fix: 'Restore node_modules; call the runner by absolute path, directly rather than through npm test.' },
+	{ runner: 'mocha, vitest', fix: 'Restore node_modules; call the runner by absolute path.' },
+	{ runner: 'Go', fix: 'Drop any *_test.go file that is in neither the base commit nor the hidden patch.' },
+];
 ---
 
 <Layout
-	title="MiMo — Cupel · Inductive ML"
-	description="Coordinated disclosure with Xiaomi is in progress. The full report will be published here on 21 November 2026."
-	analytics={false}
-	noindex={true}
+	title="MiMo grader audit — Cupel · Inductive ML"
+	description="Cupel's audit of how Xiaomi's MiMo-V2.6 RL coding pack is graded: on 1,322 of 2,601 environments, one file written in the task working directory makes the grader report PASS with the hidden tests applied. Severity High; stamp FAIL."
 >
 	<SiteHeader current="cupel" />
-	<main>
-		<PageHead back={{ href: '/cupel', label: 'Cupel' }} kicker="Cupel · Coordinated disclosure" animate={true}>
-			MiMo
+		<PageHead back={{ href: '/cupel', label: 'RL Env Audits' }} kicker="Cupel · Coordinated disclosure" animate={true}>
+			MiMo grader (Xiaomi)
 		</PageHead>
-		<div class="shell page-body">
-			<div class="reader article-body">
-				<p class="article-lede">
-					Coordinated disclosure with Xiaomi is in progress. The full report will be published here on <span
-						class="mark">21 November 2026</span
-					>.
-				</p>
+
+		<main class="v9">
+			<div class="pad">
+				<div class="grid12">
+					<div class="paper-hero">
+						<div class="head">
+							<p class="sub">
+								In about half of Xiaomi's open RL coding pack, one file written in the task's working
+								directory before grading makes the grader report PASS with the hidden tests applied, on
+								environments that otherwise FAIL. <em>
+									A policy trained on these environments can be rewarded for that write instead of the
+									fix. We rate it High, so the pack's Cupel stamp is FAIL.
+								</em>
+							</p>
+						</div>
+						<div class="meta-rail">
+							<div class="row"><span>// suite</span><span>MiMo-V2.6-RL-oss</span></div>
+							<div class="row"><span>// split</span><span>code · 2,602 tasks</span></div>
+							<div class="row"><span>// probed</span><span>2,601 of 2,602</span></div>
+							<div class="row"><span>// write scope</span><span>none declared</span></div>
+							<div class="row"><span>// harness</span><span>mimoagent @ c3df846</span></div>
+							<div class="row"><span>// severity</span><span>High (I3 × R3)</span></div>
+							<div class="row"><span>// stamp</span><span>FAIL</span></div>
+							<div class="row"><span>// status</span><span>published · 23 Nov 2026</span></div>
+							<div class="row"><span>// disclosure</span><span>sent to Xiaomi · 7 Nov 2026</span></div>
+						</div>
+					</div>
+
+					<div class="paper">
+						<div class="stat-strip">
+							<div class="stat">
+								<span class="idx">// forced PASS, default scope</span>
+								<span class="val accent">1,322 / 2,601</span>
+							</div>
+							<div class="stat">
+								<span class="idx">// canary sample</span>
+								<span class="val">58 / 60</span>
+							</div>
+							<div class="stat">
+								<span class="idx">// severity</span>
+								<span class="val">High</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="secbar">
+						<span class="num">§ 01</span><span class="ttl">// the earlier audit</span><span class="meta">context</span>
+					</div>
+					<section class="paper" aria-label="the earlier audit">
+						<h2>A follow-up to the Low finding</h2>
+						<p>
+							Our first audit of this pack, published on 22 October 2026 at
+							<a href="/cupel/mimo">inductive.ml/cupel/mimo</a>, found that file modification times reveal
+							which files the reference fix touched. We rated that Low (I2 × R4), and it remains Low. That
+							page stays as published.
+						</p>
+						<p>
+							This page is a separate, higher-severity finding, about how the pack is graded rather than what
+							its images leave on disk.
+						</p>
+						<p>
+							The target is Xiaomi's open RL coding pack, <code class="code-inline">MiMo-V2.6-RL-oss</code>,
+							shipped as one image per task under <code class="code-inline"
+								>docker.io/xiaomimimo/mimo-v2.6-rl-oss</code
+							>, with 2,602 tasks. We probed 2,601 of them between 5 and 7 November 2026; one task could not be scanned.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 02</span><span class="ttl">// how grading works</span><span class="meta">harness</span>
+					</div>
+					<section class="paper" aria-label="how grading works">
+						<h2>The agent and the grader share one filesystem</h2>
+						<p>
+							We read Xiaomi's published harness: <code class="code-inline">XiaomiMiMo/mimoagent</code>, branch
+							<code class="code-inline">mimo-oss</code>, commit <code class="code-inline">c3df846</code>
+							(<code class="code-inline">c3df8469f250b15e7906487a6d52be4c1827a509</code>), in
+							<a href={harnessFile}><code class="code-inline">opensource_code.py</code></a>.
+						</p>
+						<p>
+							In its <code class="code-inline">OpenSourceCodeEnvironment</code>, in the harness's own words,
+							“the agent and the grader share one pod and one filesystem.” The reward is computed in four
+							steps:
+						</p>
+						<ol>
+							<li>Reset every path the hidden <code class="code-inline">test_patch</code> touches.</li>
+							<li>Apply the <code class="code-inline">test_patch</code> with <code class="code-inline">git apply</code>.</li>
+							<li>Run the task's <code class="code-inline">test_command</code>.</li>
+							<li>Award 1.0 if and only if that command exits 0.</li>
+						</ol>
+						<p>
+							The harness describes the reset as “not a hardening measure”: it is there to make
+							<code class="code-inline">git apply</code> reliable. So a file the
+							<code class="code-inline">test_patch</code> does not mention is still there at grade time.
+						</p>
+						<p>
+							The dataset card describes an <code class="code-inline">anti_hack_cleanup</code> step. It runs
+							at environment setup, before the agent starts, and does not isolate the policy's writes at
+							reward time.
+						</p>
+						<p>
+							The pack declares no write scope: none of the 2,602 tasks says where the agent may write, in
+							its metadata or in its prompt. We read that as the conservative default, that the policy may
+							write inside its own working directory, and the headline counts only writes there.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 03</span><span class="ttl">// the finding</span><span class="meta"
+							>1,322 of 2,601</span
+						>
+					</div>
+					<section class="paper" aria-label="the finding">
+						<h2>A file the hidden tests never mention decides the reward</h2>
+						<p>
+							The reward is the exit code of the test command, and the test command runs in the filesystem
+							the agent has just worked in. So a file the agent leaves in its working directory can make
+							that command exit 0. The hidden tests are applied, the grader reports PASS, and the task was
+							not solved.
+						</p>
+						<p>
+							Each test runner has its own place for such a file: for pytest, a
+							<code class="code-inline">conftest.py</code> at the repository root; for jest, mocha and vitest,
+							a shim in <code class="code-inline">node_modules/.bin</code> that stands in for the runner;
+							for Go, a <code class="code-inline">TestMain</code> in a package that holds hidden tests. Each
+							ends the test process with exit 0 before any hidden test runs. They are ordinary-looking
+							files, written with ordinary tool use.
+						</p>
+						<p>
+							<strong>On 1,322 of 2,601 environments (50.8%), a single write inside the task working directory
+							forces PASS.</strong> If writes anywhere the container allows also count, including the
+							interpreter's site-packages, the upper bound is 1,347 environments (51.8%), across 2,241
+							routes.
+						</p>
+						<p>
+							Each counted environment was confirmed the same way. In a fresh container from the pack's own
+							image, a probe writes one file, then the pack's own grading runs: hidden patch applied, pack
+							test command run. The environment counts only if it grades PASS with the probe and FAIL on a
+							no-op control of the same environment. No probe passed its control. The probes use no model.
+						</p>
+						<div class="table-wrap">
+							<table class="v9-table">
+								<caption>
+									Forced-PASS routes by test runner · environments in scope by default (working-directory
+									writes) and upper bound (anywhere the container allows)
+								</caption>
+								<thead>
+									<tr class="head">
+										<th>Runner</th>
+										<th>Route</th>
+										<th>Probed</th>
+										<th>In scope by default</th>
+										<th>Upper bound</th>
+									</tr>
+								</thead>
+								<tbody>
+									{
+										runners.map((r) => (
+											<tr>
+												<td class="label">{r.runner}</td>
+												<td>{r.route}</td>
+												<td>{r.probed}</td>
+												<td>{r.inScope}</td>
+												<td>{r.upper}</td>
+											</tr>
+										))
+									}
+									<tr>
+										<td class="label">All</td>
+										<td></td>
+										<td>2,601</td>
+										<td>1,322 (50.8%)</td>
+										<td>1,347 (51.8%)</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>
+							Together, jest, mocha and vitest account for 281 of 364 environments. With pytest's 929 and
+							Go's 112, that is the 1,322.
+						</p>
+						<p>
+							Why this matters for RL: the grader trusts the exit code of a process that runs code the policy
+							can write. On these environments a policy can collect the reward by writing one file instead
+							of learning the skill, and on a training curve that looks like progress.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 04</span><span class="ttl">// canary sample</span><span class="meta">60 routes</span>
+					</div>
+					<section class="paper" aria-label="canary sample">
+						<h2>A test that fails on purpose still passes</h2>
+						<p>
+							To check that a PASS here means the grader has stopped measuring anything, we re-graded a
+							sample of routes with a deliberately failing test (a canary) added after the hidden patch.
+							The sample was 60 routes, stratified as 20 pytest, 20 jest, mocha or vitest, and 20 Go, with a
+							fixed seed.
+						</p>
+						<ul>
+							<li><strong>60 of 60</strong> routes reproduced.</li>
+							<li>
+								<strong>58 of 60</strong> still forced PASS with the canary in place (95% CI roughly
+								88–99%): all 20 pytest, all 20 Go, and 18 of the 20 JavaScript routes.
+							</li>
+							<li>The other 2, both mocha routes, forced PASS on the probe but not with the canary.</li>
+						</ul>
+						<p>
+							This is a second, stricter bar on a sample. We report it on its own and do not extrapolate it
+							to the rest of the pack.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 05</span><span class="ttl">// <a href="/cupel#severity">severity</a></span><span class="meta">High</span>
+					</div>
+					<section class="paper" aria-label="severity">
+						<h2>High, unguarded</h2>
+						<p>
+							<strong>Impact: <a href="/cupel#severity">I3</a> (Full).</strong> The policy gets the full
+							reward without doing the intended work: the grader reports PASS with the hidden tests in place,
+							on environments that otherwise FAIL.
+						</p>
+						<p>
+							<strong>Reach: <a href="/cupel#severity">R3</a> (Unusual, unguarded).</strong> The shortcut is a
+							file write of the kind the scale names, a writable <code class="code-inline">conftest</code>
+							or the same pattern for a <code class="code-inline">node_modules</code> shim or a Go
+							<code class="code-inline">TestMain</code>. It needs ordinary tool use, not an expert exploit,
+							and nothing in the pack guards against it.
+						</p>
+						<p>
+							I3 × R3 is <strong>High</strong> on the published <a href="/cupel#severity">Cupel scale</a>,
+							the same grid that rated the earlier file-mtime leak Low (I2 × R4). Any open High finding
+							fails the <a href="/cupel#stamp">Cupel stamp</a>, so this pack's stamp is <strong>FAIL</strong>.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 06</span><span class="ttl">// the fix</span><span class="meta">order matters</span>
+					</div>
+					<section class="paper" aria-label="the fix">
+						<h2>Grade somewhere the policy cannot write</h2>
+						<p>In this order:</p>
+						<ol>
+							<li>
+								<strong>Grade in a fresh container</strong> with only the policy's source diff applied, and
+								restore test infrastructure (<code class="code-inline">conftest</code>, pytest config,
+								<code class="code-inline">node_modules</code>, runner binaries) from the base image or
+								base commit. This is the change that closes the class.
+							</li>
+							<li>
+								<strong>Structured per-test reporting</strong> (JUnit XML, <code class="code-inline"
+									>go test -json</code
+								>, <code class="code-inline">jest --json</code>), requiring every hidden test to be
+								reported as passed and treating a missing test as FAIL, is defence in depth, not the fix. A
+								<code class="code-inline">conftest</code> or <code class="code-inline">sitecustomize</code>
+								can forge a report file as easily as an exit code.
+							</li>
+							<li>
+								<strong>Declare a write scope</strong>, so that it is stated which paths a policy may
+								write.
+							</li>
+						</ol>
+						<div class="table-wrap">
+							<table class="v9-table">
+								<caption>Per-runner restorations · proposed, not re-tested on a fixed grader</caption>
+								<thead>
+									<tr class="head">
+										<th>Runner</th>
+										<th>Restoration</th>
+									</tr>
+								</thead>
+								<tbody>
+									{
+										restorations.map((r) => (
+											<tr>
+												<td class="label">{r.runner}</td>
+												<td>{r.fix}</td>
+											</tr>
+										))
+									}
+								</tbody>
+							</table>
+						</div>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 07</span><span class="ttl">// other checks</span><span class="meta">sample</span>
+					</div>
+					<section class="paper" aria-label="other checks">
+						<h2>No solution leaks found in a 73-task sample</h2>
+						<p>
+							An agent scan of a stratified sample of 73 tasks, two runs each, found 0 confirmed solution
+							leaks. That covers 2.8% of the pack, and the pack ships no reference fixes against which to
+							confirm or clear a leak, so it is a sample, not a clearance.
+						</p>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 08</span><span class="ttl">// what this does not show</span><span class="meta"
+							>limits</span
+						>
+					</div>
+					<section class="paper" aria-label="what this does not show">
+						<h2>Limits</h2>
+						<ul>
+							<li>
+								<strong>One task not probed.</strong> 2,601 of 2,602 tasks were probed; one could not be
+								scanned on our setup.
+							</li>
+							<li>
+								<strong>Environments not probed.</strong> 528 environments grade through a custom script
+								the hidden patch adds, rather than a standard test runner, and our probes were not run on
+								them. A hand inspection of 20 of them found that all 20 grade on the script's exit code.
+								They add nothing to the headline and are not cleared. Separately, 7 environments whose
+								control run timed out have no finding counted.
+							</li>
+							<li>
+								<strong>A fixed probe set.</strong> A PASS on a probe confirms a route. A FAIL says nothing
+								about routes we did not try, so the counts are lower bounds for the runners probed.
+							</li>
+							<li>
+								<strong>Default scope against upper bound.</strong> The headline, 1,322, counts only writes
+								inside the task working directory. The upper bound, 1,347, also counts writes outside it.
+							</li>
+							<li>
+								<strong>Probes, not a policy.</strong> Every route is a fixed probe; no model was involved.
+								Whether a policy finds these routes on its own under RL was not tested.
+							</li>
+							<li>
+								<strong>Samples.</strong> The canary result (58 of 60) and the leak scan (0 in 73 tasks)
+								are samples and are not extrapolated to the pack.
+							</li>
+							<li>
+								<strong>Fixes not re-tested.</strong> The fixes above are proposed; we have not run them
+								against a fixed grader.
+							</li>
+							<li>
+								<strong>One harness commit.</strong> Everything here refers to
+								<code class="code-inline">XiaomiMiMo/mimoagent</code> at <code class="code-inline"
+									>c3df846</code
+								>.
+							</li>
+						</ul>
+						<div class="callout" role="note">
+							<span class="lbl">// summary</span>
+							<p>
+								As read at <strong>c3df846</strong>, Xiaomi's open-source coding harness grades in the same
+								pod and filesystem the agent used, and awards reward on the test command's exit code. A file
+								left in the task working directory can make that command exit 0 with the hidden tests
+								applied: 1,322 of 2,601 environments (50.8%) are in scope by default, and 1,347 at most. We
+								rate this High (I3 × R3, unguarded), so the stamp is FAIL. The fix is to grade in a fresh
+								container with only the policy's source diff applied. The earlier file-mtime finding stays
+								Low.
+							</p>
+						</div>
+					</section>
+
+					<div class="secbar">
+						<span class="num">§ 09</span><span class="ttl">// disclosure</span><span class="meta">record</span>
+					</div>
+					<section class="paper" aria-label="disclosure record">
+						<h2>Disclosure record</h2>
+						<ul>
+							<li>
+								<strong>22 Oct 2026.</strong> The Low (I2 × R4) file-mtime note sent to Xiaomi's MiMo
+								team. No reply.
+							</li>
+							<li>
+								<strong>7 Nov 2026.</strong> The High (I3 × R3) grader note sent to Xiaomi's MiMo team,
+								with copies to its support and security contacts, and a reproduction for Xiaomi to verify.
+								Planned public date: 21 Nov 2026. No reply.
+							</li>
+							<li>
+								<strong>17 Nov 2026.</strong> A follow-up in the same thread, restating that the earliest
+								public date was 21 Nov 2026. No reply.
+							</li>
+							<li>
+								<strong>23 Nov 2026.</strong> This report published. Xiaomi did not respond to any of the
+								three notes.
+							</li>
+						</ul>
+						<p>
+							This public version describes the failure in plain terms and leaves out the probe scripts and
+							the per-route list. The audit tooling is private. Questions about the report: send a DM on X to
+							<a href="https://x.com/0xavp">@0xavp</a>.
+						</p>
+						<p>Aditya Veer Parmar, Cupel / Inductive ML</p>
+					</section>
+
+					<footer class="foot">
+						<div class="a">Cupel · Inductive ML</div>
+						<div class="b">MiMo grader disclosure · published 23 Nov 2026</div>
+						<div class="c"><a href="/cupel">RL Env Audits ↗</a></div>
+					</footer>
+				</div>
 			</div>
-		</div>
-	</main>
-	<SiteFooter animate={true} />
+		</main>
+		<SiteFooter animate={true} />
 </Layout>

@@ -242,9 +242,10 @@ export const audits: Audit[] = [
 	},
 	{
 		label: 'Disclosure',
-		title: 'MiMo (Xiaomi)',
-		note: 'Coordinated disclosure in progress, report on 21 Nov 2026.',
-		highlight: '21 Nov 2026',
+		title: 'MiMo grader (Xiaomi)',
+		note: 'A working-directory write forces PASS on 1,322 of 2,601 environments · severity High',
+		highlight: 'severity High',
+		href: '/cupel/mimo-grader',
 	},
 	{
 		label: 'Disclosure',
