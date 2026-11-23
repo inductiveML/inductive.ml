@@ -241,14 +241,14 @@ export const audits: Audit[] = [
 		href: '/cupel/mimo',
 	},
 	{
-		label: 'Disclosure',
+		label: 'Audit',
 		title: 'MiMo grader (Xiaomi)',
 		note: 'A working-directory write forces PASS on 1,322 of 2,601 environments · severity High',
 		highlight: 'severity High',
 		href: '/cupel/mimo-grader',
 	},
 	{
-		label: 'Disclosure',
+		label: 'Audit',
 		title: 'SWE Atlas (Scale AI)',
 		note: 'Six grader findings, one Critical · credited by Scale in SWE Atlas v1.1',
 		highlight: 'credited by Scale in SWE Atlas v1.1',

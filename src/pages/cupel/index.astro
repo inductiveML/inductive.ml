@@ -132,6 +132,10 @@ const stamp = [
 						</p>
 					</div>
 				</div>
+
+				<h2 id="audits"><span class="sec-num">01</span>Audits</h2>
+				<AuditRows href={null} />
+
 				<p class="article-lede">
 					Cupel audits reinforcement-learning environments independently, before they are sold to frontier labs.
 					The report states whether the tasks can be solved honestly and whether they can be gamed in the ways
@@ -144,7 +148,7 @@ const stamp = [
 					of gold.
 				</p>
 
-				<h2><span class="sec-num">01</span>What an audit checks</h2>
+				<h2><span class="sec-num">02</span>What an audit checks</h2>
 				<p>
 					An environment that can be gamed teaches a model to game it. Each audit tests for the known failure
 					classes below, and checks that the suite is worth training on at all.
@@ -163,7 +167,7 @@ const stamp = [
 			</div>
 
 			<div class="reader article-body">
-				<h2><span class="sec-num">02</span>How it works</h2>
+				<h2><span class="sec-num">03</span>How it works</h2>
 				<ol class="steps">
 					{
 						steps.map((s, i) => (
@@ -181,11 +185,11 @@ const stamp = [
 					hears from us first, privately and with patches, and the report follows on day 15.
 				</p>
 
-				<h2><span class="sec-num">03</span>What we don't do</h2>
+				<h2><span class="sec-num">04</span>What we don't do</h2>
 				<p>We don't reduce an environment to a single score.</p>
 				<p>We don't report a finding without a reproduction.</p>
 
-				<h2 id="severity"><span class="sec-num">04</span>Severity</h2>
+				<h2 id="severity"><span class="sec-num">05</span>Severity</h2>
 				<p>
 					We rate each finding on two axes: impact, what an agent gets without doing the task, and reach, how
 					easy the shortcut is to use. Together they set one of five severity levels.
@@ -270,7 +274,7 @@ const stamp = [
 					Info; it is not a finding.
 				</p>
 
-				<h2 id="stamp"><span class="sec-num">05</span>The stamp</h2>
+				<h2 id="stamp"><span class="sec-num">06</span>The stamp</h2>
 				<p>The stamp states whether an audited environment passes or fails, as of a date.</p>
 				<ul class="steps">
 					{
@@ -294,9 +298,6 @@ const stamp = [
 			</div>
 
 			<div class="reader article-body">
-				<h2><span class="sec-num">06</span>Audits and research</h2>
-				<AuditRows href={null} />
-
 				<h2><span class="sec-num">07</span>Contact</h2>
 				<p>
 					To commission an audit, or to report a problem with one of ours, write to

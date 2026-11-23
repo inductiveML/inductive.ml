@@ -861,6 +861,10 @@ a.list-row:hover {
 .article-body .list {
   margin: 28px 0 8px;
 }
+/* On /cupel the reports lead the page, so the intro that follows them needs a section's worth of room. */
+.article-body .list + .article-lede {
+  margin-top: 56px;
+}
 
 /* ---------- footer ---------- */
 .site-foot {
