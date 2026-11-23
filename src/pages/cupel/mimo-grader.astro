@@ -71,6 +71,13 @@ const restorations = [
 <Layout
 	title="MiMo grader audit — Cupel · Inductive ML"
 	description="Cupel's audit of how Xiaomi's MiMo-V2.6 RL coding pack is graded: on 1,322 of 2,601 environments, one file written in the task working directory makes the grader report PASS with the hidden tests applied. Severity High; stamp FAIL."
+	og={{
+		title: 'MiMo grader audit — Cupel · Inductive ML',
+		type: 'article',
+		image: '/og/cupel-mimo-grader.png',
+		imageAlt:
+			'Cupel audit, severity High, stamp FAIL: 50.8% of MiMo-V2.6-RL-oss environments pass without solving the task. Forced PASS on 1,322 of 2,601.',
+	}}
 >
 	<SiteHeader current="cupel" />
 		<PageHead back={{ href: '/cupel', label: 'RL Env Audits' }} kicker="Cupel · RL environment audit" animate={true}>

@@ -10,4 +10,6 @@ Render one with headless Chrome from the project root:
   --screenshot=public/og/<name>.png "file://$PWD/og/<name>.html"
 ```
 
-Pages pass the image to `Layout` through its `og` prop.
+The audit and lab cards (`cupel-mimo-grader`, `cupel-mimo`, `cupel-swe-atlas`, `cupel`, `inductive-ml`) share `card.css`.
+
+Pages pass the image to `Layout` through its `og` prop. Pages that omit it get the lab card, `inductive-ml.png`.

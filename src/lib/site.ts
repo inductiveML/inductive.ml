@@ -1,5 +1,26 @@
 // Shared site content: the homepage and the inner pages render from the same records.
 
+/** A social preview card. */
+export interface OpenGraph {
+	title: string;
+	type: 'article' | 'website';
+	/** Site-relative path under public/, a 1200×630 PNG. */
+	image: string;
+	imageAlt: string;
+}
+
+export const site = {
+	title: 'Inductive ML — Independent AI Research Lab',
+	description:
+		'An independent lab studying how machines learn to learn — research on representation, adaptation, and intelligence. Bangalore, India.',
+	/** The lab's own preview card, also used by pages without a dedicated one. */
+	card: {
+		image: '/og/inductive-ml.png',
+		imageAlt:
+			'Inductive ML, an independent AI research lab in Bangalore. Better intelligence through simpler ideas.',
+	},
+};
+
 export interface Experiment {
 	month: string;
 	year: string;

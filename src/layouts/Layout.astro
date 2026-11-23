@@ -1,38 +1,31 @@
 ---
+import { site, type OpenGraph } from '../lib/site';
 import '../styles/site.css';
 
 interface Props {
-	title?: string;
-	description?: string;
+	title: string;
+	description: string;
 	analytics?: boolean;
 	noindex?: boolean;
-	/** Social preview card. Pages that pass it get Open Graph and Twitter card tags. */
+	/** Social preview card. Pages that omit it are shared under their own title with the lab's card. */
 	og?: OpenGraph;
 }
 
-interface OpenGraph {
-	title: string;
-	type: 'article' | 'website';
-	/** Site-relative path under public/, a 1200×630 PNG. */
-	image: string;
-	imageAlt: string;
-}
-
 const {
-	title = 'Inductive ML — Independent AI Research Lab',
-	description = 'An independent lab studying how machines learn to learn — research on representation, adaptation, and intelligence. Bangalore, India.',
+	title,
+	description,
 	analytics = true,
 	noindex,
 	og,
 } = Astro.props;
 
 const social = (() => {
-	if (og === undefined) return undefined;
 	if (Astro.site === undefined) throw new Error('Set `site` in astro.config.mjs to build absolute Open Graph URLs.');
+	const card: OpenGraph = og === undefined ? { title, type: 'website', ...site.card } : og;
 	return {
-		...og,
+		...card,
 		url: new URL(Astro.url.pathname, Astro.site).href,
-		image: new URL(og.image, Astro.site).href,
+		image: new URL(card.image, Astro.site).href,
 	};
 })();
 ---
@@ -55,29 +48,24 @@ const social = (() => {
 		<meta name="generator" content={Astro.generator} />
 		{noindex === true && <meta name="robots" content="noindex, nofollow" />}
 		<title>{title}</title>
-		{
-			social && (
-				<>
-					<link rel="canonical" href={social.url} />
-					<meta property="og:site_name" content="Inductive ML" />
-					<meta property="og:type" content={social.type} />
-					<meta property="og:title" content={social.title} />
-					<meta property="og:description" content={description} />
-					<meta property="og:url" content={social.url} />
-					<meta property="og:image" content={social.image} />
-					<meta property="og:image:type" content="image/png" />
-					<meta property="og:image:width" content="1200" />
-					<meta property="og:image:height" content="630" />
-					<meta property="og:image:alt" content={social.imageAlt} />
-					<meta name="twitter:card" content="summary_large_image" />
-					<meta name="twitter:site" content="@inductive_ml" />
-					<meta name="twitter:title" content={social.title} />
-					<meta name="twitter:description" content={description} />
-					<meta name="twitter:image" content={social.image} />
-					<meta name="twitter:image:alt" content={social.imageAlt} />
-				</>
-			)
-		}
+		<link rel="canonical" href={social.url} />
+		<meta property="og:site_name" content="Inductive ML" />
+		<meta property="og:type" content={social.type} />
+		<meta property="og:title" content={social.title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={social.url} />
+		<meta property="og:image" content={social.image} />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={social.imageAlt} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@inductive_ml" />
+		<meta name="twitter:creator" content="@0xavp" />
+		<meta name="twitter:title" content={social.title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={social.image} />
+		<meta name="twitter:image:alt" content={social.imageAlt} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

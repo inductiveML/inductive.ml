@@ -7,13 +7,13 @@ import ExperimentRows from '../components/ExperimentRows.astro';
 import AuditRows from '../components/AuditRows.astro';
 import ReleaseRows from '../components/ReleaseRows.astro';
 import OrgLinks from '../components/OrgLinks.astro';
-import { auditChecks, github, huggingFace, isExternal, mlxrl, profile, releases, splitHighlight } from '../lib/site';
+import { auditChecks, github, huggingFace, isExternal, mlxrl, profile, releases, site, splitHighlight } from '../lib/site';
 
 const mlxrlParts = splitHighlight(mlxrl.note, mlxrl.highlight);
 const otherReleases = releases.filter((r) => r !== mlxrl);
 ---
 
-<Layout>
+<Layout title={site.title} description={site.description} og={{ title: site.title, type: 'website', ...site.card }}>
 	<SiteHeader current={null} />
 
 	<main>

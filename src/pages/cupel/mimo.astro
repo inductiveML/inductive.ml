@@ -79,6 +79,13 @@ const rankers = [
 <Layout
 	title="MiMo RL environment audit — Cupel · Inductive ML"
 	description="Cupel's independent audit of Xiaomi's MiMo-V2.6 RL coding environments: the git-history fix holds, a file-timestamp leak remains in 85.3% of tasks, and against a matched control it makes agents faster but solves no more tasks. Severity Low."
+	og={{
+		title: 'MiMo RL environment audit — Cupel · Inductive ML',
+		type: 'article',
+		image: '/og/cupel-mimo.png',
+		imageAlt:
+			'Cupel audit of MiMo-V2.6-RL-oss, severity Low: the git-history fix holds (0/300). A file-timestamp leak remains in 85.3% of tasks.',
+	}}
 >
 	<SiteHeader current="cupel" />
 		<PageHead back={{ href: '/cupel', label: 'RL Env Audits' }} kicker="Cupel · RL environment audit" animate={true}>
