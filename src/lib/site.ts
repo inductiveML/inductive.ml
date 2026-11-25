@@ -277,6 +277,36 @@ export const audits: Audit[] = [
 	},
 ];
 
+/** Patchbay, the lab's API product. It lives on its own site, and the copy here is that site's. */
+export const patchbay = {
+	name: 'Patchbay',
+	href: 'https://patchbay.inductive.ml/',
+};
+
+export interface Capability {
+	k: string;
+	v: string;
+}
+
+export const patchbayCapabilities: Capability[] = [
+	{
+		k: 'Read',
+		v: 'Get the residual activations (fp32) at the layers you choose, over the prompt and the first generated tokens.',
+	},
+	{
+		k: 'Steer',
+		v: 'Add your own vector at a layer while the model runs.',
+	},
+	{
+		k: 'Edit',
+		v: 'Store a rank-1 edit of an MLP down_proj weight, W′ = W − α·u·uᵀW, and run requests under it.',
+	},
+	{
+		k: 'Paired',
+		v: 'Run a base and a variant of the same prompts in the same batch, with the same seed.',
+	},
+];
+
 export interface HighlightParts {
 	before: string;
 	mark: string;

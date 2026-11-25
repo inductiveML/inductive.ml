@@ -1,5 +1,5 @@
 ---
-import { github, huggingFace } from '../lib/site';
+import { github, huggingFace, patchbay } from '../lib/site';
 
 export type NavKey = 'experiments' | 'cupel' | 'about';
 
@@ -28,6 +28,7 @@ const items: { key: NavKey; label: string; href: string }[] = [
 					</a>
 				))
 			}
+			<a href={patchbay.href} target="_blank" rel="noreferrer">{patchbay.name}</a>
 			<a href="https://evals.report" target="_blank" rel="noreferrer">Evals</a>
 		</nav>
 		<div class="head-links">

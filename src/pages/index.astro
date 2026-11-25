@@ -7,7 +7,19 @@ import ExperimentRows from '../components/ExperimentRows.astro';
 import AuditRows from '../components/AuditRows.astro';
 import ReleaseRows from '../components/ReleaseRows.astro';
 import OrgLinks from '../components/OrgLinks.astro';
-import { auditChecks, github, huggingFace, isExternal, mlxrl, profile, releases, site, splitHighlight } from '../lib/site';
+import {
+	auditChecks,
+	github,
+	huggingFace,
+	isExternal,
+	mlxrl,
+	patchbay,
+	patchbayCapabilities,
+	profile,
+	releases,
+	site,
+	splitHighlight,
+} from '../lib/site';
 
 const mlxrlParts = splitHighlight(mlxrl.note, mlxrl.highlight);
 const otherReleases = releases.filter((r) => r !== mlxrl);
@@ -37,15 +49,16 @@ const otherReleases = releases.filter((r) => r !== mlxrl);
 		<div class="shell">
 			<nav class="section-index" aria-label="Sections">
 				<a href="#cupel"><span>01</span>Cupel</a>
-				<a href="#open-source"><span>02</span>Open source</a>
-				<a href="#experiments"><span>03</span>Experiments</a>
-				<a href="#about"><span>04</span>About the lab</a>
+				<a href="#patchbay"><span>02</span>{patchbay.name}</a>
+				<a href="#open-source"><span>03</span>Open source</a>
+				<a href="#experiments"><span>04</span>Experiments</a>
+				<a href="#about"><span>05</span>About the lab</a>
 			</nav>
 
 			<section id="cupel" class="sec sec-ruled" aria-labelledby="cupel-h">
 				<div class="stack col-main">
 					<p class="kicker">Inductive ML · RL environment audits</p>
-					<h2 id="cupel-h" class="sec-title cupel-title"><span class="sec-num">01</span>Cupel</h2>
+					<h2 id="cupel-h" class="sec-title product-title"><span class="sec-num">01</span>Cupel</h2>
 					<p class="lead">
 						Cupel audits reinforcement-learning environments independently, before they are sold to frontier
 						labs. The report states whether the tasks can be solved honestly and whether they can be gamed in
@@ -68,10 +81,43 @@ const otherReleases = releases.filter((r) => r !== mlxrl);
 				</div>
 			</section>
 
+			<section id="patchbay" class="sec sec-ruled" aria-labelledby="patchbay-h">
+				<div class="stack col-main">
+					<p class="kicker">Inductive ML · An API for model internals</p>
+					<h2 id="patchbay-h" class="sec-title product-title"><span class="sec-num">02</span>{patchbay.name}</h2>
+					<p class="lead">
+						Read, steer and edit a running language model. Patchbay serves Qwen3.5 9B and Qwen3.5 0.8B through
+						one API that reaches inside the model.
+					</p>
+					<p class="copy">
+						Send a prompt and say what to do: the layers to read, a vector to add, or a stored edit to run
+						under. The model runs with your vector added or your edit applied, inside the forward pass, and you
+						get the generated text, the activations you asked for as fp32 arrays, and the usage the call is
+						charged for.
+					</p>
+					<a class="mono-link" href={patchbay.href} target="_blank" rel="noreferrer">Open Patchbay ↗</a>
+				</div>
+				<div class="col-side">
+					<p class="eyebrow">Capabilities</p>
+					<div class="list">
+						{
+							patchbayCapabilities.map((c) => (
+								<div class="list-row release-row">
+									<span class="release-body">
+										<span class="release-name">{c.k}</span>
+										<span class="release-note">{c.v}</span>
+									</span>
+								</div>
+							))
+						}
+					</div>
+				</div>
+			</section>
+
 			<section id="open-source" class="sec sec-ruled" aria-labelledby="open-source-h">
 				<div class="stack col-main">
 					<p class="kicker">Open source · Code and weights</p>
-					<h2 id="open-source-h" class="sec-title"><span class="sec-num">02</span>Open source</h2>
+					<h2 id="open-source-h" class="sec-title"><span class="sec-num">03</span>Open source</h2>
 					<div class="feature">
 						<p class="eyebrow">Library · Apple Silicon</p>
 						<p class="feature-name">{mlxrl.name}</p>
@@ -96,7 +142,7 @@ const otherReleases = releases.filter((r) => r !== mlxrl);
 
 			<section id="experiments" class="sec" aria-labelledby="experiments-h">
 				<div class="sec-head">
-					<h2 id="experiments-h"><span class="sec-num">03</span>Experiments</h2>
+					<h2 id="experiments-h"><span class="sec-num">04</span>Experiments</h2>
 					<p class="kicker">Open research from the lab</p>
 				</div>
 				<ExperimentRows />
@@ -105,7 +151,7 @@ const otherReleases = releases.filter((r) => r !== mlxrl);
 			<section id="about" class="sec sec-ruled" aria-labelledby="about-h">
 				<div class="stack col-label">
 					<p class="kicker">Independent AI research lab · Bangalore</p>
-					<h2 id="about-h" class="sec-title"><span class="sec-num">04</span>About the lab</h2>
+					<h2 id="about-h" class="sec-title"><span class="sec-num">05</span>About the lab</h2>
 				</div>
 				<div class="stack col-wide">
 					<p class="lead">
